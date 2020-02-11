@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTitleApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_title_app"
+        android:layout_marginStart="@dimen/margin_layout"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:text="@string/text_title_app"
+        android:textColor="@color/colorPrimaryText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubtitleSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_sans_reguler"
+        android:text="@string/text_subtitle_sign_in"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_body_size"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleApp"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleApp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_input_layout"
+        android:layout_marginStart="@dimen/margin_layout"
+        android:layout_marginEnd="@dimen/margin_layout"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitleSignIn">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryText"
+            android:hint="@string/text_hint_email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorPrimaryText"
+            android:textColorHint="@color/colorPrimaryText"
+            android:textSize="@dimen/text_body_size" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="@+id/tilEmail"
+        app:layout_constraintStart_toStartOf="@+id/tilEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryText"
+            android:hint="@string/text_hint_password"
+            android:inputType="textPassword"
+            android:textColor="@color/colorPrimaryText"
+            android:textColorHint="@color/colorPrimaryText"
+            android:textSize="@dimen/text_body_size" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:text="@string/text_btn_forgot_password"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_btn_size"
+        app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+
+    <Button
+        android:id="@+id/btnFirebaseSignIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_btn"
+        android:background="@color/colorAccent"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:text="@string/text_btn_sign_in"
+        android:textColor="@color/colorTextORIcon"
+        android:textSize="@dimen/text_btn_size"
+        app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+        app:layout_constraintStart_toStartOf="@+id/tilPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
+
+    <TextView
+        android:id="@+id/tvOR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:fontFamily="@font/nunito_sans_reguler"
+        android:text="@string/text_or"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_caption_size"
+        app:layout_constraintEnd_toEndOf="@+id/btnFirebaseSignIn"
+        app:layout_constraintStart_toStartOf="@+id/btnFirebaseSignIn"
+        app:layout_constraintTop_toBottomOf="@+id/btnFirebaseSignIn" />
+
+    <View
+        android:id="@+id/vStrokeLeft"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/margin_standard"
+        android:background="@color/colorDivide"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOR"
+        app:layout_constraintStart_toStartOf="@+id/btnFirebaseSignIn"
+        app:layout_constraintEnd_toStartOf="@id/tvOR"
+        app:layout_constraintTop_toTopOf="@+id/tvOR" />
+
+    <View
+        android:id="@+id/vStrokeRight"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/margin_standard"
+        android:background="@color/colorDivide"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOR"
+        app:layout_constraintStart_toEndOf="@+id/tvOR"
+        app:layout_constraintEnd_toEndOf="@id/btnFirebaseSignIn"
+        app:layout_constraintTop_toTopOf="@+id/tvOR" />
+
+    <Button
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:paddingStart="@dimen/padding_standard"
+        android:paddingEnd="@dimen/padding_standard"
+        android:background="@drawable/bg_btn"
+        android:drawableStart="@drawable/ic_google"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:text="@string/text_btn_google"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_btn_size"
+        app:layout_constraintEnd_toEndOf="@+id/vStrokeLeft"
+        app:layout_constraintStart_toStartOf="@+id/vStrokeLeft"
+        app:layout_constraintTop_toBottomOf="@+id/tvOR" />
+
+    <Button
+        android:id="@+id/btnFacebookSignIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:paddingStart="@dimen/padding_standard"
+        android:paddingEnd="@dimen/padding_standard"
+        android:background="@drawable/bg_btn"
+        android:drawableStart="@drawable/ic_facebook"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:text="@string/text_btn_facebook"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_btn_size"
+        app:layout_constraintStart_toStartOf="@+id/vStrokeRight"
+        app:layout_constraintEnd_toEndOf="@+id/vStrokeRight"
+        app:layout_constraintTop_toBottomOf="@+id/tvOR" />
+
+    <TextView
+        android:id="@+id/tvToSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_standard"
+        android:fontFamily="@font/nunito_sans_reguler"
+        android:text="@string/text_to_sign_up"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/text_caption_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

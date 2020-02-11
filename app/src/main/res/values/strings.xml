@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Emart</string>
+    <string name="text_title_app"><font size='24'>e</font><font size='34'>Store</font></string>
+    <string name="text_subtitle_splash">Help you manage the store</string>
+    <string name="text_subtitle_sign_in">Please SignIn to continue</string>
+    <string name="text_hint_email">Email</string>
+    <string name="text_hint_password">Password</string>
+    <string name="text_btn_forgot_password">Forgot password?</string>
+    <string name="text_btn_sign_in">Sign In</string>
+    <string name="text_or">OR</string>
+    <string name="text_btn_google">Google</string>
+    <string name="text_btn_facebook">Facebook</string>
+    <string name="text_to_sign_up">Don\'t have an account? <b><font color='#03A9F4'>SIGN UP</font></b></string>
+    <string name="text_subtitle_sign_up">Please SignUp for a new user</string>
+    <string name="text_hint_name">Name</string>
+    <string name="text_privacy_policy">I agree with <b><font color='#03A9F4'>Privacy</font></b> and <b><font color='#03A9F4'>Policy</font></b></string>
+    <string name="text_to_sign_in">Already have an account? <b><font color='#03A9F4'>SIGN IN</font></b></string>
+    <string name="text_btn_sign_up">Sign Up</string>
+
+</resources>

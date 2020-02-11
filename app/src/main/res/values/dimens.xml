@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_body_size">14sp</dimen>
+    <dimen name="margin_layout">24dp</dimen>
+    <dimen name="margin_standard">8dp</dimen>
+    <dimen name="margin_ic_splash">120dp</dimen>
+    <dimen name="margin_input_layout">64dp</dimen>
+    <dimen name="text_btn_size">14sp</dimen>
+    <dimen name="margin_btn">64dp</dimen>
+    <dimen name="padding_standard">8dp</dimen>
+    <dimen name="text_caption_size">12sp</dimen>
+    <dimen name="margin_title_app">64dp</dimen>
+</resources>
