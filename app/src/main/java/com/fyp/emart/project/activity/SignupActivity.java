@@ -132,7 +132,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 Intent i = new Intent(SignupActivity.this,LoginActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
-                finish();
+
 
                 break;
         }
