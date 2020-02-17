@@ -1,15 +1,20 @@
 package com.fyp.emart.project.activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -66,11 +71,18 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     String selectedUser;
 
+    Context mContext;
+    BaseApiService mApiService;
+    ProgressDialog loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_signup);
+
+        mContext = this;
+        mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
     }
 
@@ -103,14 +115,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
             case R.id.btnSignUp:
-
+                String generate_Roleid = null;
                 if (mRadioCustomer.isChecked()) {
                     selectedUser = mRadioCustomer.getText().toString();
+                    generate_Roleid = "0";
                 } else if (mRadioVendor.isChecked()) {
                     selectedUser = mRadioVendor.getText().toString();
+                    generate_Roleid = "1";
                 }
                 Toast.makeText(getApplicationContext(), selectedUser, Toast.LENGTH_LONG).show();
-
+                loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
+                requestSignup(generate_Roleid);
                 break;
             case R.id.btnLogin:
 
@@ -121,5 +136,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
         }
+    }
+
+    private void requestSignup(String role_id) {
     }
 }

@@ -160,6 +160,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                     startActivity(i);
+                                    finish();
 
                                 } else {
                                     // If the login fails
