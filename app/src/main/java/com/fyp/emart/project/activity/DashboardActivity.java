@@ -1,7 +1,6 @@
 package com.fyp.emart.project.activity;
 
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -9,7 +8,7 @@ import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
-import com.fyp.emart.project.fragment.customer_fragment.LocateVendorFragment;
+import com.fyp.emart.project.fragment.customer_fragment.MartMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -86,11 +85,11 @@ public class DashboardActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         CustomerHomeFragment customerHomeFragment = new CustomerHomeFragment();
-        LocateVendorFragment locateVendorFragment = new LocateVendorFragment();
+        MartMapFragment martMapFragment = new MartMapFragment();
         CustomerProfileFragment customerProfileFragment = new CustomerProfileFragment();
 
         adapter.addFragment(customerHomeFragment);
-        adapter.addFragment(locateVendorFragment);
+        adapter.addFragment(martMapFragment);
         adapter.addFragment(customerProfileFragment);
         viewPager.setAdapter(adapter);
     }
