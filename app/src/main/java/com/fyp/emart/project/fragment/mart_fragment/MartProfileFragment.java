@@ -1,4 +1,4 @@
-package com.fyp.emart.project.fragment.customer_fragment;
+package com.fyp.emart.project.fragment.mart_fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,13 +12,15 @@ import android.view.ViewGroup;
 
 import com.fyp.emart.project.R;
 
-public class LocateVendorFragment extends Fragment {
+
+public class MartProfileFragment extends Fragment {
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_locate_vendor, container, false);
+        return inflater.inflate(R.layout.fragment_mart_profile, container, false);
     }
 
 
