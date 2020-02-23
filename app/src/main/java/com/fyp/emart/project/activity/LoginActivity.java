@@ -113,9 +113,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnSignIn:
 
 
-                loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-                requestLogin();
-
+               // loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
+               // requestLogin();
+                Intent in = new Intent(LoginActivity.this, DashboardActivity.class);
+                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(in);
+                finish();
 
 
                 break;
@@ -128,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void requestLogin(){
+  /*  private void requestLogin(){
         mApiService.loginRequest(mTitEmail.getText().toString(), mTitPassword.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -184,5 +187,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         loading.dismiss();
                     }
                 });
-    }
+    }*/
 }

@@ -123,7 +123,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/category_title"
+                android:id="@+id/product_title"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
@@ -136,13 +136,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Categories"
+                    android:text="Recent Products"
                     android:textSize="20sp"
                     android:textColor="@color/titleColor"
                     android:layout_marginLeft="14dp" />
 
                 <TextView
-                    android:id="@+id/categories_list"
+                    android:id="@+id/product_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -155,15 +155,15 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trending_recycler_view"
-                android:layout_below="@id/category_title"
-                android:layout_height="110dp"
+                android:id="@+id/product_recycler_view"
+                android:layout_below="@id/product_title"
+                android:layout_height="250dp"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"/>
 
             <LinearLayout
-                android:id="@+id/product_title"
-                android:layout_below="@id/trending_recycler_view"
+                android:id="@+id/mart_title"
+                android:layout_below="@id/product_recycler_view"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
@@ -175,13 +175,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Places"
+                    android:text="Registered Marts"
                     android:textSize="22sp"
                     android:textColor="@color/titleColor"
                     android:layout_marginLeft="15dp" />
 
                 <TextView
-                    android:id="@+id/place_list"
+                    android:id="@+id/mart_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -194,11 +194,11 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/place_recycler_view"
+                android:id="@+id/mart_recycler_view"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
-                android:layout_below="@+id/product_title"/>
+                android:layout_below="@+id/mart_title"/>
 
         </RelativeLayout>
 

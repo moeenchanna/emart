@@ -3,7 +3,7 @@ package com.fyp.emart.project.Api;
 public class UtilsApi {
 
     // localhost.
-    public static final String BASE_URL_API = "http://moeenchanna.com/api/";
+    public static final String BASE_URL_API = "http://moeenchanna.com/";
 
     //  Interface BaseApiService
     public static BaseApiService getAPIService(){

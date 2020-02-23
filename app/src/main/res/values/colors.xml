@@ -21,6 +21,9 @@
 
     <color name="headerColor">#f8f8f8</color>
 
+    <color name="view_line">#9f9e9e</color>
+    <color name="View_line">#EAEBED</color>
+
     <color name="appColor">#FA554F</color>
     <color name="titleColor">#262628</color>
     <color name="subtitle">#B8BBC6</color>
