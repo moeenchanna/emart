@@ -47,10 +47,9 @@ public class MartAdapter extends RecyclerView.Adapter<MartAdapter.MyviewHolder> 
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.loading);
 
-       // String Simage = martLists.get(position).getMartlogo();
-       // Simage.replace("\\/","");
-
-       // Glide.with(context).load(Simage).apply(options).into(holder.image);
+        String Simage = martLists.get(position).getMartlogo();
+        Simage.replace("\\/","");
+        Glide.with(context).load(Simage).apply(options).into(holder.image);
     }
 
     @Override

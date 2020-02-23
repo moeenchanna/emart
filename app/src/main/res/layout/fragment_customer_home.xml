@@ -35,22 +35,7 @@
                 android:typeface="monospace"
                 android:fontFamily="@font/nunito_sans_reguler" />
 
-            <RelativeLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="22dp"
-                android:background="@drawable/shape_circle">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_filter"
-                    android:tint="@color/subtitle"/>
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -59,7 +44,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_below="@id/relSearch"
-        android:layout_marginBottom="50dp"
         android:background="@android:color/white"
         android:layout_height="match_parent">
 
@@ -195,10 +179,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mart_recycler_view"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_below="@+id/mart_title"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mart_title" />
 
         </RelativeLayout>
 

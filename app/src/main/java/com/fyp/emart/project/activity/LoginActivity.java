@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+
         mTvTitleApp = (TextView) findViewById(R.id.tvTitleApp);
         mTvSubtitleSignIn = (TextView) findViewById(R.id.tvSubtitleSignIn);
         mTitEmail = (TextInputEditText) findViewById(R.id.titEmail);
@@ -109,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             default:
                 break;
             case R.id.tvForgotPassword:
+
                 break;
             case R.id.btnSignIn:
 

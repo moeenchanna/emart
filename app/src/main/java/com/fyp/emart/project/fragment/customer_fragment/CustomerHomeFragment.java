@@ -125,7 +125,7 @@ public class CustomerHomeFragment extends Fragment implements View.OnClickListen
     {
         progressDialog.show();
         // LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-       GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+       GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
         mRecyclerViewMart.setLayoutManager(gridLayoutManager);
         martAdapter = new MartAdapter(getActivity(),martLists);
         mRecyclerViewMart.setAdapter(martAdapter);

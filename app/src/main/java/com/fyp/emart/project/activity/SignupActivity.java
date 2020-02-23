@@ -115,6 +115,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
             case R.id.btnSignUp:
+
                 String generate_Roleid = null;
                 if (mRadioCustomer.isChecked()) {
                     selectedUser = mRadioCustomer.getText().toString();
