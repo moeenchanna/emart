@@ -13,7 +13,8 @@
     <string name="text_btn_google">Google</string>
     <string name="text_btn_facebook">Facebook</string>
     <string name="text_to_sign_up">Don\'t have an account? <b><font color='#03A9F4'>SIGN UP</font></b></string>
-    <string name="text_subtitle_sign_up">Please SignUp for a new customer or vendor</string>
+    <string name="text_subtitle_sign_up_customer">Please SignUp for a new customer</string>
+    <string name="text_subtitle_sign_up_mart">Please SignUp for a new mart</string>
     <string name="text_hint_name">Name</string>
     <string name="text_privacy_policy">I agree with <b><font color='#03A9F4'>Privacy</font></b> and <b><font color='#03A9F4'>Policy</font></b></string>
     <string name="text_to_sign_in">Already have an account? <b><font color='#03A9F4'>SIGN IN</font></b></string>

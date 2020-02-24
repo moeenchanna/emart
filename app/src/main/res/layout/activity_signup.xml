@@ -1,222 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:id="@+id/main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20sp"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tvTitleApp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_title_app"
-        android:layout_marginStart="@dimen/margin_layout"
-        android:fontFamily="@font/nunito_sans_bold"
-        android:text="@string/text_title_app"
-        android:textColor="@color/colorPrimaryText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSubtitleSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_layout"
-        android:layout_marginEnd="@dimen/margin_layout"
-        android:fontFamily="@font/nunito_sans_reguler"
-        android:text="@string/text_subtitle_sign_up"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="@dimen/text_body_size"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleApp"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleApp" />
-
-    <ScrollView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSubtitleSignUp">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/titName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="@string/text_hint_name"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textColorHint="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_body_size" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/titEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="@string/text_hint_email"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textColorHint="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_body_size" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/titPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="@string/text_hint_password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textColorHint="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_body_size" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/titPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="@string/text_hint_phone"
-                    android:inputType="phone"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textColorHint="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_body_size" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/titAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryText"
-                    android:gravity="left"
-                    android:hint="@string/text_hint_address"
-                    android:inputType="textMultiLine"
-                    android:lines="4"
-                    android:maxLines="4"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textColorHint="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_body_size" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <RadioGroup
-                android:id="@+id/radio_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioCustomer"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/text_radio_customer" />
-
-                <RadioButton
-                    android:id="@+id/radioVendor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/text_radio_vendor" />
-            </RadioGroup>
-
-            <Button
-                android:id="@+id/btnSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginTop="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:background="@color/colorAccent"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:text="@string/text_btn_sign_up"
-                android:textColor="@color/colorTextORIcon"
-                android:textSize="@dimen/text_btn_size" />
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginTop="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:background="@color/transparent"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:text="@string/text_to_sign_in"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/text_btn_size" />
-        </LinearLayout>
-    </ScrollView>
-
-
-
-
-
-
-
-</LinearLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tab_layout"/>
+</RelativeLayout>
