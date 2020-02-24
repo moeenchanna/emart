@@ -51,6 +51,9 @@ dependencies {
     //Fancy Toast
     implementation 'com.github.GrenderG:Toasty:1.4.2'
 
+    //Location Picker
+    implementation 'com.github.shivpujan12:LocationPicker:v1.2'
+
     //Room Data
     implementation 'android.arch.persistence.room:runtime:1.1.1';
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1';
