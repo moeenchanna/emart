@@ -1,13 +1,14 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:paddingTop="22sp"
     android:background="@android:color/white">
 
     <RelativeLayout
+        android:id="@+id/relSearch"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
         android:layout_height="55dp">
@@ -32,18 +33,16 @@
                 android:typeface="monospace"
                 android:fontFamily="@font/nunito_sans_reguler" />
 
-
         </RelativeLayout>
-
-
 
     </RelativeLayout>
 
     <fragment
         android:id="@+id/mapFragment"
+        android:layout_below="@+id/relSearch"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
 
-</LinearLayout>
+</RelativeLayout>

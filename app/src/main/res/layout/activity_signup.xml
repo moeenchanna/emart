@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="22sp"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -26,6 +27,9 @@
         android:layout_below="@+id/tool_bar"
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

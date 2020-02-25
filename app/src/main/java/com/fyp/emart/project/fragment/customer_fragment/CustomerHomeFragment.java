@@ -32,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerHomeFragment extends Fragment implements View.OnClickListener {
+public class CustomerHomeFragment extends Fragment {
 
 
     private ImageView mSearchBtn;
@@ -64,34 +64,16 @@ public class CustomerHomeFragment extends Fragment implements View.OnClickListen
 
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
-
-        mSearchBtn = (ImageView) view.findViewById(R.id.btn_search);
-        mRecyclerViewProduct = (RecyclerView) view.findViewById(R.id.product_recycler_view);
         mRecyclerViewMart = (RecyclerView) view.findViewById(R.id.mart_recycler_view);
-        mTextSearch = (TextView) view.findViewById(R.id.search_text);
-
-        mSearchBtn.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading please wait...");
 
-        productData();
+       // productData();
         martData();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_search:
 
-                break;
-            case R.id.search_text:
-
-                break;
-            default:
-                break;
-        }
-    }
 
     public void productData()
     {
@@ -124,9 +106,9 @@ public class CustomerHomeFragment extends Fragment implements View.OnClickListen
     public void martData()
     {
         progressDialog.show();
-        // LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-       GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
-        mRecyclerViewMart.setLayoutManager(gridLayoutManager);
+         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+       //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
+        mRecyclerViewMart.setLayoutManager(layoutManager);
         martAdapter = new MartAdapter(getActivity(),martLists);
         mRecyclerViewMart.setAdapter(martAdapter);
 
