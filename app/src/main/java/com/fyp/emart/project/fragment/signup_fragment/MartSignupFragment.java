@@ -1,13 +1,19 @@
 package com.fyp.emart.project.fragment.signup_fragment;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.google.android.material.textfield.TextInputEditText;
@@ -15,9 +21,21 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MartSignupFragment extends Fragment implements View.OnClickListener {
 //https://github.com/shivpujan12/LocationPicker
@@ -40,7 +58,9 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
     String name, email, password, phone, address, currentLatitude, currentLongitude, ownername, ownerphone, ownerdetail, voucher;
 
 
-
+    Context mContext;
+    BaseApiService mApiService;
+    ProgressDialog loading;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +75,8 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
 
         MapUtility.apiKey = getResources().getString(R.string.api_key);
+        mContext = getActivity();
+        mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
 
         mTitName = (TextInputEditText) view.findViewById(R.id.titName);
         mTitEmail = (TextInputEditText) view.findViewById(R.id.titEmail);
@@ -75,7 +97,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
 
     }
 
-    public void locationPicker() {
+    private void locationPicker() {
         Intent intent = new Intent(getActivity(), LocationPickerActivity.class);
         startActivityForResult(intent, ADDRESS_PICKER_REQUEST);
     }
@@ -105,15 +127,197 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                 locationPicker();
                 break;
             case R.id.btnSignUp:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
+                checkValidations();
+
                 break;
             case R.id.btnLogin:
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
+
                 break;
             default:
                 break;
         }
+    }
+
+    private void checkValidations() {
+
+        if (mTitName.getText().length() < 1) {
+            mTitName.requestFocus();
+            mTitName.setError("Name required.");
+        }
+
+        else if (!isEmailValid(mTitEmail.getText().toString())) {
+            mTitEmail.requestFocus();
+            mTitEmail.setError("Email required.");
+        }
+
+        else if (mTitPassword.getText().length() < 1) {
+            mTitPassword.requestFocus();
+            mTitPassword.setError("Password required.");
+        }
+        else if (mTitPhone.getText().length() < 1) {
+            mTitPhone.requestFocus();
+            mTitPhone.setError("Phone required.");
+        }
+
+        else if (mTitAddress.getText().length() < 1) {
+            mTitAddress.requestFocus();
+            mTitAddress.setError("Address required.");
+        }
+        else if (mTitOwnerName.getText().length() < 1) {
+            mTitOwnerName.requestFocus();
+            mTitOwnerName.setError("Owner name required.");
+        }
+
+        else if (mTitOwnerPhone.getText().length() < 1) {
+            mTitOwnerPhone.requestFocus();
+            mTitOwnerPhone.setError("Owner phone required.");
+        }
+        else if (mTitOrderDetail.getText().length() < 1) {
+            mTitOrderDetail.requestFocus();
+            mTitOrderDetail.setError("Owner detail required.");
+        }
+        else {
+
+            name = mTitName.getText().toString();
+            email = mTitEmail.getText().toString();
+            password = mTitPassword.getText().toString();
+            phone = mTitPhone.getText().toString();
+            ownername = mTitOwnerName.getText().toString();
+            ownerphone = mTitOwnerPhone.getText().toString();
+            ownerdetail = mTitOrderDetail.getText().toString();
+            voucher = mTitVoucher.getText().toString();
+            loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
+            MartRequest(name,email,password,phone,ownername,ownerphone,ownerdetail,voucher);
+            martLoginDetails(email,password);
+        }
+
+
+    }
+
+    private void martLoginDetails(String email, String password) {
+        mApiService.registerUser(email,password,"2")//2 for Mart
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+                            try {
+                                JSONArray jsonArray = new JSONArray(response.body().string());
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+
+                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                    getActivity().finish();
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
+
+    private void MartRequest(String name, String email, String password, String phone, String ownername, String ownerphone, String ownerdetail,String voucher) {
+
+        String logo = null;
+        String Banner= null;
+
+        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,logo,Banner,ownername,ownerphone,ownerdetail,voucher)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+                            try {
+                                JSONArray jsonArray = new JSONArray(response.body().string());
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+
+                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                    getActivity().finish();
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+
+    }
+
+
+    private boolean isEmailValid(String email) {
+        //https://stackoverflow.com/questions/9355899/android-email-edittext-validation
+        String regExpn =
+                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
+
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+
+        if (matcher.matches())
+            return true;
+        else
+            return false;
     }
 }

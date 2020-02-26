@@ -133,8 +133,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-  /*  private void requestLogin(){
-        mApiService.loginRequest(mTitEmail.getText().toString(), mTitPassword.getText().toString())
+    private void requestLogin(){
+        mApiService.loginUser(mTitEmail.getText().toString(), mTitPassword.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -189,5 +189,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         loading.dismiss();
                     }
                 });
-    }*/
+    }
 }

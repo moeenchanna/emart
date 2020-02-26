@@ -1,22 +1,43 @@
 package com.fyp.emart.project.fragment.signup_fragment;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.accounts.AccountManager.KEY_PASSWORD;
 
 
 public class CustomerSignupFragment extends Fragment implements View.OnClickListener {
@@ -33,6 +54,10 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
 
 
     String name,email,password,phone,address,currentLatitude,currentLongitude;
+
+    Context mContext;
+    BaseApiService mApiService;
+    ProgressDialog loading;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +70,9 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mContext = getActivity();
+        mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
 
         mTitName = (TextInputEditText) view.findViewById(R.id.titName);
         mTitEmail = (TextInputEditText) view.findViewById(R.id.titEmail);
@@ -67,8 +95,8 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                 locationPicker();
                 break;
             case R.id.btnSignUp:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
+                checkValidations();
+
                 break;
             case R.id.btnLogin:
                 startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -79,7 +107,146 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
         }
     }
 
-    public void locationPicker() {
+    private void checkValidations() {
+
+        if (mTitName.getText().length() < 1) {
+            mTitName.requestFocus();
+            mTitName.setError("Name required.");
+        }
+
+        else if (!isEmailValid(mTitEmail.getText().toString())) {
+            mTitEmail.requestFocus();
+            mTitEmail.setError("Email required.");
+        }
+
+        else if (mTitPassword.getText().length() < 1) {
+            mTitPassword.requestFocus();
+            mTitPassword.setError("Password required.");
+        }
+        else if (mTitPhone.getText().length() < 1) {
+            mTitPhone.requestFocus();
+            mTitPhone.setError("Phone required.");
+        }
+
+        else if (mTitAddress.getText().length() < 1) {
+            mTitAddress.requestFocus();
+            mTitAddress.setError("Address required.");
+        }
+        else {
+
+            name = mTitName.getText().toString();
+            email = mTitEmail.getText().toString();
+            password = mTitPassword.getText().toString();
+            phone = mTitPhone.getText().toString();
+            address = mTitAddress.getText().toString();
+            loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
+            RegisterRequest(name,email,password,phone,address);
+            customerLoginDetails(email,password);
+        }
+
+
+    }
+    private void customerLoginDetails(String email, String password) {
+        mApiService.registerUser(email,password,"1")//1 for Customer
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+                            try {
+                                JSONArray jsonArray = new JSONArray(response.body().string());
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+
+                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                    getActivity().finish();
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
+
+    private void RegisterRequest(String name, String email, String password, String phone, String address) {
+
+        mApiService.registerCustomer(name,email,password,phone,address)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+                            try {
+                                JSONArray jsonArray = new JSONArray(response.body().string());
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+
+                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                    getActivity().finish();
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
+
+
+    private void locationPicker() {
         Intent intent = new Intent(getActivity(), LocationPickerActivity.class);
         startActivityForResult(intent, ADDRESS_PICKER_REQUEST);
     }
@@ -100,6 +267,27 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                 ex.printStackTrace();
             }
         }
+    }
+
+    private boolean isEmailValid(String email) {
+        //https://stackoverflow.com/questions/9355899/android-email-edittext-validation
+        String regExpn =
+                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
+
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+
+        if (matcher.matches())
+            return true;
+        else
+            return false;
     }
 
 }
