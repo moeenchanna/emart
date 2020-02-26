@@ -116,12 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                // loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-               // requestLogin();
-                Intent in = new Intent(LoginActivity.this, DashboardActivity.class);
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(in);
-                finish();
-
+                requestLogin();
 
                 break;
             case R.id.tvToSignUp:
@@ -138,47 +133,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             loading.dismiss();
-                            try {
-                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if (jsonRESULTS.getString("Success").equals("true")){
-                                    // If the login is successful then the name data is in the response API
-                                    // will be parsed to the next activity.
+                            String role = String.valueOf(response.body());
+                            Toast.makeText(mContext, "role "+role, Toast.LENGTH_SHORT).show();
+                            SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString(KEY_EMAIL, mTitEmail.getText().toString());
+                            editor.putString(KEY_PASSWORD, mTitPassword.getText().toString());
+                            editor.putString(KEY_ROLE_ID, role);
+                            editor.apply();
 
-                                    String Username = jsonRESULTS.getJSONObject("Content").getString("username");
-                                    String phone = jsonRESULTS.getJSONObject("Content").getString("phone");
-                                    String address = jsonRESULTS.getJSONObject("Content").getString("address");
-                                    String roleid = jsonRESULTS.getJSONObject("Content").getString("role");
-
-                                    SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sp.edit();
-                                    editor.putString(KEY_EMAIL, mTitEmail.getText().toString());
-                                    editor.putString(KEY_PASSWORD, mTitPassword.getText().toString());
-                                    editor.putString(KEY_USERNAME, Username);
-                                    editor.putString(KEY_ADDRESS, address);
-                                    editor.putString(KEY_PHONE, phone);
-                                    editor.putString(KEY_ROLE_ID, roleid);
-
-                                    editor.apply();
-
-                                    Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    startActivity(i);
-                                    finish();
-
-                                } else {
-                                    // If the login fails
-                                    String error_message = jsonRESULTS.getString("Message");
-
-                                    Toast.makeText(mContext, error_message, Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
+                            Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(i);
+                            finish();
+                        }
+                          else {
                             loading.dismiss();
                         }
                     }

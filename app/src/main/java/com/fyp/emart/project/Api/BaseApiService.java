@@ -47,7 +47,7 @@ public interface BaseApiService {
     Call<ResponseBody> registerUser(
             @Field("email")String email,
             @Field("password")String password,
-            @Field("roleid")String roleid);
+            @Field("role")String roleid);
 
     @FormUrlEncoded
     @POST("user_login.php")
