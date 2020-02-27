@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             loading.dismiss();
                             try {
                                 if (response.body() != null) {
+
                                     String role = response.body().string();
                                     Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
@@ -179,6 +180,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     }
 
+                                }
+                                else
+                                {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(mContext, "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(mContext, "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(mContext, "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
                                 }
 
                             } catch (IOException e) {

@@ -116,7 +116,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
 
         else if (!isEmailValid(mTitEmail.getText().toString())) {
             mTitEmail.requestFocus();
-            mTitEmail.setError("Email required.");
+            mTitEmail.setError("Valid email required.");
         }
 
         else if (mTitPassword.getText().length() < 1) {
@@ -154,13 +154,11 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                         if (response.isSuccessful()) {
                             loading.dismiss();
                             try {
-                                JSONArray jsonArray = new JSONArray(response.body().string());
-                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+                                if (response.body() != null) {
 
-                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    getActivity().finish();
+                                    String role = response.body().string();
+                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role);
                                 } else {
                                     // If the login fails
                                     // error case
@@ -176,8 +174,6 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
 
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -204,13 +200,11 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                         if (response.isSuccessful()) {
                             loading.dismiss();
                             try {
-                                JSONArray jsonArray = new JSONArray(response.body().string());
-                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+                                if (response.body() != null) {
 
-                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    getActivity().finish();
+                                    String role = response.body().string();
+                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role);
                                 } else {
                                     // If the login fails
                                     // error case
@@ -226,8 +220,6 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
 
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

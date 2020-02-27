@@ -204,13 +204,11 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                         if (response.isSuccessful()) {
                             loading.dismiss();
                             try {
-                                JSONArray jsonArray = new JSONArray(response.body().string());
-                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+                                if (response.body() != null) {
 
-                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    getActivity().finish();
+                                    String role = response.body().string();
+                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role);
                                 } else {
                                     // If the login fails
                                     // error case
@@ -226,8 +224,6 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
 
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -250,20 +246,18 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
         String logo = null;
         String Banner= null;
 
-        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,logo,Banner,ownername,ownerphone,ownerdetail,voucher)
+        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,"abc","abc",ownername,ownerphone,ownerdetail,voucher)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             loading.dismiss();
                             try {
-                                JSONArray jsonArray = new JSONArray(response.body().string());
-                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                if (jsonObject.getString("fk_retypemst_reftype").equals("TA")){
+                                if (response.body() != null) {
 
-                                    Toast.makeText(getActivity(), "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    getActivity().finish();
+                                    String role = response.body().string();
+                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role);
                                 } else {
                                     // If the login fails
                                     // error case
@@ -279,8 +273,6 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
 
                                     }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
