@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 public interface BaseApiService {
 
     @FormUrlEncoded
-    @POST("register_customer.php")
+    @POST("FypProject/Emart/register_customer.php")
     Call<ResponseBody> registerCustomer(
             @Field("name")String name,
             @Field("email")String email,
@@ -26,7 +26,7 @@ public interface BaseApiService {
             @Field("address")String address);
 
     @FormUrlEncoded
-    @POST("register_mart.php")
+    @POST("FypProject/Emart/register_mart.php")
     Call<ResponseBody> registerMart(
             @Field("name")String name,
             @Field("email")String email,
@@ -43,14 +43,20 @@ public interface BaseApiService {
             @Field("voucher")String voucher);
 
     @FormUrlEncoded
-    @POST("register_user.php")
+    @POST("FypProject/Emart/register_user.php")
     Call<ResponseBody> registerUser(
             @Field("email")String email,
             @Field("password")String password,
             @Field("role")String roleid);
 
-    @FormUrlEncoded
+  /*  @FormUrlEncoded
     @POST("user_login.php")
+    Call<ResponseBody> loginUser(
+            @Field("email")String email,
+            @Field("password")String password);*/
+
+    @FormUrlEncoded
+    @POST("FypProject/Emart/user_login.php")
     Call<ResponseBody> loginUser(
             @Field("email")String email,
             @Field("password")String password);

@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-public class DashboardActivity extends AppCompatActivity {
+public class CustomerDashboardActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNavigation;
     private ViewPager mViewpager;
