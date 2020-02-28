@@ -157,8 +157,8 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
-                                    Log.d("debug", role);
+                                    Toast.makeText(mContext, role +"Customer Login Created", Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role +"Customer Login Created");
                                 } else {
                                     // If the login fails
                                     // error case
@@ -191,7 +191,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                 });
     }
 
-    private void RegisterRequest(String name, String email, String password, String phone, String address) {
+    private void RegisterRequest(final String name, String email, String password, String phone, final String address) {
 
         mApiService.registerCustomer(name,email,password,phone,address)
                 .enqueue(new Callback<ResponseBody>() {
@@ -205,6 +205,12 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                                     String role = response.body().string();
                                     Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
+
+                                    mTitName.setText("");
+                                    mTitEmail.setText("");
+                                    mTitPassword.setText("");
+                                    mTitPhone.setText("");
+                                    mTitAddress.setText("");
                                 } else {
                                     // If the login fails
                                     // error case

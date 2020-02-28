@@ -207,8 +207,8 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
-                                    Log.d("debug", role);
+                                    Toast.makeText(mContext, role +"Mart Login Created", Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role+"Mart Login Created");
                                 } else {
                                     // If the login fails
                                     // error case
@@ -244,9 +244,9 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
     private void MartRequest(String name, String email, String password, String phone, String ownername, String ownerphone, String ownerdetail,String voucher) {
 
         String logo = null;
-        String Banner= null;
+        String banner= null;
 
-        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,"abc","abc",ownername,ownerphone,ownerdetail,voucher)
+        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,"","",ownername,ownerphone,ownerdetail,voucher)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -258,6 +258,17 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                                     String role = response.body().string();
                                     Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
+
+                                    mTitName.setText("");
+                                    mTitEmail.setText("");
+                                    mTitPassword.setText("");
+                                    mTitPhone.setText("");
+                                    mTitAddress.setText("");
+                                    mTitOwnerName.setText("");
+                                    mTitOwnerPhone.setText("");
+                                    mTitOrderDetail.setText("");
+                                    mTitVoucher.setText("");
+
                                 } else {
                                     // If the login fails
                                     // error case

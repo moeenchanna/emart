@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                         case "0"://No Usser
 
-                                            Toast.makeText(mContext, "No user", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(mContext, "No user in records", Toast.LENGTH_SHORT).show();
                                             break;
 
                                     }
