@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MartDashboardActivity"></activity>
+        <activity android:name=".fragment.admin_fragment.AdminProfileFragment"></activity>
+        <activity android:name=".fragment.admin_fragment.AdminComplainFragment" />
+        <activity android:name=".fragment.admin_fragment.AdminOrderFragment" />
+        <activity android:name=".activity.MartDashboardActivity" />
         <activity android:name=".activity.AdminDashboardActivity" />
         <activity android:name=".activity.CustomerDashboardActivity" />
         <activity

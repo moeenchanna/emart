@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_order"
+        android:checked="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Order List"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_complain"
+        android:checked="false"
+        android:icon="@drawable/ic_pin_drop_black_24dp"
+        android:title="Complain List"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:checked="false"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Admin Profile"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -19,35 +19,35 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("FypProject/Emart/register_customer.php")
     Call<ResponseBody> registerCustomer(
-            @Field("name")String name,
-            @Field("email")String email,
-            @Field("password")String password,
-            @Field("phone")String phone,
-            @Field("address")String address);
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("phone") String phone,
+            @Field("address") String address);
 
     @FormUrlEncoded
     @POST("FypProject/Emart/register_mart.php")
     Call<ResponseBody> registerMart(
-            @Field("name")String name,
-            @Field("email")String email,
-            @Field("password")String password,
-            @Field("phone")String phone,
-            @Field("address")String address,
-            @Field("latitude")String latitude,
-            @Field("longitude")String longitude,
-            @Field("logo")String logo,
-            @Field("banner")String banner,
-            @Field("owner")String owner,
-            @Field("ownernumber")String ownernumber,
-            @Field("ownerdetail")String ownerdetail,
-            @Field("voucher")String voucher);
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("phone") String phone,
+            @Field("address") String address,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("logo") String logo,
+            @Field("banner") String banner,
+            @Field("owner") String owner,
+            @Field("ownernumber") String ownernumber,
+            @Field("ownerdetail") String ownerdetail,
+            @Field("voucher") String voucher);
 
     @FormUrlEncoded
     @POST("FypProject/Emart/register_user.php")
     Call<ResponseBody> registerUser(
-            @Field("email")String email,
-            @Field("password")String password,
-            @Field("role")String roleid);
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("role") String roleid);
 
   /*  @FormUrlEncoded
     @POST("user_login.php")
@@ -58,8 +58,8 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("FypProject/Emart/user_login.php")
     Call<ResponseBody> loginUser(
-            @Field("email")String email,
-            @Field("password")String password);
+            @Field("email") String email,
+            @Field("password") String password);
 
     @GET("FypProject/Emart/getproducts.php")
     Call<List<ProductList>> getProducts();
