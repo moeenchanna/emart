@@ -16,8 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.AdminDashboardActivity"></activity>
-        <activity android:name=".activity.MartDashboardActivity" />
+        <activity android:name=".activity.MartDashboardActivity"></activity>
+        <activity android:name=".activity.AdminDashboardActivity" />
         <activity android:name=".activity.CustomerDashboardActivity" />
         <activity
             android:name=".activity.SignupActivity"
