@@ -108,24 +108,23 @@ public class MartHomeFragment extends Fragment {
 
         public void martData()
         {
-            /*progressDialog.show();*/
+            progressDialog.show();
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
             mRecyclerViewMart.setLayoutManager(layoutManager);
             martHomeAdapter = new MartHomeAdapter(getActivity(),martLists);
             mRecyclerViewMart.setAdapter(martHomeAdapter);
-/*
             Call<List<MartList>> martlistCall = mApiService.getMarts();
             martlistCall.enqueue(new Callback<List<MartList>>() {
                 @Override
                 public void onResponse(Call<List<MartList>> call, Response<List<MartList>> response) {
                     progressDialog.dismiss();
                     martLists = response.body();
-                    Log.d("TAG","Response = "+martLists);*/
+                    Log.d("TAG","Response = "+martLists);
                     martHomeAdapter.setMartList(martLists);
                 }
 
-        /*        @Override
+                @Override
                 public void onFailure(Call<List<MartList>> call, Throwable t) {
                     progressDialog.dismiss();
                     Log.e("Error", t.getMessage());
@@ -139,7 +138,9 @@ public class MartHomeFragment extends Fragment {
             super.onDestroy();
             if ( progressDialog!=null && progressDialog.isShowing() ){
                 progressDialog.cancel();
-            }*/
+            }
         }
+        }
+
 
 
