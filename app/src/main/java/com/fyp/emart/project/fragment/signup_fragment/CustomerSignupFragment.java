@@ -78,7 +78,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
         mTitName = (TextInputEditText) view.findViewById(R.id.titName);
         mTitEmail = (TextInputEditText) view.findViewById(R.id.titEmail);
         mTitPassword = (TextInputEditText) view.findViewById(R.id.titPassword);
-        mTitConfirmPassword = (TextInputEditText) view.findViewById(R.id.tilRetypePassword);
+        mTitConfirmPassword = (TextInputEditText) view.findViewById(R.id.RetypePassword);
         mTitPhone = (TextInputEditText) view.findViewById(R.id.titPhone);
         mTitAddress = (TextInputEditText) view.findViewById(R.id.titAddress);
         mBtnSignUp = (Button) view.findViewById(R.id.btnSignUp);
