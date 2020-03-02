@@ -118,7 +118,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 i = new Intent(LoginActivity.this,SignupActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
-                finish();
                 break;
         }
     }
