@@ -1,5 +1,6 @@
 package com.fyp.emart.project.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -92,6 +93,14 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         adapter.addFragment(martMapFragment);
         adapter.addFragment(customerProfileFragment);
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent i = new Intent(CustomerDashboardActivity.this,LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }

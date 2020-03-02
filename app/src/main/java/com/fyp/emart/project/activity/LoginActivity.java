@@ -8,18 +8,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -30,6 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static com.fyp.emart.project.Api.DataConfig.KEY_EMAIL;
 import static com.fyp.emart.project.Api.DataConfig.KEY_PASSWORD;
 import static com.fyp.emart.project.Api.DataConfig.KEY_ROLE_ID;
@@ -67,9 +72,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private TextView mTvToSignUp;
 
+    private CheckBox mCheckBox;
+    private LinearLayout mLoginForm;
+
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
+
     Context mContext;
     BaseApiService mApiService;
     ProgressDialog loading;
+
+    String email,password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +93,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
+
+
     }
 
     private void initView() {
@@ -91,10 +108,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
         mBtnSignIn = (Button) findViewById(R.id.btnSignIn);
         mTvToSignUp = (TextView) findViewById(R.id.tvToSignUp);
-
+        mCheckBox = (CheckBox) findViewById(R.id.checkBox);
         mTvForgotPassword.setOnClickListener(this);
         mBtnSignIn.setOnClickListener(this);
         mTvToSignUp.setOnClickListener(this);
+        mCheckBox.setOnClickListener(this);
+        mLoginForm = (LinearLayout) findViewById(R.id.loginForm);
+
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            mTitEmail.setText(loginPreferences.getString("username", ""));
+            mTitPassword.setText(loginPreferences.getString("password", ""));
+            mCheckBox.setChecked(true);
+        }
     }
 
     @Override
@@ -103,6 +132,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent i;
 
         switch (v.getId()) {
+
             default:
                 break;
             case R.id.tvForgotPassword:
@@ -115,16 +145,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.tvToSignUp:
 
-                i = new Intent(LoginActivity.this,SignupActivity.class);
+                i = new Intent(LoginActivity.this, SignupActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
                 break;
         }
     }
 
-    private void requestLogin(final String email, final String password){
+    private void requestLogin(final String email, final String password) {
         mApiService.loginUser(email, password)
-       // mApiService.loginUser("moeen@gmail.com", "moeen")
+                // mApiService.loginUser("moeen@gmail.com", "moeen")
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -145,13 +175,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.putString(KEY_PASSWORD, password);
                                     editor.putString(KEY_ROLE_ID, role);
                                     editor.apply();
+                                    SaveSharedPreference.setLoggedIn(mContext, true);
 
-                                    switch (role)
-                                    {
+                                    switch (role) {
                                         case "1"://Customer Role
 
                                             i = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
                                             finish();
                                             break;
@@ -159,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         case "2"://Mart Role
 
                                             i = new Intent(LoginActivity.this, MartDashboardActivity.class);
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
                                             finish();
                                             break;
@@ -167,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         case "3"://Admin Role
 
                                             i = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
                                             finish();
                                             break;
@@ -179,9 +209,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     }
 
-                                }
-                                else
-                                {
+                                } else {
                                     // If the login fails
                                     // error case
                                     switch (response.code()) {
@@ -202,8 +230,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }
 
 
-                        }
-                          else {
+                        } else {
                             loading.dismiss();
                         }
                     }
@@ -220,19 +247,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!isEmailValid(mTitEmail.getText().toString())) {
             mTitEmail.requestFocus();
             mTitEmail.setError("Valid email required.");
-        }
-
-        else if (mTitPassword.getText().length() < 1) {
+        } else if (mTitPassword.getText().length() < 1) {
             mTitPassword.requestFocus();
             mTitPassword.setError("Password required.");
-        }
+        } else {
 
-        else {
+            email = mTitEmail.getText().toString();
+            password = mTitPassword.getText().toString();
 
-            String email = mTitEmail.getText().toString();
-            String password = mTitPassword.getText().toString();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mTitEmail.getWindowToken(), 0);
+
+            if (mCheckBox.isChecked()) {
+                loginPrefsEditor.putBoolean("saveLogin", true);
+                loginPrefsEditor.putString("username", mTitEmail.getText().toString());
+                loginPrefsEditor.putString("password", mTitPassword.getText().toString());
+                loginPrefsEditor.commit();
+            } else {
+                loginPrefsEditor.clear();
+                loginPrefsEditor.commit();
+            }
+
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-            requestLogin(email,password);
+            requestLogin(email, password);
         }
 
 

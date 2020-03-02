@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -92,6 +93,14 @@ public class MartDashboardActivity extends AppCompatActivity {
         adapter.addFragment(martHomeFragment);
         adapter.addFragment(martProfileFragment);
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent i = new Intent(MartDashboardActivity.this,LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.fyp.emart.project.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -97,4 +98,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent i = new Intent(AdminDashboardActivity.this,LoginActivity.class);
+        startActivity(i);
+        finish();
+    }
 }
