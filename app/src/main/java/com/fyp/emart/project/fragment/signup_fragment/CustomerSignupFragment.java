@@ -46,6 +46,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
     private TextInputEditText mTitName;
     private TextInputEditText mTitEmail;
     private TextInputEditText mTitPassword;
+    private TextInputEditText mTitConfirmPassword;
     private TextInputEditText mTitPhone;
     private TextInputEditText mTitAddress;
     private ImageButton mImgbtnlocation;
@@ -53,7 +54,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
     private Button mBtnLogin;
 
 
-    String name,email,password,phone,address,currentLatitude,currentLongitude;
+    String name,email,password,cpassword,phone,address,currentLatitude,currentLongitude;
 
     Context mContext;
     BaseApiService mApiService;
@@ -77,6 +78,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
         mTitName = (TextInputEditText) view.findViewById(R.id.titName);
         mTitEmail = (TextInputEditText) view.findViewById(R.id.titEmail);
         mTitPassword = (TextInputEditText) view.findViewById(R.id.titPassword);
+        mTitConfirmPassword = (TextInputEditText) view.findViewById(R.id.tilRetypePassword);
         mTitPhone = (TextInputEditText) view.findViewById(R.id.titPhone);
         mTitAddress = (TextInputEditText) view.findViewById(R.id.titAddress);
         mBtnSignUp = (Button) view.findViewById(R.id.btnSignUp);
@@ -123,6 +125,12 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
             mTitPassword.requestFocus();
             mTitPassword.setError("Password required.");
         }
+
+        else if (!mTitConfirmPassword.getText().toString().equals(mTitPassword.getText().toString())) {
+            mTitConfirmPassword.requestFocus();
+            mTitConfirmPassword.setError("Password not match");
+        }
+
         else if (mTitPhone.getText().length() < 1) {
             mTitPhone.requestFocus();
             mTitPhone.setError("Phone required.");

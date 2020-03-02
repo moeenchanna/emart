@@ -5,6 +5,7 @@
     <string name="text_subtitle_sign_in">Please SignIn to continue</string>
     <string name="text_hint_email">Email</string>
     <string name="text_hint_password">Password</string>
+    <string name="text_hint_confirmpassword">Confirm Password</string>
     <string name="text_hint_phone">Phone</string>
     <string name="OwnerName">Owner Name</string>
     <string name="OwnerPhone">Owner Phone</string>

@@ -45,6 +45,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
     private TextInputEditText mTitName;
     private TextInputEditText mTitEmail;
     private TextInputEditText mTitPassword;
+    private TextInputEditText mTitConfirmPassword;
     private TextInputEditText mTitPhone;
     private TextInputEditText mTitAddress;
     private TextInputEditText mTitOwnerName;
@@ -55,7 +56,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
     private Button mBtnSignUp;
     private Button mBtnLogin;
 
-    String name, email, password, phone, address, currentLatitude, currentLongitude, ownername, ownerphone, ownerdetail, voucher;
+    String name, email, password,cpassword, phone, address, currentLatitude, currentLongitude, ownername, ownerphone, ownerdetail, voucher;
 
 
     Context mContext;
@@ -81,6 +82,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
         mTitName = (TextInputEditText) view.findViewById(R.id.titName);
         mTitEmail = (TextInputEditText) view.findViewById(R.id.titEmail);
         mTitPassword = (TextInputEditText) view.findViewById(R.id.titPassword);
+        mTitConfirmPassword = (TextInputEditText) view.findViewById(R.id.tilRetypePassword);
         mTitPhone = (TextInputEditText) view.findViewById(R.id.titPhone);
         mTitAddress = (TextInputEditText) view.findViewById(R.id.titAddress);
         mTitOwnerName = (TextInputEditText) view.findViewById(R.id.titOwnerName);
@@ -156,6 +158,11 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
             mTitPassword.requestFocus();
             mTitPassword.setError("Password required.");
         }
+        else if (!mTitConfirmPassword.getText().toString().equals(mTitPassword.getText().toString())) {
+            mTitConfirmPassword.requestFocus();
+            mTitConfirmPassword.setError("Password not match");
+        }
+
         else if (mTitPhone.getText().length() < 1) {
             mTitPhone.requestFocus();
             mTitPhone.setError("Phone required.");
