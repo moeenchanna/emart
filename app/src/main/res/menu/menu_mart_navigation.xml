@@ -4,15 +4,15 @@
     <item
         android:id="@+id/action_receive"
         android:checked="true"
-        android:icon="@drawable/ic_add_shopping_cart_black_24dp"
-        android:title="New Order"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Mart Home"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_complaints"
+        android:id="@+id/action_product"
         android:checked="false"
-        android:icon="@drawable/ic_report_problem_black_24dp"
-        android:title="Complaints"
+        android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+        android:title="Add Product"
         app:showAsAction="ifRoom" />
 
     <item
