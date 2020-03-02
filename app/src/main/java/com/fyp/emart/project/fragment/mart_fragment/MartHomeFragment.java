@@ -37,17 +37,8 @@ import retrofit2.Response;
 
 public class MartHomeFragment extends Fragment {
 
-
-
-    private ImageView mSearchBtn;
-    private RecyclerView mRecyclerViewProduct;
     private RecyclerView mRecyclerViewMart;
-    private TextView mTextSearch;
-
-    List<ProductList> productLists;
     List<MartList> martLists;
-
-    ProductAdapter productAdapter;
     MartHomeAdapter martHomeAdapter;
 
     ProgressDialog progressDialog;
@@ -78,33 +69,6 @@ public class MartHomeFragment extends Fragment {
 
 
 
-        public void productData()
-        {
-            /*progressDialog.show();*/
-            // LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
-            mRecyclerViewProduct.setLayoutManager(gridLayoutManager);
-            productAdapter = new ProductAdapter(getActivity(),productLists);
-            mRecyclerViewProduct.setAdapter(productAdapter);
-
-            Call<List<ProductList>> productlistCall = mApiService.getProducts();
-            productlistCall.enqueue(new Callback<List<ProductList>>() {
-                @Override
-                public void onResponse(Call<List<ProductList>> call, Response<List<ProductList>> response) {
-                    progressDialog.dismiss();
-                    productLists = response.body();
-                    Log.d("TAG","Response = "+productLists);
-                    productAdapter.setProductList(productLists);
-                }
-
-                @Override
-                public void onFailure(Call<List<ProductList>> call, Throwable t) {
-                    progressDialog.dismiss();
-                    Log.e("Error", t.getMessage());
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         public void martData()
         {

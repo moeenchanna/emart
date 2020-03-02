@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="22sp"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/relSearch"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:elevation="5dp">
+
+            <TextView
+                android:id="@+id/browse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nunito_sans_reguler"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchitems"
+                android:layout_width="321dp"
+                android:layout_height="33dp"
+                android:layout_below="@id/browse"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="47dp"
+                android:layout_marginRight="47dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/searchborder"
+                android:orderInCategory="100"
+                app:actionViewClass="android.support.v7.widget.SearchView"
+                app:showAsAction="always" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/mart_title"
+        android:layout_below="@id/relSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!--  <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+              android:layout_weight="1"
+              android:textAlignment="center"
+              android:text="All Products"
+              android:textColor="@color/titleColor"
+              android:textSize="22sp" />-->
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/products_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mart_title"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="2dp" />
+
+
+
+</RelativeLayout>

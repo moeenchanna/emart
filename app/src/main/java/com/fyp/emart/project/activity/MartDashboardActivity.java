@@ -13,7 +13,6 @@ import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
 import com.fyp.emart.project.fragment.customer_fragment.MartMapFragment;
-import com.fyp.emart.project.fragment.mart_fragment.MartComplaintFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartHomeFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -88,11 +87,9 @@ public class MartDashboardActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         MartHomeFragment martHomeFragment = new MartHomeFragment();
-        MartComplaintFragment martComplaintFragment = new MartComplaintFragment();
         MartProfileFragment martProfileFragment = new MartProfileFragment();
 
         adapter.addFragment(martHomeFragment);
-        adapter.addFragment(martComplaintFragment);
         adapter.addFragment(martProfileFragment);
         viewPager.setAdapter(adapter);
     }
