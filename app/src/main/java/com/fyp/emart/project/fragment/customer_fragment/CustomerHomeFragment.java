@@ -41,15 +41,14 @@ import retrofit2.Response;
 public class CustomerHomeFragment extends Fragment {
 
     private RecyclerView mRecyclerViewMart;
-    List<MartList> martLists;
-    MartAdapter martAdapter;
-    ProgressDialog progressDialog;
+    private List<MartList> martLists;
+    private MartAdapter martAdapter;
+    private ProgressDialog progressDialog;
 
-    Context mContext;
-    BaseApiService mApiService;
+    private Context mContext;
+    private BaseApiService mApiService;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_customer_home, container, false);
     }
@@ -63,11 +62,13 @@ public class CustomerHomeFragment extends Fragment {
         mContext = getActivity();
         mRecyclerViewMart = (RecyclerView) view.findViewById(R.id.mart_recycler_view);
 
-        progressDialog = new ProgressDialog(getActivity());
+        progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading please wait...");
 
 
         martData();
+
+
 
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override

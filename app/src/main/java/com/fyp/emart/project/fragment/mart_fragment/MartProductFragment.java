@@ -53,7 +53,7 @@ public class MartProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mart_product, container, false);
-initView(v);
+        initView(v);
         // Inflate the layout for this fragment
         return v;
 
@@ -117,12 +117,11 @@ initView(v);
 
     }
 
-    public void productData()
-    {
+    public void productData() {
         progressDialog.show();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerViewProduct.setLayoutManager(layoutManager);
-        productAdapter = new ProductAdapter(getActivity(),productLists);
+        productAdapter = new ProductAdapter(getActivity(), productLists);
         mRecyclerViewProduct.setAdapter(productAdapter);
 
         Call<List<ProductList>> productlistCall = mApiService.getProducts();
@@ -131,8 +130,8 @@ initView(v);
             public void onResponse(Call<List<ProductList>> call, Response<List<ProductList>> response) {
                 progressDialog.dismiss();
                 productLists = response.body();
-                Log.d("TAG","Response = "+productLists);
-                productAdapter.setProductList(getActivity(),productLists);
+                Log.d("TAG", "Response = " + productLists);
+                productAdapter.setProductList(getActivity(), productLists);
             }
 
             @Override
@@ -146,9 +145,9 @@ initView(v);
 
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        if ( progressDialog!=null && progressDialog.isShowing() ){
+        if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
     }

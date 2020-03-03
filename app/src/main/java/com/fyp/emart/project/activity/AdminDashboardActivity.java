@@ -96,13 +96,15 @@ public class AdminDashboardActivity extends AppCompatActivity {
         adapter.addFragment(adminComplainFragment);
         adapter.addFragment(adminProfileFragment);
         viewPager.setAdapter(adapter);
+
     }
 
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent i = new Intent(AdminDashboardActivity.this,LoginActivity.class);
+        Intent i = new Intent(AdminDashboardActivity.this, LoginActivity.class);
         startActivity(i);
         finish();
     }
+
 }
