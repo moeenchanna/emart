@@ -19,17 +19,20 @@ import android.widget.Toast;
 
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
+import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ProductAdapter;
 import com.fyp.emart.project.model.ProductList;
 
 import java.util.List;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends BaseActivity {
+    private static int cart_count = 0;
 
     private RecyclerView mRecyclerViewProduct;
     List<ProductList> productLists;
     ProductAdapter productAdapter;
+
     private SearchView searchView;
     ProgressDialog progressDialog;
 
@@ -131,4 +134,19 @@ public class ProductActivity extends AppCompatActivity {
             progressDialog.cancel();
         }
     }
+
+    @Override
+    public void onAddProduct() {
+        super.onAddProduct();
+        cart_count++;
+        invalidateOptionsMenu();
+
+    }
+
+    @Override
+    public void onRemoveProduct() {
+        super.onRemoveProduct();
+    }
+
+
 }

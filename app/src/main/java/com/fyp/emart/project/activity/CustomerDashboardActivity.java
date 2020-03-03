@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
@@ -16,7 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-public class CustomerDashboardActivity extends AppCompatActivity {
+public class CustomerDashboardActivity extends BaseActivity {
+    private static int cart_count = 0;
 
     private BottomNavigationView mBottomNavigation;
     private ViewPager mViewpager;
@@ -102,5 +104,19 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    @Override
+    public void onAddProduct() {
+        super.onAddProduct();
+        cart_count++;
+        invalidateOptionsMenu();
+
+    }
+
+    @Override
+    public void onRemoveProduct() {
+        super.onRemoveProduct();
+    }
+
 
 }
