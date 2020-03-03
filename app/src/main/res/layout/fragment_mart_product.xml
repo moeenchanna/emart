@@ -145,23 +145,38 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:text="Please Select Product Image" />
-            <ImageView
-                android:id="@+id/imageView"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRetdypePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:scaleType="fitXY"
                 android:layout_marginStart="@dimen/margin_layout"
                 android:layout_marginEnd="@dimen/margin_layout"
-                app:srcCompat="@drawable/selectimage" />
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pr_image_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimaryText"
+                    android:hint="Product Image Url"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textColorHint="@color/colorPrimaryText"
+                    android:textSize="@dimen/text_body_size" />
+
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:scaleType="fitXY"-->
+<!--                android:layout_marginStart="@dimen/margin_layout"-->
+<!--                android:layout_marginEnd="@dimen/margin_layout"-->
+<!--                app:srcCompat="@drawable/selectimage" />-->
 
 
             <Button
