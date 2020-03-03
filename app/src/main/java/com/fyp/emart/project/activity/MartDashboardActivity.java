@@ -94,6 +94,7 @@ public class MartDashboardActivity extends AppCompatActivity {
 
         adapter.addFragment(martHomeFragment);
         adapter.addFragment(martProductFragment);
+
         adapter.addFragment(martProfileFragment);
         viewPager.setAdapter(adapter);
     }
