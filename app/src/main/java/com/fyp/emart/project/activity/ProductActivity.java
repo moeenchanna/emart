@@ -41,13 +41,9 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-
-
         initView();
 
     }
-
-
 
     private void initView() {
 
@@ -57,15 +53,13 @@ public class ProductActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading please wait...");
 
+        productData();
+
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) findViewById(R.id.searchitems);
         searchView.setFocusable(true);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-        // searchView.setQuery("", false);
-
-        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setActivated(true);
-        // searchView.setQueryHint(Html.fromHtml("<font color = #310246>" + "Search and select products" + "</font>"));
         searchView.animate();
         searchView.setQueryHint("Search products here...");
 
@@ -97,7 +91,7 @@ public class ProductActivity extends AppCompatActivity {
                 return false;
             }
         });
-        productData();
+
 
 
     }

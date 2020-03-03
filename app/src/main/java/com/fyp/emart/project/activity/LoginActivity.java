@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     switch (role) {
                                         case "1"://Customer Role
 
-                                            i = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
+                                            i = new Intent(LoginActivity.this, ProductActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
                                             finish();

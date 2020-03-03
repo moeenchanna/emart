@@ -21,10 +21,10 @@ import com.fyp.emart.project.model.ProductList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHolder>implements Filterable {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHolder> implements Filterable {
 
     Context context;
-    List<ProductList> productLists;
+    private List<ProductList> productLists;
     private List<ProductList> productListsFiltered;
 
     public ProductAdapter(Context context, List<ProductList> productLists) {
@@ -32,16 +32,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
         this.productLists = productLists;
     }
 
-    /*public void setProductList(List<ProductList> productList) {
-        this.productLists = productList;
-        notifyDataSetChanged();
-    }*/
 
-    public void setProductList(Context context,final List<ProductList> productLists){
+    public void setProductList(Context context, final List<ProductList> productLists1) {
         this.context = context;
-        if(this.productLists == null){
-            this.productLists = productLists;
-            this.productListsFiltered = productLists;
+        if (this.productLists == null) {
+            this.productLists = productLists1;
+            this.productListsFiltered = productLists1;
             notifyItemChanged(0, productListsFiltered.size());
         } else {
             final DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
@@ -67,7 +63,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
 
                     ProductList oldProduct = productLists.get(newItemPosition);
 
-                    return newProduct.getProductName() == oldProduct.getProductName() ;
+                    return newProduct.getProductName() == oldProduct.getProductName();
                 }
             });
             this.productLists = productLists;
@@ -78,7 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
 
     @Override
     public ProductAdapter.MyviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_products,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_products, parent, false);
         return new MyviewHolder(view);
     }
 
@@ -94,14 +90,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                 .error(R.drawable.loading);
 
         String Simage = productLists.get(position).getProductimage();
-        Simage.replace("\\/","");
+        Simage.replace("\\/", "");
 
         Glide.with(context).load(Simage).apply(options).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        if(productLists != null){
+        if (productLists != null) {
             return productListsFiltered.size();
         } else {
             return 0;
@@ -119,9 +115,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                     productListsFiltered = productLists;
                 } else {
                     List<ProductList> filteredList = new ArrayList<>();
-                    for (ProductList productList : productLists) {
-                        if (productList.getProductName().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(productList);
+                    for (ProductList product : productLists) {
+                        if (product.getProductName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(product);
                         }
                     }
                     productListsFiltered = filteredList;
@@ -140,16 +136,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
             }
         };
     }
+
     public class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView tvproductname,tvproductprice,tvproductbrand;
+        TextView tvproductname, tvproductprice, tvproductbrand;
         ImageView image;
 
         public MyviewHolder(View itemView) {
             super(itemView);
-            tvproductname = (TextView)itemView.findViewById(R.id.product_name);
-            tvproductprice = (TextView)itemView.findViewById(R.id.product_price);
+            tvproductname = (TextView) itemView.findViewById(R.id.product_name);
+            tvproductprice = (TextView) itemView.findViewById(R.id.product_price);
             //tvproductbrand = (TextView)itemView.findViewById(R.id.productbrand);
-            image = (ImageView)itemView.findViewById(R.id.product_image);
+            image = (ImageView) itemView.findViewById(R.id.product_image);
         }
     }
 }
