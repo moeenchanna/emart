@@ -168,4 +168,10 @@ public class CartActivity extends BaseActivity {
             checkoutLL.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), ProductActivity.class));
+        finish();
+    }
 }

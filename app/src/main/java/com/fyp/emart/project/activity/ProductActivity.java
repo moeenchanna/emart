@@ -2,6 +2,7 @@ package com.fyp.emart.project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +14,11 @@ import retrofit2.Response;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,6 +27,7 @@ import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ProductAdapter;
+import com.fyp.emart.project.helper.Converter;
 import com.fyp.emart.project.model.ProductList;
 
 import java.util.List;
@@ -50,6 +55,9 @@ public class ProductActivity extends BaseActivity {
     }
 
     private void initView() {
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        cart_count = cartCount();
 
         mApiService = UtilsApi.getAPIService();
         mContext = this;
@@ -59,42 +67,6 @@ public class ProductActivity extends BaseActivity {
 
         productData();
 
-        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) findViewById(R.id.searchitems);
-        searchView.setFocusable(true);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-        searchView.setActivated(true);
-        searchView.animate();
-        searchView.setQueryHint("Search products here...");
-
-        searchView.onActionViewExpanded();
-        searchView.clearFocus();
-        searchView.setFocusableInTouchMode(true);
-        searchView.setIconifiedByDefault(false);
-        /* Code for changing the textcolor and hint color for the search view */
-
-        SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchAutoComplete.setHintTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        searchAutoComplete.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        searchAutoComplete.setTextSize(15);
-
-        /*Code for changing the search icon */
-        ImageView searchIcon = (ImageView) searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
-        searchIcon.setImageResource(R.drawable.searchpic);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                productAdapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                productAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
 
 
 
@@ -149,5 +121,26 @@ public class ProductActivity extends BaseActivity {
         super.onRemoveProduct();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.cart_action);
+        menuItem.setIcon(Converter.convertLayoutToImage(ProductActivity.this, cart_count, R.drawable.ic_shopping_basket));
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cart_action:
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
 }
