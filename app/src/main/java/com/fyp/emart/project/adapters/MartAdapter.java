@@ -61,11 +61,11 @@ public class MartAdapter extends RecyclerView.Adapter<MartAdapter.MyviewHolder> 
 
     }
 
-    public class MyviewHolder extends RecyclerView.ViewHolder {
+    class MyviewHolder extends RecyclerView.ViewHolder {
         TextView tvmartname;
         ImageView image;
 
-        public MyviewHolder(View itemView) {
+        MyviewHolder(View itemView) {
             super(itemView);
             tvmartname = (TextView)itemView.findViewById(R.id.martname);
             image = (ImageView)itemView.findViewById(R.id.image);

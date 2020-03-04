@@ -7,7 +7,6 @@ public class Order {
     String total;
     String status;
 
-
     public Order() {
     }
 

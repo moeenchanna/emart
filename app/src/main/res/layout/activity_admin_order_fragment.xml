@@ -35,7 +35,8 @@
             android:text="@string/OrderDetail"
             android:textAlignment="center"
             android:textColor="@color/titleColor"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:gravity="center_horizontal" />
 
     </LinearLayout>
 
