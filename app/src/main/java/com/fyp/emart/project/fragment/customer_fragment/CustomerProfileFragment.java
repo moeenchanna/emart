@@ -10,6 +10,8 @@ import com.fyp.emart.project.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class CustomerProfileFragment extends Fragment {
@@ -30,6 +32,8 @@ public class CustomerProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         mTvname = (TextView) view.findViewById(R.id.tvname);
         mTvemail = (TextView) view.findViewById(R.id.tvemail);
         mTvmobile = (TextView) view.findViewById(R.id.tvmobile);

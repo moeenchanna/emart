@@ -4,42 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="22sp"
     android:background="@android:color/white">
 
-    <RelativeLayout
-        android:id="@+id/relSearch"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="55dp">
-
-        <RelativeLayout
-            android:id="@+id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:elevation="5dp">
-
-            <TextView
-                android:id="@+id/browse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
-                android:layout_centerVertical="true"
-                android:text="@string/app_name"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:typeface="monospace"
-                android:fontFamily="@font/nunito_sans_reguler" />
-
-        </RelativeLayout>
-
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <fragment
         android:id="@+id/mapFragment"
-        android:layout_below="@+id/relSearch"
+        android:layout_below="@+id/tool_bar"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

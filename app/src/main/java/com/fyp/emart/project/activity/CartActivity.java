@@ -3,6 +3,7 @@ package com.fyp.emart.project.activity;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,15 +49,8 @@ public class CartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        changeActionBarTitle(getSupportActionBar());
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
-        //upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
-
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         localStorage = new LocalStorage(getApplicationContext());
         gson = new Gson();
         emptyCart = findViewById(R.id.empty_cart_img);
@@ -137,30 +131,6 @@ public class CartActivity extends BaseActivity {
         return myQuittingDialogBox;
     }
 
-
-    private void changeActionBarTitle(ActionBar actionBar) {
-        // Create a LayoutParams for TextView
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, // Width of TextView
-                RelativeLayout.LayoutParams.WRAP_CONTENT); // Height of TextView
-        TextView tv = new TextView(getApplicationContext());
-        // Apply the layout parameters to TextView widget
-        tv.setLayoutParams(lp);
-        tv.setGravity(Gravity.CENTER);
-        tv.setTypeface(null, Typeface.BOLD);
-        // Set text to display in TextView
-        tv.setText("Cart"); // ActionBar title text
-        tv.setTextSize(20);
-
-        // Set the text color of TextView to red
-        // This line change the ActionBar title text color
-        tv.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-
-        // Set the ActionBar display option
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        // Finally, set the newly created TextView as ActionBar custom view
-        actionBar.setCustomView(tv);
-    }
 
 
     private void setUpCartRecyclerview() {

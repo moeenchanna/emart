@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.fyp.emart.project.R;
@@ -35,53 +38,26 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_mart_product, container, false);
-        initView(v);
+        return  inflater.inflate(R.layout.fragment_mart_product, container, false);
         // Inflate the layout for this fragment
-        return v;
+
     }
 
-    private void initView(@NonNull final View itemView) {
-        mProductname = (TextInputEditText) itemView.findViewById(R.id.productname);
-        mPriceProduct = (TextInputEditText) itemView.findViewById(R.id.product_price);
-        mQuanProduct = (TextInputEditText) itemView.findViewById(R.id.product_quan);
-        mCodeProduct = (TextInputEditText) itemView.findViewById(R.id.product_code);
-        mButton = (Button) itemView.findViewById(R.id.button);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        mProductname = (TextInputEditText) view.findViewById(R.id.productname);
+        mPriceProduct = (TextInputEditText) view.findViewById(R.id.product_price);
+        mQuanProduct = (TextInputEditText) view.findViewById(R.id.product_quan);
+        mCodeProduct = (TextInputEditText) view.findViewById(R.id.product_code);
+        mButton = (Button) view.findViewById(R.id.button);
         mButton.setOnClickListener(this);
-        mImageUrlProduct = (TextInputEditText) itemView.findViewById(R.id.pr_image_url);
+        mImageUrlProduct = (TextInputEditText) view.findViewById(R.id.pr_image_url);
     }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//
-//        if (requestCode == STORAGE_PERMISSION_CODE)
-//            if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED)
-//                requestStoragePermission();
-//    }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == IMAGE_SELECT_CODE) if (resultCode == Activity.RESULT_OK) {
-//
-//            if (data == null) {
-//                //Display an error
-//                Toast.makeText(getActivity(), "Unable to handle image.", Toast.LENGTH_SHORT).show();
-//                filePath = null;
-//                mImageView.setImageResource(R.drawable.selectimage);
-//                return;
-//            }
-//
-//            filePath = data.getData();
-//            mImageView.setImageURI(filePath);
-//
-//        } else {
-//            filePath = null;
-//            mImageView.setImageResource(R.drawable.selectimage);
-//        }
-//    }
-
 
     @Override
     public void onClick(View v) {

@@ -12,13 +12,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.CartActivity"></activity>
+        <activity android:name=".activity.CartActivity"/>
         <activity android:name=".activity.ProductViewActivity" />
         <activity android:name=".activity.ProductActivity" />
         <activity android:name=".fragment.admin_fragment.AdminProfileFragment" />

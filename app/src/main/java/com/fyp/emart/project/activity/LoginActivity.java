@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.appcompat.widget.Toolbar;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,10 +42,7 @@ import static com.fyp.emart.project.Api.DataConfig.KEY_ROLE_ID;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    /**
-     *
-     */
-    private TextView mTvTitleApp;
+
     /**
      * Please SignIn to continue
      */
@@ -99,7 +97,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
 
-        mTvTitleApp = (TextView) findViewById(R.id.tvTitleApp);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         mTvSubtitleSignIn = (TextView) findViewById(R.id.tvSubtitleSignIn);
         mTitEmail = (TextInputEditText) findViewById(R.id.titEmail);
         mTilEmail = (TextInputLayout) findViewById(R.id.tilEmail);
@@ -180,7 +179,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     switch (role) {
                                         case "1"://Customer Role
 
-                                            i = new Intent(LoginActivity.this, ProductActivity.class);
+                                            i = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
                                             finish();
