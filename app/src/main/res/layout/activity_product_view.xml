@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true" />
 
-                    <TextView
+                    <Textview
                         android:id="@+id/apv_discount"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <drawable name="rect">
-        <![CDATA[<?xml version="1.0" encoding="utf-8"?>  <shape xmlns:android="http://schemas.android.com/apk/res/android"     android:id="@+id/listview_background_shape">     <stroke         android:width="0dp"         android:color="#00000000" />     <padding         android:bottom="0dp"         android:left="0dp"         android:right="0dp"         android:top="0dp" />     <corners android:radius="100dp" />     <solid android:color="@color/colorPrimary" />  </shape> ]]></drawable>
-    <drawable name="shop_button_bg">
-        <![CDATA[<?xml version="1.0" encoding="utf-8"?> <shape xmlns:android="http://schemas.android.com/apk/res/android"     android:dither="true"     android:shape="rectangle"     android:useLevel="true">       <gradient         android:angle="180"         android:endColor="#FC5952"         android:startColor="#FC5952"         android:type="linear" />     <corners android:radius="5dp" />     <stroke         android:width="1dp"         android:color="#f5f5f5" /> </shape>]]></drawable>
-    <drawable name="rounded_corner">
-        <![CDATA[<?xml version="1.0" encoding="utf-8"?> <shape xmlns:android="http://schemas.android.com/apk/res/android">     <stroke         android:width="1dp"         android:color="#ffffff" />      <solid android:color="@color/colorAccent" />      <padding         android:left="1dp"         android:right="1dp"         android:top="1dp" />     <corners android:radius="100dp" /> </shape>]]></drawable>
-</resources>

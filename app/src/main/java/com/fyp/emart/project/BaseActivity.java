@@ -1,6 +1,8 @@
 package com.fyp.emart.project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -26,10 +28,11 @@ public class BaseActivity extends AppCompatActivity implements AddorRemoveCallba
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 20;
     List<Cart> cartList = new ArrayList<Cart>();
     List<Order> orderList = new ArrayList<Order>();
-    Gson gson;
-    LocalStorage localStorage;
+    public Gson gson;
+    public LocalStorage localStorage;
     String userJson;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

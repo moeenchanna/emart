@@ -346,5 +346,7 @@
     <color name="colorbutton">#ff5254</color>
     <color name="iconcolour">#9ba4ab</color>
     <color name="strok">#e4e5ea</color>
+    <color name="cardBorderColor">#dedede</color>
+    <color name="borderColor">#EAEAEA</color>
 
 </resources>
