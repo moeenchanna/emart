@@ -55,6 +55,10 @@ public class ProductActivity extends BaseActivity {
     }
 
     private void initView() {
+
+        Intent intent = getIntent();
+        String martid = intent.getStringExtra("id");
+
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         cart_count = cartCount();
@@ -65,14 +69,14 @@ public class ProductActivity extends BaseActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading please wait...");
 
-        productData();
+        productData(martid);
 
 
 
 
     }
 
-    public void productData()
+    public void productData(String martid)
     {
         progressDialog.show();
         GridLayoutManager layoutManager = new GridLayoutManager(ProductActivity.this,2);
@@ -80,7 +84,7 @@ public class ProductActivity extends BaseActivity {
         productAdapter = new ProductAdapter(this,productLists);
         mRecyclerViewProduct.setAdapter(productAdapter);
 
-        Call<List<ProductList>> productlistCall = mApiService.getProducts();
+        Call<List<ProductList>> productlistCall = mApiService.getProducts(martid);
         productlistCall.enqueue(new Callback<List<ProductList>>() {
             @Override
             public void onResponse(Call<List<ProductList>> call, Response<List<ProductList>> response) {

@@ -16,6 +16,7 @@ import retrofit2.http.POST;
 
 public interface BaseApiService {
 
+    // Customer Signup
     @FormUrlEncoded
     @POST("FypProject/Emart/register_customer.php")
     Call<ResponseBody> registerCustomer(
@@ -25,6 +26,7 @@ public interface BaseApiService {
             @Field("phone") String phone,
             @Field("address") String address);
 
+    // Mart Signup
     @FormUrlEncoded
     @POST("FypProject/Emart/register_mart.php")
     Call<ResponseBody> registerMart(
@@ -42,6 +44,7 @@ public interface BaseApiService {
             @Field("ownerdetail") String ownerdetail,
             @Field("voucher") String voucher);
 
+    // User Signup
     @FormUrlEncoded
     @POST("FypProject/Emart/register_user.php")
     Call<ResponseBody> registerUser(
@@ -49,21 +52,20 @@ public interface BaseApiService {
             @Field("password") String password,
             @Field("role") String roleid);
 
-  /*  @FormUrlEncoded
-    @POST("user_login.php")
-    Call<ResponseBody> loginUser(
-            @Field("email")String email,
-            @Field("password")String password);*/
 
+    // User Authentication
     @FormUrlEncoded
     @POST("FypProject/Emart/user_login.php")
     Call<ResponseBody> loginUser(
             @Field("email") String email,
             @Field("password") String password);
 
+    // Get products by mart id
     @GET("FypProject/Emart/getproducts.php")
-    Call<List<ProductList>> getProducts();
+    Call<List<ProductList>> getProducts(@Field("mart") String martid);
 
+
+    // Get mart
     @GET("FypProject/Emart/getmarts.php")
     Call<List<MartList>> getMarts();
 

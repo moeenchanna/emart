@@ -78,9 +78,11 @@ public class CustomerHomeFragment extends Fragment {
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //Toast.makeText(getApplicationContext(), "id: "+productCategoryListPojos.get(position).getId(), Toast.LENGTH_SHORT).show();
-
+               // Toast.makeText(getActivity(), "id: "+martLists.get(position).getIdMart(), Toast.LENGTH_SHORT).show();
+                Bundle b = new Bundle();
                 Intent i = new Intent(getActivity(), ProductActivity.class);
+                b.putString("id",martLists.get(position).getIdMart());
+                i.putExtras(b);
                 startActivity(i);
             }
         });
@@ -93,7 +95,6 @@ public class CustomerHomeFragment extends Fragment {
     {
         progressDialog.show();
          LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-       //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
         mRecyclerViewMart.setLayoutManager(layoutManager);
         martAdapter = new MartAdapter(getActivity(),martLists);
         mRecyclerViewMart.setAdapter(martAdapter);
