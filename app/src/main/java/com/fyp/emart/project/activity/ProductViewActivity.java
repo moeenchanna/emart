@@ -61,13 +61,13 @@ public class ProductViewActivity extends BaseActivity {
         _attribute = intent.getStringExtra("attribute");
         _mart = intent.getStringExtra("mart");
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+      /*  getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         changeActionBarTitle(getSupportActionBar());
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
         //upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);*/
 
         cart_count = cartCount();
 
