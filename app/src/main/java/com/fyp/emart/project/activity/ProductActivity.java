@@ -3,6 +3,7 @@ package com.fyp.emart.project.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -81,16 +82,16 @@ public class ProductActivity extends BaseActivity {
         ImageView searchIcon = (ImageView) searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
         searchIcon.setImageResource(R.drawable.searchpic);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 productAdapter.getFilter().filter(query);
-
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
-                productAdapter.getFilter().filter(query);
+            public boolean onQueryTextChange(String newText) {
+                productAdapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -102,7 +103,7 @@ public class ProductActivity extends BaseActivity {
     public void productData()
     {
         progressDialog.show();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ProductActivity.this);
+        GridLayoutManager layoutManager = new GridLayoutManager(ProductActivity.this,2);
         mRecyclerViewProduct.setLayoutManager(layoutManager);
         productAdapter = new ProductAdapter(this,productLists);
         mRecyclerViewProduct.setAdapter(productAdapter);

@@ -2,7 +2,10 @@ package com.fyp.emart.project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -38,6 +41,7 @@ public class BaseActivity extends AppCompatActivity implements AddorRemoveCallba
         //user = gson.fromJson(userJson, UserResult.class);
         //  NetworkCheck.isNetworkAvailable(getApplicationContext());
         cartCount();
+
     }
 
     public int cartCount() {
@@ -108,6 +112,42 @@ public class BaseActivity extends AppCompatActivity implements AddorRemoveCallba
 
     @Override
     public void updateTotalPrice() {
+
+    }
+
+
+    public void EnableRuntimePermission() {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(BaseActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(BaseActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                } else {
+                    ActivityCompat.requestPermissions(BaseActivity.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+            }
+            if (ContextCompat.checkSelfPermission(BaseActivity.this,
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(BaseActivity.this,
+                        Manifest.permission.CAMERA)) {
+
+                } else {
+                    ActivityCompat.requestPermissions(BaseActivity.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            MY_PERMISSIONS_REQUEST_CAMERA);
+                }
+            }
+        }
 
     }
 

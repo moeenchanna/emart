@@ -37,6 +37,7 @@ dependencies {
     //Url Image View
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     //Click recycler item
     implementation 'com.chootdev:recycleclick:1.0.0'

@@ -338,4 +338,13 @@
     <color name="grey_900">#212121</color>
     <color name="grey_1000">#1a1a1a</color>
 
+    <color name="devider">#ebebeb</color>
+    <color name="colorSub">#b0afaf</color>
+    <color name="colorTex">#585858</color>
+    <color name="colorblue">#4c71f5</color>
+    <color name="colordevider">#f1f2f4</color>
+    <color name="colorbutton">#ff5254</color>
+    <color name="iconcolour">#9ba4ab</color>
+    <color name="strok">#e4e5ea</color>
+
 </resources>

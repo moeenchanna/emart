@@ -3,6 +3,7 @@ package com.fyp.emart.project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fyp.emart.project.BaseActivity;
@@ -11,6 +12,7 @@ import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
 import com.fyp.emart.project.fragment.customer_fragment.MartMapFragment;
+import com.fyp.emart.project.helper.Converter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,8 @@ public class CustomerDashboardActivity extends BaseActivity {
     private BottomNavigationView mBottomNavigation;
     private ViewPager mViewpager;
     MenuItem prevMenuItem;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,8 @@ public class CustomerDashboardActivity extends BaseActivity {
     }
 
     private void initView() {
+        cart_count = cartCount();
+
         mBottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mViewpager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -118,5 +124,26 @@ public class CustomerDashboardActivity extends BaseActivity {
         super.onRemoveProduct();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.cart_action);
+        menuItem.setIcon(Converter.convertLayoutToImage(CustomerDashboardActivity.this, cart_count, R.drawable.ic_shopping_basket));
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cart_action:
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
 }
