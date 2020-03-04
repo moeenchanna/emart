@@ -1,18 +1,23 @@
 package com.fyp.emart.project.fragment.customer_fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.fyp.emart.project.R;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 public class CustomerProfileFragment extends Fragment {
+
+    private TextView mTvname;
+    private TextView mTvemail;
+    private TextView mTvmobile;
+    private TextView mTvaddress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -21,4 +26,13 @@ public class CustomerProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_customer_profile, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mTvname = (TextView) view.findViewById(R.id.tvname);
+        mTvemail = (TextView) view.findViewById(R.id.tvemail);
+        mTvmobile = (TextView) view.findViewById(R.id.tvmobile);
+        mTvaddress = (TextView) view.findViewById(R.id.tvaddress);
+    }
 }
