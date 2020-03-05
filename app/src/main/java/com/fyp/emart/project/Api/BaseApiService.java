@@ -14,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface BaseApiService {
 
@@ -63,7 +64,7 @@ public interface BaseApiService {
 
     // Get products by mart id
     @GET("FypProject/Emart/getproducts.php")
-    Call<List<ProductList>> getProducts(@Field("mart") String martid);
+    Call<List<ProductList>> getProducts(@Query("mart") String martid);
 
 
     // Get mart

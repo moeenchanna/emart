@@ -41,14 +41,14 @@ public class MartHomeAdapter extends RecyclerView.Adapter<MartHomeAdapter.Myview
     @Override
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
-        holder.tvmartname.setText(martLists.get(position).getMartName());
+        holder.tvmartname.setText(martLists.get(position).getName());
 
         RequestOptions options = new RequestOptions()
                 .centerInside()
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.loading);
 
-        String Simage = martLists.get(position).getMartlogo();
+        String Simage = martLists.get(position).getLogo();
         Simage.replace("\\/","");
         Glide.with(context).load(Simage).apply(options).into(holder.image);
 

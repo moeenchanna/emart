@@ -78,10 +78,10 @@ public class CustomerHomeFragment extends Fragment {
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-               // Toast.makeText(getActivity(), "id: "+martLists.get(position).getIdMart(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "id: "+martLists.get(position).getId(), Toast.LENGTH_SHORT).show();
                 Bundle b = new Bundle();
                 Intent i = new Intent(getActivity(), ProductActivity.class);
-                b.putString("id",martLists.get(position).getIdMart());
+                b.putString("id",martLists.get(position).getId());
                 i.putExtras(b);
                 startActivity(i);
             }
