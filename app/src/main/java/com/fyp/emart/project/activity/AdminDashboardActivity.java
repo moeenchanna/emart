@@ -31,7 +31,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_dashboard);
         initView();
 
-
     }
 
     private void initView() {
@@ -96,6 +95,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         adapter.addFragment(adminComplainFragment);
         adapter.addFragment(adminProfileFragment);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
 
     }
 

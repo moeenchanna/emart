@@ -1,33 +1,26 @@
 package com.fyp.emart.project.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.model.AdminOrder;
-import com.fyp.emart.project.model.Cart;
-import com.fyp.emart.project.model.MartList;
-import com.fyp.emart.project.utils.LocalStorage;
-import com.google.gson.Gson;
 
 import java.util.List;
 
 public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.MyviewHolder> {
 
-    List<AdminOrder> adminOrderList;
-    Context context;
-    LocalStorage localStorage;
-    Gson gson;
-
-    public AdminOrderAdapter() {
-    }
+    private List<AdminOrder> adminOrderList;
+    private Context context;
 
     public AdminOrderAdapter(List<AdminOrder> adminOrderList, Context context) {
         this.adminOrderList = adminOrderList;
@@ -39,24 +32,39 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public MyviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
         itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_cart, parent, false);
+                .inflate(R.layout.recycler_admin_order, parent, false);
 
 
         return new MyviewHolder(itemView);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
         final AdminOrder order = adminOrderList.get(position);
-        localStorage = new LocalStorage(context);
-        gson = new Gson();
+
+        String id = order.getStatusid();
+
+        if (id.equals("0")) {
+            holder.status.setTextColor(Color.RED);
+            Toast.makeText(context, "0", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (id.equals("1")) {
+            holder.status.setTextColor(Color.YELLOW);
+            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (id.equals("2")) {
+            holder.status.setTextColor(Color.GREEN);
+            Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
+        }
 
         holder.date.setText(order.getDatetime());
         holder.order.setText(order.getOrderno());
@@ -68,13 +76,16 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
 
     @Override
     public int getItemCount() {
+        if (adminOrderList != null) {
+            return adminOrderList.size();
+        }
         return 0;
     }
 
-    public class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView date,order,name,email,total,status;
+    static class MyviewHolder extends RecyclerView.ViewHolder {
+        TextView date, order, name, email, total, status;
 
-        public MyviewHolder(View itemView) {
+        MyviewHolder(View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.admin_order_date);
             order = itemView.findViewById(R.id.admin_order_number);
