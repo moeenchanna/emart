@@ -52,24 +52,24 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
         String id = order.getStatusid();
 
         if (id.equals("0")) {
-            holder.status.setTextColor(Color.RED);
+            holder.status.setTextColor(Color.RED);// on hold
             Toast.makeText(context, "0", Toast.LENGTH_SHORT).show();
             return;
         }
         if (id.equals("1")) {
-            holder.status.setTextColor(Color.YELLOW);
+            holder.status.setTextColor(Color.YELLOW);// in process
             Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
             return;
         }
         if (id.equals("2")) {
-            holder.status.setTextColor(Color.GREEN);
+            holder.status.setTextColor(Color.GREEN);// delievered success
             Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
         }
 
         holder.date.setText(order.getDatetime());
         holder.order.setText(order.getOrderno());
         holder.email.setText(order.getCustemail());
-        holder.total.setText(order.getSubtotal());
+        holder.total.setText("Rs: "+order.getSubtotal());
         holder.status.setText(order.getStatus());
 
     }

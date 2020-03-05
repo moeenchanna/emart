@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fyp.emart.project.BaseActivity;
+import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,9 +27,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MartMapFragment extends Fragment implements OnMapReadyCallback{
+public class MartMapFragment extends BaseFragment implements OnMapReadyCallback{
 //https://github.com/rrsaikat/MultipleMarker_Using_Volley/blob/master/app/src/main/java/com/rrrsaikat88gmail/multiplemarker_using_volley/MapsActivity.java
     private GoogleMap mMap;
+    private static int cart_count = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class MartMapFragment extends Fragment implements OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        cart_count = cartCount();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);

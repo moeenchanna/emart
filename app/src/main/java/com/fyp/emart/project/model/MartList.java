@@ -5,62 +5,169 @@ import com.google.gson.annotations.SerializedName;
 
 public class MartList {
 
-
-
-    @SerializedName("IdMart")
+    @SerializedName("id")
     @Expose
-    private String idMart;
-    @SerializedName("MartName")
+    private String id;
+    @SerializedName("name")
     @Expose
-    private String martName;
-    @SerializedName("Martlogo")
+    private String name;
+    @SerializedName("email")
     @Expose
-    private String martlogo;
-    @SerializedName("MartBanner")
+    private String email;
+    @SerializedName("password")
     @Expose
-    private String martBanner;
-    @SerializedName("MartAddress")
+    private String password;
+    @SerializedName("phone")
     @Expose
-    private String martAddress;
+    private String phone;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+    @SerializedName("longitude")
+    @Expose
+    private String longitude;
+    @SerializedName("logo")
+    @Expose
+    private String logo;
+    @SerializedName("banner")
+    @Expose
+    private String banner;
+    @SerializedName("owner")
+    @Expose
+    private String owner;
+    @SerializedName("ownernumber")
+    @Expose
+    private String ownernumber;
+    @SerializedName("ownerdetail")
+    @Expose
+    private String ownerdetail;
+    @SerializedName("voucher")
+    @Expose
+    private String voucher;
+    @SerializedName("fcmkey")
+    @Expose
+    private String fcmkey;
 
-    public String getIdMart() {
-        return idMart;
+    public String getId() {
+        return id;
     }
 
-    public void setIdMart(String idMart) {
-        this.idMart = idMart;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getMartName() {
-        return martName;
+    public String getName() {
+        return name;
     }
 
-    public void setMartName(String martName) {
-        this.martName = martName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMartlogo() {
-        return martlogo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMartlogo(String martlogo) {
-        this.martlogo = martlogo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getMartBanner() {
-        return martBanner;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMartBanner(String martBanner) {
-        this.martBanner = martBanner;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getMartAddress() {
-        return martAddress;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMartAddress(String martAddress) {
-        this.martAddress = martAddress;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getOwnernumber() {
+        return ownernumber;
+    }
+
+    public void setOwnernumber(String ownernumber) {
+        this.ownernumber = ownernumber;
+    }
+
+    public String getOwnerdetail() {
+        return ownerdetail;
+    }
+
+    public void setOwnerdetail(String ownerdetail) {
+        this.ownerdetail = ownerdetail;
+    }
+
+    public String getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(String voucher) {
+        this.voucher = voucher;
+    }
+
+    public String getFcmkey() {
+        return fcmkey;
+    }
+
+    public void setFcmkey(String fcmkey) {
+        this.fcmkey = fcmkey;
+    }
 }

@@ -44,20 +44,21 @@ public class ProductActivity extends BaseActivity {
 
     Context mContext;
     BaseApiService mApiService;
-
+    String martid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        Intent intent = getIntent();
+        martid = intent.getStringExtra("id");
         initView();
 
     }
 
     private void initView() {
 
-        Intent intent = getIntent();
-        String martid = intent.getStringExtra("id");
+
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -69,14 +70,14 @@ public class ProductActivity extends BaseActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading please wait...");
 
-        productData(martid);
+        productData();
 
 
 
 
     }
 
-    public void productData(String martid)
+    public void productData()
     {
         progressDialog.show();
         GridLayoutManager layoutManager = new GridLayoutManager(ProductActivity.this,2);
