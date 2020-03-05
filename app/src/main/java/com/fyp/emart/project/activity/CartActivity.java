@@ -171,7 +171,6 @@ public class CartActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), ProductActivity.class));
-        finish();
+        super.onBackPressed();
     }
 }

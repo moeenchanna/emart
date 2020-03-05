@@ -251,7 +251,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
             }
         });
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+      /*  holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductViewActivity.class);
@@ -268,7 +268,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }
-        });
+        });*/
 
 
     }

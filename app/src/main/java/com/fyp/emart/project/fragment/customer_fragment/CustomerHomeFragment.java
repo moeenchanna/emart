@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
+import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.ProductActivity;
 import com.fyp.emart.project.adapters.MartAdapter;
@@ -40,8 +41,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerHomeFragment extends Fragment {
-
+public class CustomerHomeFragment extends BaseFragment {
+    private static int cart_count = 0;
     private RecyclerView mRecyclerViewMart;
     private List<MartList> martLists;
     private MartAdapter martAdapter;
@@ -62,6 +63,7 @@ public class CustomerHomeFragment extends Fragment {
 
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        cart_count = cartCount();
 
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
