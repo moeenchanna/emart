@@ -13,11 +13,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.fyp.emart.project.R;
 
 
 public class MartProfileFragment extends Fragment {
+
+
+    private TextView mTvname;
+    private TextView mTvemail;
+    private TextView mTvmobile;
+    private TextView mTvaddress;
 
 
     @Override

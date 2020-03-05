@@ -1,11 +1,14 @@
 package com.fyp.emart.project.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,67 +16,89 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.model.AdminOrder;
 import com.fyp.emart.project.model.MartList;
 
 import java.util.List;
 
 public class MartHomeAdapter extends RecyclerView.Adapter<MartHomeAdapter.MyviewHolder>{
 
-    Context context;
-    List<MartList> martLists;
+    private List<AdminOrder> adminOrderList;
+    private Context context;
 
-    public MartHomeAdapter(Context context, List<MartList> martLists) {
+    public MartHomeAdapter(List<AdminOrder> adminOrderList, Context context) {
+        this.adminOrderList = adminOrderList;
         this.context = context;
-        this.martLists = martLists;
     }
 
-    public void setMartList(List<MartList> martList) {
-        this.martLists = martList;
+    public void setOrderList(List<AdminOrder> adminOrders) {
+        this.adminOrderList = adminOrders;
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
-    public MartHomeAdapter.MyviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recylerview_mart_orderlist_layout,parent,false);
-       return new MartHomeAdapter.MyviewHolder(view);
+    public MartHomeAdapter.MyviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView;
+        itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recylerview_mart_orderlist_layout, parent, false);
+
+
+        return new MartHomeAdapter.MyviewHolder(itemView);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MartHomeAdapter.MyviewHolder holder, int position) {
 
-        holder.tvmartname.setText(martLists.get(position).getMartName());
+        final AdminOrder order = adminOrderList.get(position);
 
-        RequestOptions options = new RequestOptions()
-                .centerInside()
-                .placeholder(R.drawable.loading)
-                .error(R.drawable.loading);
+        String id = order.getStatusid();
 
-        String Simage = martLists.get(position).getMartlogo();
-        Simage.replace("\\/","");
-        Glide.with(context).load(Simage).apply(options).into(holder.image);
+        holder.date.setText(order.getDatetime());
+        holder.order.setText(order.getOrderno());
+        holder.email.setText(order.getCustemail());
+        holder.total.setText(order.getSubtotal());
+        holder.status.setText(order.getStatus());
+
+        if (id.equals("0")) {
+            holder.status.setTextColor(Color.RED);
+            Toast.makeText(context, "0", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (id.equals("1")) {
+            holder.status.setTextColor(Color.YELLOW);
+            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (id.equals("2")) {
+            holder.status.setTextColor(Color.GREEN);
+            Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
-
-
-
 
     @Override
     public int getItemCount() {
-        if(martLists != null){
-            return martLists.size();
+        if (adminOrderList != null) {
+            return adminOrderList.size();
         }
         return 0;
-
     }
 
-    public class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView tvmartname;
-        ImageView image;
+    static class MyviewHolder extends RecyclerView.ViewHolder {
+        TextView date, order, name, email, total, status;
 
-        public MyviewHolder(View itemView) {
+        MyviewHolder(View itemView) {
             super(itemView);
-          /*  tvmartname = (TextView)itemView.findViewById(R.id.martname);
-            image = (ImageView)itemView.findViewById(R.id.image);*/
+            date = itemView.findViewById(R.id.mart_order_date);
+            order = itemView.findViewById(R.id.mart_order_number);
+            name = itemView.findViewById(R.id.mart_order_name);
+            email = itemView.findViewById(R.id.mart_order_email);
+            total = itemView.findViewById(R.id.mart_order_total);
+            status = itemView.findViewById(R.id.mart_order_status);
         }
     }
 

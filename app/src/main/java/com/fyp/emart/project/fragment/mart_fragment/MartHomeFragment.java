@@ -22,12 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.adapters.MartAdapter;
 import com.fyp.emart.project.adapters.MartHomeAdapter;
 import com.fyp.emart.project.adapters.ProductAdapter;
+import com.fyp.emart.project.model.AdminOrder;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
 
@@ -45,6 +48,8 @@ public class MartHomeFragment extends Fragment {
 
     ProgressDialog progressDialog;
 
+    List<AdminOrder> adminOrderList;
+
     Context mContext;
     BaseApiService mApiService;
 
@@ -54,62 +59,70 @@ public class MartHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mart_home, container, false);
     }
-        @Override
-        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-            Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-            mApiService = UtilsApi.getAPIService();
-            mContext = getActivity();
-            mRecyclerViewMart = (RecyclerView) view.findViewById(R.id.mart_recycler_view);
+        mApiService = UtilsApi.getAPIService();
+        mContext = getActivity();
+        mRecyclerViewMart = view.findViewById(R.id.order_recycler_view);
 
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage("Loading please wait...");
-
-            // productData();
-            martData();
-        }
+        progressDialog = new ProgressDialog(mContext);
+        progressDialog.setMessage("Loading please wait...");
 
 
+        orderData();
 
 
-        public void martData()
-        {
-            progressDialog.show();
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
-            mRecyclerViewMart.setLayoutManager(layoutManager);
-            martHomeAdapter = new MartHomeAdapter(getActivity(),martLists);
-            mRecyclerViewMart.setAdapter(martHomeAdapter);
-            Call<List<MartList>> martlistCall = mApiService.getMarts();
-            martlistCall.enqueue(new Callback<List<MartList>>() {
-                @Override
-                public void onResponse(Call<List<MartList>> call, Response<List<MartList>> response) {
-                    progressDialog.dismiss();
-                    martLists = response.body();
-                    Log.d("TAG","Response = "+martLists);
-                    martHomeAdapter.setMartList(martLists);
-                }
-
-                @Override
-                public void onFailure(Call<List<MartList>> call, Throwable t) {
-                    progressDialog.dismiss();
-                    Log.e("Error", t.getMessage());
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        @Override
-        public void onDestroy(){
-            super.onDestroy();
-            if ( progressDialog!=null && progressDialog.isShowing() ){
-                progressDialog.cancel();
+        RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                //Toast.makeText(getApplicationContext(), "id: "+productCategoryListPojos.get(position).getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, position, Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(mContext, ProductActivity.class));
             }
+        });
+    }
+
+
+    private void orderData() {
+        progressDialog.show();
+
+        mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
+        martHomeAdapter = new MartHomeAdapter((List<AdminOrder>) martHomeAdapter,mContext);
+        mRecyclerViewMart.setAdapter(martHomeAdapter);
+
+        final Call<List<AdminOrder>> adminOrder = mApiService.getAdminorder();
+        adminOrder.enqueue(new Callback<List<AdminOrder>>() {
+            @Override
+            public void onResponse(Call<List<AdminOrder>> call, Response<List<AdminOrder>> response) {
+                progressDialog.dismiss();
+                adminOrderList = response.body();
+                Log.d("TAG","Response = "+adminOrderList);
+                martHomeAdapter.setOrderList(adminOrderList);
+            }
+
+            @Override
+            public void onFailure(Call<List<AdminOrder>> call, Throwable t) {
+                progressDialog.dismiss();
+                Log.e("Error", t.getMessage());
+                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
         }
-        }
+    }
+}
 
 
 
