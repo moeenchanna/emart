@@ -72,7 +72,7 @@ public interface BaseApiService {
 
     // Get mart
     @GET("FypProject/Emart/getorders.php")
-    Call<List<AdminOrder>> getorder();
+    Call<List<AdminOrder>> getAdminorder();
 
 
 
