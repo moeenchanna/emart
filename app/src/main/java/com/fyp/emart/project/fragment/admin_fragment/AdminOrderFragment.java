@@ -2,7 +2,6 @@ package com.fyp.emart.project.fragment.admin_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +21,8 @@ import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.activity.ProductActivity;
-import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.adapters.OrderAdapter;
-import com.fyp.emart.project.model.AdminOrder;
-import com.fyp.emart.project.model.MartList;
+import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
 
@@ -37,10 +33,10 @@ import retrofit2.Response;
 public class AdminOrderFragment extends Fragment {
 
     private RecyclerView mRecyclerViewMart;
-    private AdminOrderAdapter orderAdapter;
+    private OrderAdapter orderAdapter;
     private ProgressDialog progressDialog;
 
-    List<AdminOrder> adminOrderList;
+    List<OrderList> orderListList;
 
     private Context mContext;
     private BaseApiService mApiService;
@@ -69,15 +65,6 @@ public class AdminOrderFragment extends Fragment {
 
         orderData();
 
-
-        RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                //Toast.makeText(getApplicationContext(), "id: "+productCategoryListPojos.get(position).getId(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, position, Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(mContext, ProductActivity.class));
-            }
-        });
     }
 
 
@@ -85,21 +72,21 @@ public class AdminOrderFragment extends Fragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter = new AdminOrderAdapter(adminOrderList,mContext);
+        orderAdapter = new OrderAdapter(orderListList,mContext);
         mRecyclerViewMart.setAdapter(orderAdapter);
 
-        final Call<List<AdminOrder>> adminOrder = mApiService.getAdminorder();
-        adminOrder.enqueue(new Callback<List<AdminOrder>>() {
+        final Call<List<OrderList>> adminOrder = mApiService.getAdminorder();
+        adminOrder.enqueue(new Callback<List<OrderList>>() {
             @Override
-            public void onResponse(Call<List<AdminOrder>> call, Response<List<AdminOrder>> response) {
+            public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
                 progressDialog.dismiss();
-                adminOrderList = response.body();
-                Log.d("TAG","Response = "+adminOrderList);
-                orderAdapter.setOrderList(adminOrderList);
+                orderListList = response.body();
+                Log.d("TAG","Response = "+ orderListList);
+                orderAdapter.setOrderList(orderListList);
             }
 
             @Override
-            public void onFailure(Call<List<AdminOrder>> call, Throwable t) {
+            public void onFailure(Call<List<OrderList>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();

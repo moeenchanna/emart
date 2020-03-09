@@ -1,8 +1,6 @@
 package com.fyp.emart.project.Api;
 
-import androidx.annotation.Nullable;
-
-import com.fyp.emart.project.model.AdminOrder;
+import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
 
@@ -71,10 +69,17 @@ public interface BaseApiService {
     @GET("FypProject/Emart/getmarts.php")
     Call<List<MartList>> getMarts();
 
-    // Get mart
+    // Get all orders for admin
     @GET("FypProject/Emart/getorders.php")
-    Call<List<AdminOrder>> getAdminorder();
+    Call<List<OrderList>> getAdminorder();
 
+    // Get all orders for customer
+    @GET("FypProject/Emart/getorderhistory.php")
+    Call<List<OrderList>> getOrderHistory(@Query("custemail") String custemail);
+
+    // Get all orders for customer
+    @GET("FypProject/Emart/getmartorders.php")
+    Call<List<OrderList>> getMartOrders(@Query("martid") String martid);
 
 
 }

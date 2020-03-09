@@ -16,6 +16,13 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_orderz"
+        android:checked="false"
+        android:icon="@drawable/ic_reorder_black_24dp"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_profile"
         android:checked="false"
         android:icon="@drawable/ic_person_black_24dp"

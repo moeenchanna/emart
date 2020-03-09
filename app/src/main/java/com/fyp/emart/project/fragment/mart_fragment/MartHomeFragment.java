@@ -2,7 +2,7 @@ package com.fyp.emart.project.fragment.mart_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,21 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.adapters.AdminOrderAdapter;
-import com.fyp.emart.project.adapters.MartAdapter;
 import com.fyp.emart.project.adapters.MartHomeAdapter;
-import com.fyp.emart.project.adapters.ProductAdapter;
-import com.fyp.emart.project.model.AdminOrder;
+import com.fyp.emart.project.adapters.OrderAdapter;
+import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
-import com.fyp.emart.project.model.ProductList;
 
 import java.util.List;
 
@@ -43,15 +37,14 @@ import retrofit2.Response;
 public class MartHomeFragment extends Fragment {
 
     private RecyclerView mRecyclerViewMart;
-    List<MartList> martLists;
-    MartHomeAdapter martHomeAdapter;
+    private OrderAdapter orderAdapter;
+    private ProgressDialog progressDialog;
 
-    ProgressDialog progressDialog;
+    List<OrderList> orderListList;
 
-    List<AdminOrder> adminOrderList;
-
-    Context mContext;
-    BaseApiService mApiService;
+    private Context mContext;
+    private BaseApiService mApiService;
+    SharedPreferences loginPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,21 +85,21 @@ public class MartHomeFragment extends Fragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        martHomeAdapter = new MartHomeAdapter((List<AdminOrder>) martHomeAdapter,mContext);
-        mRecyclerViewMart.setAdapter(martHomeAdapter);
+        orderAdapter = new OrderAdapter(orderListList,mContext);
+        mRecyclerViewMart.setAdapter(orderAdapter);
 
-        final Call<List<AdminOrder>> adminOrder = mApiService.getAdminorder();
-        adminOrder.enqueue(new Callback<List<AdminOrder>>() {
+        final Call<List<OrderList>> adminOrder = mApiService.getMartOrders("2");
+        adminOrder.enqueue(new Callback<List<OrderList>>() {
             @Override
-            public void onResponse(Call<List<AdminOrder>> call, Response<List<AdminOrder>> response) {
+            public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
                 progressDialog.dismiss();
-                adminOrderList = response.body();
-                Log.d("TAG","Response = "+adminOrderList);
-                martHomeAdapter.setOrderList(adminOrderList);
+                orderListList = response.body();
+                Log.d("TAG","Response = "+ orderListList);
+                orderAdapter.setOrderList(orderListList);
             }
 
             @Override
-            public void onFailure(Call<List<AdminOrder>> call, Throwable t) {
+            public void onFailure(Call<List<OrderList>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();

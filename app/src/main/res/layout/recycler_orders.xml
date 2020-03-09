@@ -9,36 +9,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="25dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/admin_order_date"
-                android:layout_width="35dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="5sp"
-                android:gravity="center"
-                android:text="2017 \n 02 \nDec"
-                android:textSize="15sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="184dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/admin_order_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="2017-02-Dec"
+                    android:textColor="@color/overlay_dark_70"
+                    android:textSize="15sp" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Order:"
+                        android:textColor="@color/overlay_dark_70"
                         android:textSize="17sp" />
 
                     <TextView
@@ -46,24 +50,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" #3480"
-                        android:textColor="@color/blue_500"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="17sp" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/admin_order_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Shajed Evan"
-                    android:textColor="@color/overlay_dark_90"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/admin_order_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/overlay_dark_70"
                     android:text="evanshajeed@gmail.com" />
 
             </LinearLayout>
@@ -79,16 +76,16 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Total"
+                    android:textColor="@color/overlay_dark_70"
                     android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/admin_order_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$154.00"
+                    android:text="Rs: 154.00"
                     android:textColor="@color/overlay_dark_70"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp"/>
 
             </LinearLayout>
 

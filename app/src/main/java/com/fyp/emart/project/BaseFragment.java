@@ -3,12 +3,9 @@ package com.fyp.emart.project;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.fyp.emart.project.model.Cart;
-import com.fyp.emart.project.model.Order;
 import com.fyp.emart.project.utils.AddorRemoveCallbacks;
 import com.fyp.emart.project.utils.LocalStorage;
 import com.google.gson.Gson;
