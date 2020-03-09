@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fyp.emart.project.Api.BaseApiService;
@@ -22,8 +23,12 @@ import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.utils.SaveSharedPreference;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -176,6 +181,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.apply();
                                     SaveSharedPreference.setLoggedIn(mContext, true);
 
+
+
                                     switch (role) {
                                         case "1"://Customer Role
 
@@ -294,5 +301,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else
             return false;
     }
+
+
 
 }

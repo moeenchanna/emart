@@ -17,7 +17,11 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
 
@@ -54,7 +58,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
     private Button mBtnLogin;
 
 
-    String name,email,password,cpassword,phone,address,currentLatitude,currentLongitude;
+    String name,email,password,cpassword,phone,address,currentLatitude,currentLongitude,token;
 
     Context mContext;
     BaseApiService mApiService;
@@ -147,8 +151,23 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
             password = mTitPassword.getText().toString();
             phone = mTitPhone.getText().toString();
             address = mTitAddress.getText().toString();
+
+            FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                @Override
+                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                    if (!task.isSuccessful()) {
+                        Log.w("token", "getInstanceId failed", task.getException());
+                        return;
+                    }
+
+                    // Get new Instance ID token
+                    token = task.getResult().getToken();
+
+                }
+            });
+
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-            RegisterRequest(name,email,password,phone,address);
+            RegisterRequest(name,email,password,phone,address,token);
             customerLoginDetails(email,password);
         }
 
@@ -199,9 +218,9 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                 });
     }
 
-    private void RegisterRequest(final String name, String email, String password, String phone, final String address) {
+    private void RegisterRequest(final String name, String email, String password, String phone, final String address,String token) {
 
-        mApiService.registerCustomer(name,email,password,phone,address)
+        mApiService.registerCustomer(name,email,password,phone,address,token)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

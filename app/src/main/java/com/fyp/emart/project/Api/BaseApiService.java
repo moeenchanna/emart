@@ -24,7 +24,8 @@ public interface BaseApiService {
             @Field("email") String email,
             @Field("password") String password,
             @Field("phone") String phone,
-            @Field("address") String address);
+            @Field("address") String address,
+            @Field("fcmkey") String token);
 
     // Mart Signup
     @FormUrlEncoded
@@ -42,7 +43,9 @@ public interface BaseApiService {
             @Field("owner") String owner,
             @Field("ownernumber") String ownernumber,
             @Field("ownerdetail") String ownerdetail,
-            @Field("voucher") String voucher);
+            @Field("voucher") String voucher,
+            @Field("fcmkey") String token);
+
 
     // User Signup
     @FormUrlEncoded
@@ -80,6 +83,21 @@ public interface BaseApiService {
     // Get all orders for customer
     @GET("FypProject/Emart/getmartorders.php")
     Call<List<OrderList>> getMartOrders(@Query("martid") String martid);
+
+
+    // User Authentication
+    @FormUrlEncoded
+    @POST("FypProject/Emart/punchorder.php")
+    Call<ResponseBody> OrderPunch(
+            @Field("orderno") String orderno,
+            @Field("orderdetail") String orderdetail,
+            @Field("datetime") String datetime,
+            @Field("status") String status,
+            @Field("statusid") String statusid,
+            @Field("subtotal") String subtotal,
+            @Field("custemail") String custemai,
+            @Field("custid") String custid,
+            @Field("martid") String martid);
 
 
 }
