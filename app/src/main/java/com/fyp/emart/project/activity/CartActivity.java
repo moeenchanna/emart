@@ -1,28 +1,23 @@
 package com.fyp.emart.project.activity;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.CartAdapter;
@@ -30,10 +25,23 @@ import com.fyp.emart.project.model.Cart;
 import com.fyp.emart.project.utils.LocalStorage;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class CartActivity extends BaseActivity {
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CartActivity extends BaseActivity implements View.OnClickListener {
     LocalStorage localStorage;
     List<Cart> cartList = new ArrayList<>();
     Gson gson;
@@ -44,12 +52,23 @@ public class CartActivity extends BaseActivity {
     LinearLayout checkoutLL;
     TextView totalPrice;
     private String mState = "SHOW_MENU";
+
+    private LinearLayout mCheckout;
+    Context mContext;
+    BaseApiService mApiService;
+    ProgressDialog loading;
+    SharedPreferences loginPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        mContext = this;
+        mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
+
+        initView();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         localStorage = new LocalStorage(getApplicationContext());
         gson = new Gson();
@@ -59,6 +78,11 @@ public class CartActivity extends BaseActivity {
         totalPrice.setText("Rs. " + getTotalPrice() + "");
         setUpCartRecyclerview();
 
+    }
+
+    private void initView() {
+        mCheckout = (LinearLayout) findViewById(R.id.checkout);
+        mCheckout.setOnClickListener(this);
     }
 
     @Override
@@ -132,7 +156,6 @@ public class CartActivity extends BaseActivity {
     }
 
 
-
     private void setUpCartRecyclerview() {
         cartList = new ArrayList<>();
         cartList = getCartList();
@@ -153,7 +176,7 @@ public class CartActivity extends BaseActivity {
 
     public void onCheckoutClicked(View view) {
 
-       // startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+        // startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
     }
 
 
@@ -173,4 +196,110 @@ public class CartActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    public void checkoutOrder() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Your order punch successfully.");
+        builder1.setCancelable(false);
+
+        builder1.setPositiveButton(
+                "C.O.D",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Online Transaction",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.checkout:
+
+                //generate order no
+                SimpleDateFormat sm = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
+                Date myDate = new Date();
+                String strDate = sm.format(myDate);
+                String orderno = strDate.replace(".", "");
+
+                //generate current date time
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                String curdatetime = formatter.format(date);
+
+                String orderdetail = "empty";
+                String status = "processing";
+                String statusid = "1";
+                String subtotal = String.valueOf(getTotalPrice());
+                String custemai = loginPreferences.getString("username", "");
+                String custid = "2";
+                String martid = "2";
+
+                loading = ProgressDialog.show(this, null, "Please wait...", true, false);
+                punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemai, custid, martid);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void punchOrder(String orderno,String orderdetail,String curdatetime,String status,String statusid,String subtotal,String custemai,String custid,String martid) {
+        mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemai, custid, martid)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+                            try {
+                                if (response.body() != null) {
+
+                                    String role = response.body().string();
+                                    checkoutOrder();
+                                    //Toast.makeText(mContext, role + "Customer Login Created", Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role + "Customer Login Created");
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(CartActivity.this, "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(CartActivity.this, "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(CartActivity.this, "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(CartActivity.this, "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+
+    }
+
 }

@@ -16,8 +16,12 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.shivtechs.maplocationpicker.LocationPickerActivity;
 import com.shivtechs.maplocationpicker.MapUtility;
 
@@ -56,7 +60,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
     private Button mBtnSignUp;
     private Button mBtnLogin;
 
-    String name, email, password,cpassword, phone, address, currentLatitude, currentLongitude, ownername, ownerphone, ownerdetail, voucher;
+    String name, email, password,cpassword, phone, address, currentLatitude, currentLongitude, ownername, ownerphone, ownerdetail, voucher,token;
 
 
     Context mContext;
@@ -195,8 +199,23 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
             ownerphone = mTitOwnerPhone.getText().toString();
             ownerdetail = mTitOrderDetail.getText().toString();
             voucher = mTitVoucher.getText().toString();
+
+            FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                @Override
+                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                    if (!task.isSuccessful()) {
+                        Log.w("token", "getInstanceId failed", task.getException());
+                        return;
+                    }
+
+                    // Get new Instance ID token
+                    token = task.getResult().getToken();
+
+                }
+            });
+
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-            MartRequest(name,email,password,phone,ownername,ownerphone,ownerdetail,voucher);
+            MartRequest(name,email,password,phone,ownername,ownerphone,ownerdetail,voucher,token);
             martLoginDetails(email,password);
         }
 
@@ -248,12 +267,12 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                 });
     }
 
-    private void MartRequest(String name, String email, String password, String phone, String ownername, String ownerphone, String ownerdetail,String voucher) {
+    private void MartRequest(String name, String email, String password, String phone, String ownername, String ownerphone, String ownerdetail,String voucher,String token) {
 
         String logo = null;
         String banner= null;
 
-        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,"","",ownername,ownerphone,ownerdetail,voucher)
+        mApiService.registerMart(name,email,password,phone,address,currentLatitude,currentLongitude,"","",ownername,ownerphone,ownerdetail,voucher,token)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

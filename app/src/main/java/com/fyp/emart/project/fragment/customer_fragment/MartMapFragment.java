@@ -63,20 +63,20 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback{
         uiSettings.setMapToolbarEnabled(true);
 
         googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(37.4233438, -122.0728817))
-                .title("LinkedIn")
+                .position(new LatLng(24.828906, 67.0435713))
+                .title("Mart 1")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        googleMap.addMarker(new MarkerOptions()
+      /*  googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(37.4629101,-122.2449094))
                 .title("Facebook")
                 .snippet("Facebook HQ: Menlo Park"));
 
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(37.3092293, -122.1136845))
-                .title("Apple"));
+                .title("Apple"));*/
 
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4233438, -122.0728817), 10));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.8607, 67.0011), 6.0f));
 
 
 

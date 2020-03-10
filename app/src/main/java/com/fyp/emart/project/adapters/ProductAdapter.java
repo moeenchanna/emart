@@ -24,7 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.ProductActivity;
-import com.fyp.emart.project.activity.ProductViewActivity;
+
 import com.fyp.emart.project.model.Cart;
 import com.fyp.emart.project.model.ProductList;
 import com.fyp.emart.project.utils.AddorRemoveCallbacks;
@@ -53,7 +53,46 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
         this.productLists = productLists;
     }
 
-    public void setProductList(Context context,final List<ProductList> productLists){
+    public void setProductList(Context context,final List<Movie> productLists){
+        this.context = context;
+        if(this.productLists == null){
+            this.productLists = productLists;
+            this.productListsFiltered = productLists;
+            notifyItemChanged(0, productListsFiltered.size());
+        } else {
+            final DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                @Override
+                public int getOldListSize() {
+                    return ProductAdapter.this.productLists.size();
+                }
+
+                @Override
+                public int getNewListSize() {
+                    return productLists.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                    return ProductAdapter.this.productLists.get(oldItemPosition).getProductName() == productLists.get(newItemPosition).getProductName();
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+
+
+                    ProductList newProduct = ProductAdapter.this.productLists.get(oldItemPosition);
+
+                    ProductList oldProduct = productLists.get(newItemPosition);
+
+                    return newProduct.getProductName() == oldProduct.getProductName() ;
+                }
+            });
+            this.productLists = productLists;
+            this.productListsFiltered = productLists;
+            result.dispatchUpdatesTo(this);
+        }
+    }
+   /* public void setProductList(Context context,final List<ProductList> productLists){
         this.context = context;
         if(this.productLists == null){
             this.productLists = productLists;
@@ -90,7 +129,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
             this.productListsFiltered = productLists;
             result.dispatchUpdatesTo(this);
         }
-    }
+    }*/
 
 
     @Override
