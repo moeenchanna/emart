@@ -53,7 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
         this.productLists = productLists;
     }
 
-    public void setProductList(Context context,final List<Movie> productLists){
+    public void setProductList(Context context,final List<ProductList> productLists){
         this.context = context;
         if(this.productLists == null){
             this.productLists = productLists;
