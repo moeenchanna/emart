@@ -156,6 +156,12 @@ public class ProductActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.cart_action:
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
@@ -164,6 +170,15 @@ public class ProductActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
     }
 
 }
