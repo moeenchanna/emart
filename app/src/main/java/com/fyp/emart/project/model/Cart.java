@@ -9,13 +9,15 @@ public class Cart {
     String attribute;
     String quantity;
     String subTotal;
-
+    String martid;
 
     public Cart() {
     }
 
 
-    public Cart(String id, String title, String image, String currency, String price, String attribute, String quantity, String subTotal) {
+
+
+    public Cart(String id, String title, String image, String currency, String price, String attribute, String quantity, String subTotal, String martid) {
         this.id = id;
         this.image = image;
         this.title = title;
@@ -24,6 +26,7 @@ public class Cart {
         this.attribute = attribute;
         this.quantity = quantity;
         this.subTotal = subTotal;
+        this.martid = martid;
     }
 
     public String getId() {
@@ -88,6 +91,14 @@ public class Cart {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getMartid() {
+        return martid;
+    }
+
+    public void setMartid(String martid) {
+        this.martid = martid;
     }
 }
 

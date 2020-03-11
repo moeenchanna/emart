@@ -92,45 +92,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
             result.dispatchUpdatesTo(this);
         }
     }
-   /* public void setProductList(Context context,final List<ProductList> productLists){
-        this.context = context;
-        if(this.productLists == null){
-            this.productLists = productLists;
-            this.productListsFiltered = productLists;
-            notifyItemChanged(0, productListsFiltered.size());
-        } else {
-            final DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-                @Override
-                public int getOldListSize() {
-                    return ProductAdapter.this.productLists.size();
-                }
-
-                @Override
-                public int getNewListSize() {
-                    return productLists.size();
-                }
-
-                @Override
-                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return ProductAdapter.this.productLists.get(oldItemPosition).getProductName() == productLists.get(newItemPosition).getProductName();
-                }
-
-                @Override
-                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-
-                    ProductList newProduct = ProductAdapter.this.productLists.get(oldItemPosition);
-
-                    ProductList oldProduct = productLists.get(newItemPosition);
-
-                    return newProduct.getProductName() == oldProduct.getProductName() ;
-                }
-            });
-            this.productLists = productLists;
-            this.productListsFiltered = productLists;
-            result.dispatchUpdatesTo(this);
-        }
-    }*/
-
 
     @Override
     public ProductAdapter.MyviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -273,7 +234,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                     _subtotal = String.valueOf(Double.parseDouble(_price) * Integer.parseInt(_quantity));
                     holder.subTotal.setText(_quantity + "X" + _price + "= Rs." + _subtotal);
                     if (context instanceof ProductActivity) {
-                        Cart cart = new Cart(product.getIdProduct(), product.getProductName(), product.getProductimage(), "Rs", _price, _attribute, _quantity, _subtotal);
+                        Cart cart = new Cart(product.getIdProduct(), product.getProductName(), product.getProductimage(), "Rs", _price, _attribute, _quantity, _subtotal,product.getMartid());
                         cartList = ((BaseActivity) context).getCartList();
                         cartList.add(cart);
                         String cartStr = gson.toJson(cartList);

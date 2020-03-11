@@ -28,6 +28,12 @@ public class ProductList {
     @SerializedName("Martid")
     @Expose
     private String martid;
+    @SerializedName("MartName")
+    @Expose
+    private String martName;
+    @SerializedName("Product Code")
+    @Expose
+    private String productCode;
 
     public String getIdProduct() {
         return idProduct;
@@ -92,5 +98,23 @@ public class ProductList {
     public void setMartid(String martid) {
         this.martid = martid;
     }
+
+    public String getMartName() {
+        return martName;
+    }
+
+    public void setMartName(String martName) {
+        this.martName = martName;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+
 
 }
