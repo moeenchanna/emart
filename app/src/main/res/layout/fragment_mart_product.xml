@@ -150,23 +150,19 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:scaleType="fitXY"-->
-<!--                android:layout_marginStart="@dimen/margin_layout"-->
-<!--                android:layout_marginEnd="@dimen/margin_layout"-->
-<!--                app:srcCompat="@drawable/selectimage" />-->
 
 
             <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnupload"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="169dp"
-                android:layout_marginLeft="169dp"
-                android:layout_marginBottom="223dp"
+                android:layout_marginStart="@dimen/margin_layout"
+                android:layout_marginTop="@dimen/margin_layout"
+                android:layout_marginEnd="@dimen/margin_layout"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:textColor="@color/colorTextORIcon"
+                android:textSize="@dimen/text_btn_size"
                 android:text="Upload" />
         </LinearLayout>
     </ScrollView>

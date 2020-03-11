@@ -28,12 +28,6 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
 
     private Button mButton;
 
-    private static final int STORAGE_PERMISSION_CODE = 123;
-
-    //Uri to store the image uri
-    private Uri filePath;
-
-    private static final int IMAGE_SELECT_CODE = 1001;
     private TextInputEditText mImageUrlProduct;
 
     @Override
@@ -54,7 +48,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         mPriceProduct = (TextInputEditText) view.findViewById(R.id.product_price);
         mQuanProduct = (TextInputEditText) view.findViewById(R.id.product_quan);
         mCodeProduct = (TextInputEditText) view.findViewById(R.id.product_code);
-        mButton = (Button) view.findViewById(R.id.button);
+        mButton = (Button) view.findViewById(R.id.btnupload);
         mButton.setOnClickListener(this);
         mImageUrlProduct = (TextInputEditText) view.findViewById(R.id.pr_image_url);
     }
@@ -62,7 +56,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button:
+            case R.id.btnupload:
                 Toast.makeText(getActivity(), "Send", Toast.LENGTH_SHORT).show();
                 break;
             default:
@@ -70,15 +64,6 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         }
     }
 
-//    private void requestStoragePermission() {
-//        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-//            return;
-//
-//        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE))
-//            requestStoragePermission();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-//
-//    }
+
 
 }

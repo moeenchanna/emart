@@ -152,20 +152,9 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
             phone = mTitPhone.getText().toString();
             address = mTitAddress.getText().toString();
 
-            FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                @Override
-                public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                    if (!task.isSuccessful()) {
-                        Log.w("token", "getInstanceId failed", task.getException());
-                        return;
-                    }
-
-                    // Get new Instance ID token
-                    token = task.getResult().getToken();
-
-                }
-            });
-
+            // Get new Instance ID token
+            token = FirebaseInstanceId.getInstance().getToken();
+            //Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
             RegisterRequest(name,email,password,phone,address,token);
             customerLoginDetails(email,password);

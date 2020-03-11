@@ -200,20 +200,9 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
             ownerdetail = mTitOrderDetail.getText().toString();
             voucher = mTitVoucher.getText().toString();
 
-            FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                @Override
-                public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                    if (!task.isSuccessful()) {
-                        Log.w("token", "getInstanceId failed", task.getException());
-                        return;
-                    }
-
-                    // Get new Instance ID token
-                    token = task.getResult().getToken();
-
-                }
-            });
-
+            // Get new Instance ID token
+            token = FirebaseInstanceId.getInstance().getToken();
+            Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
             MartRequest(name,email,password,phone,ownername,ownerphone,ownerdetail,voucher,token);
             martLoginDetails(email,password);
