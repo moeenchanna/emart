@@ -79,7 +79,7 @@ public interface BaseApiService {
 
     // Get all orders for customer
     @POST("FypProject/Emart//getorderhistory.php")
-    Call<List<OrderList>> getOrderHistory(@Query("custemail") String custemail);
+    Call<List<OrderList>> getOrderHistory(@Query("custid") String custid);
 
     // Get all orders for mart
     @GET("FypProject/Emart/getmartorders.php")
@@ -103,5 +103,13 @@ public interface BaseApiService {
     // Get mart
     @GET("FypProject/Emart/location.php")
     Call<List<MartLocationList>> getMartsLocation();
+
+    // Get Mart Profile
+    @POST("FypProject/Emart/getmartrsid.php")
+    Call<List<OrderList>> getMartProfile(@Query("email") String email);
+
+    // Get Customer Profile
+    @POST("FypProject/Emart/getcustomersid.php")
+    Call<List<OrderList>> getCustomerProfile(@Query("email") String email);
 
 }
