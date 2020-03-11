@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.model.OrderList;
-import com.fyp.emart.project.model.ProductList;
 
 import java.util.List;
 
@@ -44,12 +43,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyviewHolder
         return new MyviewHolder(itemView);
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
         final OrderList order = orderListList.get(position);
         String id = order.getStatusid();
+
+
+        holder.date.setText(order.getDatetime());
+        holder.order.setText(order.getOrderno());
+        holder.email.setText(order.getCustemail());
+        holder.total.setText("Rs: " + order.getSubtotal());
+        // holder.status.setText(order.getStatus());
 
         if (id.contains("0")) {
             holder.status.setTextColor(Color.RED);// on hold
@@ -65,12 +71,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyviewHolder
             holder.status.setTextColor(Color.GREEN);// delievered success
             Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
         }
-
-        holder.date.setText(order.getDatetime());
-        holder.order.setText(order.getOrderno());
-        holder.email.setText(order.getCustemail());
-        holder.total.setText("Rs: "+order.getSubtotal());
-       // holder.status.setText(order.getStatus());
 
     }
 
