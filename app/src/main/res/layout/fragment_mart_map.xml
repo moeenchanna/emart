@@ -24,5 +24,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
+    <Button
+        android:id="@+id/btnproduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:text="Show Products"
+        android:textColor="@color/colorTextORIcon"
+        android:textSize="@dimen/text_btn_size" />
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.fyp.emart.project.Api;
 
+import com.fyp.emart.project.model.MartLocationList;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
@@ -99,5 +100,8 @@ public interface BaseApiService {
             @Field("custid") String custid,
             @Field("martid") String martid);
 
+    // Get mart
+    @GET("FypProject/Emart/location.php")
+    Call<List<MartLocationList>> getMartsLocation();
 
 }

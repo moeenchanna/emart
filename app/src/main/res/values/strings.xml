@@ -10,6 +10,7 @@
     <string name="OwnerName">Owner Name</string>
     <string name="OwnerPhone">Owner Phone</string>
     <string name="OrderDetail">All Orders</string>
+    <string name="OrderDetails">Owner Details</string>
     <string name="Voucher">Voucher</string>
     <string name="text_hint_address">Address</string>
     <string name="text_btn_forgot_password">Forgot password?</string>

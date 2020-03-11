@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
                     android:gravity="left"
-                    android:hint="@string/OrderDetail"
+                    android:hint="@string/OrderDetails"
                     android:inputType="textMultiLine"
                     android:lines="4"
                     android:maxLines="4"
