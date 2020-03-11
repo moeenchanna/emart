@@ -77,10 +77,10 @@ public interface BaseApiService {
     Call<List<OrderList>> getAdminorder();
 
     // Get all orders for customer
-    @GET("FypProject/Emart/getorderhistory.php")
+    @POST("FypProject/Emart//getorderhistory.php")
     Call<List<OrderList>> getOrderHistory(@Query("custemail") String custemail);
 
-    // Get all orders for customer
+    // Get all orders for mart
     @GET("FypProject/Emart/getmartorders.php")
     Call<List<OrderList>> getMartOrders(@Query("martid") String martid);
 

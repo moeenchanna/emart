@@ -243,20 +243,20 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 String status = "processing";
                 String statusid = "1";
                 String subtotal = String.valueOf(getTotalPrice());
-                String custemai = loginPreferences.getString("username", "");
+                String custemail = "moeen@gmail.com";
                 String custid = "2";
                 String martid = "2";
 
                 loading = ProgressDialog.show(this, null, "Please wait...", true, false);
-                punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemai, custid, martid);
+                punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
                 break;
             default:
                 break;
         }
     }
 
-    private void punchOrder(String orderno,String orderdetail,String curdatetime,String status,String statusid,String subtotal,String custemai,String custid,String martid) {
-        mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemai, custid, martid)
+    private void punchOrder(String orderno,String orderdetail,String curdatetime,String status,String statusid,String subtotal,String custemail,String custid,String martid) {
+        mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

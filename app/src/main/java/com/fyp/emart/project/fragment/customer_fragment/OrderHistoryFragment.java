@@ -82,8 +82,8 @@ public class OrderHistoryFragment extends BaseFragment {
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
         orderAdapter = new OrderAdapter(orderListList,mContext);
         mRecyclerViewMart.setAdapter(orderAdapter);
-
-        String email = loginPreferences.getString("username", "");
+        String email = "moeen@gmail.com";
+        //String email = loginPreferences.getString("username", "");
 
         final Call<List<OrderList>> adminOrder = mApiService.getOrderHistory(email);
         adminOrder.enqueue(new Callback<List<OrderList>>() {
