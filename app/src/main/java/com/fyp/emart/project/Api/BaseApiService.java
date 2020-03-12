@@ -1,11 +1,13 @@
 package com.fyp.emart.project.Api;
 
+import com.fyp.emart.project.model.ComplaintList;
 import com.fyp.emart.project.model.CustomerProfileList;
 import com.fyp.emart.project.model.MartLocationList;
 import com.fyp.emart.project.model.MartProfileList;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
+import com.fyp.emart.project.model.ReviewList;
 
 import java.util.List;
 
@@ -88,7 +90,7 @@ public interface BaseApiService {
     Call<List<OrderList>> getMartOrders(@Query("martid") String martid);
 
 
-    // User Authentication
+    // Punch Order
     @FormUrlEncoded
     @POST("FypProject/Emart/punchorder.php")
     Call<ResponseBody> OrderPunch(
@@ -114,4 +116,48 @@ public interface BaseApiService {
     @POST("FypProject/Emart/getcustomersid.php")
     Call<List<CustomerProfileList>> getCustomerProfile(@Query("email") String email);
 
+    // Get all complaint for admin
+    @GET("FypProject/Emart/getallcomplaint.php")
+    Call<List<ComplaintList>> getAdminComplaint();
+
+    // Get all complaint for customer
+    @POST("FypProject/Emart//getcustomercomplaint.php")
+    Call<List<ComplaintList>> getCustomerComplaint(@Query("custid") String custid);
+
+    // Get all complaint for mart
+    @GET("FypProject/Emart/getmartcomplaint.php")
+    Call<List<ComplaintList>> getMartComplaint(@Query("martid") String martid);
+
+    // Get all reviews for admin
+    @GET("FypProject/Emart/getallreview.php")
+    Call<List<ReviewList>> getAdminReviews();
+
+    // Get all reviews for customer
+    @POST("FypProject/Emart//getcustomerreviews.php")
+    Call<List<ReviewList>> getCustomerReviews(@Query("custid") String custid);
+
+    // Get all reviews for mart
+    @GET("FypProject/Emart/getmartreviews.php")
+    Call<List<ReviewList>> getMartReviews(@Query("martid") String martid);
+
+    //Add Review
+    @FormUrlEncoded
+    @POST("FypProject/Emart/addreview.php")
+    Call<ResponseBody> AddReview(
+            @Field("datetime") String datetime,
+            @Field("comment") String comment,
+            @Field("rate") String rate,
+            @Field("custid") String custid,
+            @Field("martid") String martid);
+
+    //Add Complaints
+    @FormUrlEncoded
+    @POST("FypProject/Emart/addcomplaint.php")
+    Call<ResponseBody> AddComplaints(
+            @Field("detail") String detail,
+            @Field("datetime") String datetime,
+            @Field("custid") String custid,
+            @Field("martid") String martid,
+            @Field("statusid") String statusid,
+            @Field("dispatchid") String dispatchid);
 }
