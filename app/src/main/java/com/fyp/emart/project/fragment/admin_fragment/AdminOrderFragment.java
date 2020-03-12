@@ -36,7 +36,7 @@ public class AdminOrderFragment extends Fragment {
     private OrderAdapter orderAdapter;
     private ProgressDialog progressDialog;
 
-    List<OrderList> orderListList;
+    private List<OrderList> orderListList;
 
     private Context mContext;
     private BaseApiService mApiService;
@@ -78,15 +78,16 @@ public class AdminOrderFragment extends Fragment {
         final Call<List<OrderList>> adminOrder = mApiService.getAdminorder();
         adminOrder.enqueue(new Callback<List<OrderList>>() {
             @Override
-            public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
+            public void onResponse(@Nullable Call<List<OrderList>> call, @Nullable Response<List<OrderList>> response) {
                 progressDialog.dismiss();
                 orderListList = response.body();
                 Log.d("TAG","Response = "+ orderListList);
                 orderAdapter.setOrderList(orderListList);
+
             }
 
             @Override
-            public void onFailure(Call<List<OrderList>> call, Throwable t) {
+            public void onFailure(@Nullable Call<List<OrderList>> call, @Nullable Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
