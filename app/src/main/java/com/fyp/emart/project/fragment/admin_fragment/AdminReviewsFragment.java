@@ -1,12 +1,5 @@
 package com.fyp.emart.project.fragment.admin_fragment;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,17 +7,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.adapters.AdminComplaintAdapter;
+import com.fyp.emart.project.adapters.AdminReviewsAdapter;
+import com.fyp.emart.project.model.AdminComplaintModel;
+import com.fyp.emart.project.model.AdminReviewsModel;
+
+import java.util.List;
 
 public class AdminReviewsFragment extends Fragment {
 
     private RecyclerView mRecyclerViewMart;
-//    private OrderAdapter orderAdapter;
+    private AdminReviewsAdapter reviewsAdapter;
     private ProgressDialog progressDialog;
 
-//    private List<OrderList> orderListList;
+    private List<AdminReviewsModel> reviewsModel;
 
     private Context mContext;
     private BaseApiService mApiService;
@@ -42,7 +48,7 @@ public class AdminReviewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         mApiService = UtilsApi.getAPIService();

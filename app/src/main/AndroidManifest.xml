@@ -20,14 +20,14 @@
         <activity android:name=".activity.CartActivity" />
         <activity android:name=".activity.ProductActivity" />
         <activity android:name=".activity.MartDashboardActivity" />
-        <activity android:name=".activity.AdminDashboardActivity" android:screenOrientation="fullSensor" />
+        <activity android:name=".activity.AdminDashboardActivity" android:screenOrientation="portrait" />
         <activity android:name=".activity.CustomerDashboardActivity" />
         <activity
             android:name=".activity.SignupActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
