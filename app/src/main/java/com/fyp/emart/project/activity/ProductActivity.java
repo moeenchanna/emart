@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
@@ -31,6 +33,13 @@ import com.fyp.emart.project.helper.Converter;
 import com.fyp.emart.project.model.ProductList;
 
 import java.util.List;
+
+import static com.fyp.emart.project.Api.DataConfig.MART_ADDRESS;
+import static com.fyp.emart.project.Api.DataConfig.MART_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
+import static com.fyp.emart.project.Api.DataConfig.MART_PHONE;
+import static com.fyp.emart.project.Api.DataConfig.MART_iD;
+import static com.fyp.emart.project.Api.DataConfig.TEMP_PRODUCT_iD;
 
 public class ProductActivity extends BaseActivity {
     private static int cart_count = 0;
@@ -52,6 +61,11 @@ public class ProductActivity extends BaseActivity {
 
         Intent intent = getIntent();
         martid = intent.getStringExtra("id");
+
+        SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(TEMP_PRODUCT_iD, martid);
+        editor.apply();
         initView();
 
     }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
@@ -41,6 +42,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.MART_iD;
+import static com.fyp.emart.project.Api.DataConfig.TEMP_PRODUCT_iD;
+
 public class CartActivity extends BaseActivity implements View.OnClickListener {
     LocalStorage localStorage;
     List<Cart> cartList = new ArrayList<>();
@@ -57,7 +63,7 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     Context mContext;
     BaseApiService mApiService;
     ProgressDialog loading;
-    SharedPreferences loginPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -243,12 +249,19 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 String status = "processing";
                 String statusid = "1";
                 String subtotal = String.valueOf(getTotalPrice());
-                String custemail = "moeen@gmail.com";
-                String custid = "2";
-                String martid = "2";
 
-                loading = ProgressDialog.show(this, null, "Please wait...", true, false);
-                punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
+                SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+                String martid = sp.getString(TEMP_PRODUCT_iD, null);
+                String custid = sp.getString(CUSTOMER_iD, null);
+                String custemail = sp.getString(CUSTOMER_EMAIL, null);
+
+
+
+                Toast.makeText(mContext, "cust id "+custid, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "custemail "+custemail, Toast.LENGTH_SHORT).show();
+
+               // loading = ProgressDialog.show(this, null, "Please wait...", true, false);
+               // punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
                 break;
             default:
                 break;
@@ -267,8 +280,8 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
 
                                     String role = response.body().string();
                                     checkoutOrder();
-                                    //Toast.makeText(mContext, role + "Customer Login Created", Toast.LENGTH_SHORT).show();
-                                    Log.d("debug", role + "Customer Login Created");
+                                    Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role + "Order punch successfull");
                                 } else {
                                     // If the login fails
                                     // error case

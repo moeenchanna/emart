@@ -13,6 +13,8 @@ public class DataConfig {
     public static final String CUSTOMER_PHONE = "CUSTOMER_PHONE";
     public static final String CUSTOMER_ADDRESS = "CUSTOMER_ADDRESS";
 
+    public static final String TEMP_PRODUCT_iD= "TEMP_PRODUCT_ID";
+
     public static final String MART_EMAIL = "MART_EMAIL";
     public static final String MART_NAME = "MART_NAME";
     public static final String MART_iD= "MART_iD";
