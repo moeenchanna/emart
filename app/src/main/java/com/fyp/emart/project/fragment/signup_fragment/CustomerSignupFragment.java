@@ -225,6 +225,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                                     mTitName.setText("");
                                     mTitEmail.setText("");
                                     mTitPassword.setText("");
+                                    mTitConfirmPassword.setText("");
                                     mTitPhone.setText("");
                                     mTitAddress.setText("");
                                 } else {

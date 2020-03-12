@@ -377,10 +377,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
-                            editor.putString(MART_EMAIL, name);
-                            editor.putString(MART_NAME, id);
-                            editor.putString(MART_iD, phone);
-                            editor.putString(MART_PHONE, email);
+                            editor.putString(MART_EMAIL, email);
+                            editor.putString(MART_NAME, name);
+                            editor.putString(MART_iD, id);
+                            editor.putString(MART_PHONE, phone);
                             editor.putString(MART_ADDRESS, address);
                             editor.apply();
 
