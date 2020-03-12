@@ -37,6 +37,7 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class MartHomeFragment extends Fragment {
 
@@ -72,7 +73,7 @@ public class MartHomeFragment extends Fragment {
 
 
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-        String martid = sp.getString(CUSTOMER_iD, null);
+        String martid = sp.getString(MART_iD, null);
         orderData(martid);
 
 

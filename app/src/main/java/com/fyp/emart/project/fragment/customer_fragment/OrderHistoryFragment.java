@@ -76,7 +76,7 @@ public class OrderHistoryFragment extends BaseFragment {
         progressDialog.setMessage("Loading please wait...");
 
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-        String customerid = sp.getString(MART_iD, null);
+        String customerid = sp.getString(CUSTOMER_iD, null);
         orderData(customerid);
 
 
