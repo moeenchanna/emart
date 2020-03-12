@@ -23,7 +23,7 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("FypProject/Emart/register_customer.php")
     Call<ResponseBody> registerCustomer(
-            @Field("name") String name,
+            @Field("cname") String name,
             @Field("email") String email,
             @Field("password") String password,
             @Field("phone") String phone,

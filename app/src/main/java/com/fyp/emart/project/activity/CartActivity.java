@@ -246,7 +246,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 String curdatetime = formatter.format(date);
                 localStorage.getCart();
                 String orderdetail =localStorage.getCart();
-                Toast.makeText(mContext, ""+orderdetail, Toast.LENGTH_SHORT).show();
                 String status = "processing";
                 String statusid = "1";
                 String subtotal = String.valueOf(getTotalPrice());
