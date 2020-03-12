@@ -3,14 +3,12 @@ package com.fyp.emart.project.fragment.customer_fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,13 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.adapters.OrderAdapter;
+import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
@@ -37,14 +34,13 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
-import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class OrderHistoryFragment extends BaseFragment {
 
     private static int cart_count = 0;
 
     private RecyclerView mRecyclerViewMart;
-    private OrderAdapter orderAdapter;
+    private AdminOrderAdapter adminOrderAdapter;
     private ProgressDialog progressDialog;
 
     List<OrderList> orderListList;
@@ -86,8 +82,8 @@ public class OrderHistoryFragment extends BaseFragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter = new OrderAdapter(orderListList,mContext);
-        mRecyclerViewMart.setAdapter(orderAdapter);
+        adminOrderAdapter = new AdminOrderAdapter(orderListList,mContext);
+        mRecyclerViewMart.setAdapter(adminOrderAdapter);
 
         final Call<List<OrderList>> adminOrder = mApiService.getOrderHistory(id);
         adminOrder.enqueue(new Callback<List<OrderList>>() {
@@ -96,7 +92,7 @@ public class OrderHistoryFragment extends BaseFragment {
                 progressDialog.dismiss();
                 orderListList = response.body();
                 Log.d("TAG","Response = "+ orderListList);
-                orderAdapter.setOrderList(orderListList);
+                adminOrderAdapter.setOrderList(orderListList);
             }
 
             @Override

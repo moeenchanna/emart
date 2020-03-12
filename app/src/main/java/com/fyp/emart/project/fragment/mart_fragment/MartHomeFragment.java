@@ -24,10 +24,8 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.adapters.MartHomeAdapter;
-import com.fyp.emart.project.adapters.OrderAdapter;
+import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.model.OrderList;
-import com.fyp.emart.project.model.MartList;
 
 import java.util.List;
 
@@ -36,13 +34,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class MartHomeFragment extends Fragment {
 
     private RecyclerView mRecyclerViewMart;
-    private OrderAdapter orderAdapter;
+    private AdminOrderAdapter adminOrderAdapter;
     private ProgressDialog progressDialog;
 
     List<OrderList> orderListList;
@@ -92,8 +89,8 @@ public class MartHomeFragment extends Fragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter = new OrderAdapter(orderListList,mContext);
-        mRecyclerViewMart.setAdapter(orderAdapter);
+        adminOrderAdapter = new AdminOrderAdapter(orderListList,mContext);
+        mRecyclerViewMart.setAdapter(adminOrderAdapter);
 
         final Call<List<OrderList>> adminOrder = mApiService.getMartOrders(id);
         adminOrder.enqueue(new Callback<List<OrderList>>() {
@@ -102,7 +99,7 @@ public class MartHomeFragment extends Fragment {
                 progressDialog.dismiss();
                 orderListList = response.body();
                 Log.d("TAG","Response = "+ orderListList);
-                orderAdapter.setOrderList(orderListList);
+                adminOrderAdapter.setOrderList(orderListList);
             }
 
             @Override

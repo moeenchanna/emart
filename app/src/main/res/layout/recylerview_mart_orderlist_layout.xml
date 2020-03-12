@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-  >
+    android:padding="10dp">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,23 +16,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@drawable/shop_button_bg">
-            <TextView
-                android:id="@+id/mart_order_date"
-                android:layout_width="35dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="5sp"
-                android:gravity="center"
-                android:textStyle="bold"
 
-                android:textColor="#fff"
-                android:text="2017 \n 02 \nDec"
-                android:textSize="15sp" />
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/shop_button_bg">
+
+                <TextView
+                    android:id="@+id/mart_order_date"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="5sp"
+                    android:gravity="center"
+                    android:text="2017 \n 02 \nDec"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,15 +45,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/category_textview_bg">
+                    android:background="@drawable/category_textview_bg"
+                    android:layout_marginLeft="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Order:"
-                        android:textStyle="bold"
                         android:textColor="#000"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/mart_order_number"
@@ -59,8 +62,8 @@
                         android:layout_height="wrap_content"
                         android:text=" #3480"
                         android:textColor="#000"
-                        android:textStyle="bold"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -68,27 +71,29 @@
                     android:id="@+id/mart_order_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Shajed Evan"
                     android:layout_marginStart="10dp"
+                    android:text="Shajed Evan"
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp" />
 
                 <TextView
                     android:id="@+id/mart_order_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="evanshajeed@gmail.com" />
+                    android:text="evanshajeed@gmail.com"
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-
                 android:layout_gravity="center"
+
+                android:layout_margin="5sp"
                 android:orientation="vertical">
 
                 <TextView
@@ -96,36 +101,37 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Total"
-                    android:textStyle="bold"
                     android:textColor="#000"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/mart_order_total"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rs:154.00"
                     android:gravity="center"
+                    android:text="Rs:154.00"
                     android:textColor="#000"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   android:textAlignment="viewEnd"
-android:background="@drawable/shop_button_bg"
-    android:gravity="end">
 
-    <TextView
-        android:id="@+id/mart_order_status"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="processing"
-        android:textColor="#000" />
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shop_button_bg"
+                android:gravity="end"
+                android:textAlignment="viewEnd">
+
+                <TextView
+                    android:id="@+id/mart_order_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="processing"
+                    android:textColor="#000" />
+            </LinearLayout>
 
 
         </LinearLayout>

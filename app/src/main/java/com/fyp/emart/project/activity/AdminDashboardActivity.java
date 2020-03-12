@@ -43,7 +43,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_complain:
                                 mViewpagerAdmin.setCurrentItem(1);
-
+                                break;
+                            case R.id.action_review:
+                                mViewpagerAdmin.setCurrentItem(2);
                                 break;
                         }
                         return false;
@@ -85,6 +87,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         AdminComplainFragment adminComplainFragment = new AdminComplainFragment();
 
         adapter.addFragment(adminOrderFragment);
+        adapter.addFragment(adminComplainFragment);
         adapter.addFragment(adminComplainFragment);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);

@@ -17,11 +17,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.adapters.OrderAdapter;
+import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
@@ -33,7 +32,7 @@ import retrofit2.Response;
 public class AdminOrderFragment extends Fragment {
 
     private RecyclerView mRecyclerViewMart;
-    private OrderAdapter orderAdapter;
+    private AdminOrderAdapter adminOrderAdapter;
     private ProgressDialog progressDialog;
 
     private List<OrderList> orderListList;
@@ -72,8 +71,8 @@ public class AdminOrderFragment extends Fragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter = new OrderAdapter(orderListList,mContext);
-        mRecyclerViewMart.setAdapter(orderAdapter);
+        adminOrderAdapter = new AdminOrderAdapter(orderListList,mContext);
+        mRecyclerViewMart.setAdapter(adminOrderAdapter);
 
         final Call<List<OrderList>> adminOrder = mApiService.getAdminorder();
         adminOrder.enqueue(new Callback<List<OrderList>>() {
@@ -82,7 +81,7 @@ public class AdminOrderFragment extends Fragment {
                 progressDialog.dismiss();
                 orderListList = response.body();
                 Log.d("TAG","Response = "+ orderListList);
-                orderAdapter.setOrderList(orderListList);
+                adminOrderAdapter.setOrderList(orderListList);
 
             }
 

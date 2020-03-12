@@ -15,5 +15,14 @@
         android:title="Complain List"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_review"
+        android:checked="false"
+        android:icon="@drawable/ic_rate_review_black_24dp"
+        android:title="Reviews"
+        app:showAsAction="ifRoom" />
+
+
+
 
 </menu>

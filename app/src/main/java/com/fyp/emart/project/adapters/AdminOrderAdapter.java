@@ -17,12 +17,12 @@ import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyviewHolder> {
+public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.MyviewHolder> {
 
     private List<OrderList> orderListList;
     private Context context;
 
-    public OrderAdapter(List<OrderList> orderListList, Context context) {
+    public AdminOrderAdapter(List<OrderList> orderListList, Context context) {
         this.orderListList = orderListList;
         this.context = context;
     }
