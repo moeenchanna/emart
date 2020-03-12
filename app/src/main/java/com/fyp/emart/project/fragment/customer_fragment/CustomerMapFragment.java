@@ -1,6 +1,7 @@
 package com.fyp.emart.project.fragment.customer_fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -56,7 +57,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class MartMapFragment extends BaseFragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener, View.OnClickListener {
+public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallback, LocationListener, View.OnClickListener {
 
 
     private static int cart_count = 0;
@@ -70,6 +71,7 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback,
 
     Context mContext;
     BaseApiService mApiService;
+    String markerid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +94,8 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
+
+
     }
 
     public void onMapReady(final GoogleMap googleMap) {
@@ -108,86 +112,21 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback,
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading please wait...");
         getMartMarkers();
-      //  getMartMarkersNew();
-    }
 
-    private void getMartMarkersNew() {
-        progressDialog.show();
-        Call<List<MartLocationList>> productlistCall = mApiService.getMartsLocation();
-        productlistCall.enqueue(new Callback<List<MartLocationList>>() {
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public void onResponse(Call<List<MartLocationList>> call, retrofit2.Response<List<MartLocationList>> response) {
-                progressDialog.dismiss();
-                Log.i("Responsestring", response.body().toString());
-                //Toast.makeText()
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        Log.i("onSuccess", response.body().toString());
-
-                        String jsonresponse = response.body().toString();
-                        try {
-                            //getting the whole json object from the response
-                            JSONObject obj = new JSONObject(jsonresponse);
-                            if(obj.optString("status").equals("true")){
-
-                                ArrayList<MartLocationList> retroModelArrayList = new ArrayList<>();
-                                JSONArray dataArray  = obj.getJSONArray("data");
-
-                                for (int i = 0; i < dataArray.length(); i++) {
-
-                                    MartLocationList retroModel = new MartLocationList();
-                                    JSONObject dataobj = dataArray.getJSONObject(i);
-
-                                    retroModel.setId(dataobj.getString("0"));
-                                    retroModel.setName(dataobj.getString("1"));
-                                    retroModel.setAddress(dataobj.getString("5"));
-                                    retroModel.setLatitude(dataobj.getString("6"));
-                                    retroModel.setLongitude(dataobj.getString("7"));
-
-                                    retroModelArrayList.add(retroModel);
-
-                                }
-
-                                for (int j = 0; j < retroModelArrayList.size(); j++){
-
-                                    mMap.addMarker(new MarkerOptions()
-                                            .position(new LatLng(Double.parseDouble(retroModelArrayList.get(j).getLatitude()), Double.parseDouble(retroModelArrayList.get(j).getLongitude())))
-                                            .title(retroModelArrayList.get(j).getName()).snippet(retroModelArrayList.get(j).getAddress())
-                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-
-
-                                    );
-
-
-                                }
-
-
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.8607, 67.0011), 6.0f));
-
-
-
-                            }else {
-                                Toast.makeText(getActivity(), obj.optString("message")+"", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    } else {
-                        Log.i("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
-                    }
-                }
-            @Override
-            public void onFailure(Call<List<MartLocationList>> call, Throwable t) {
-                progressDialog.dismiss();
-                Log.e("Error", t.getMessage());
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            public boolean onMarkerClick(Marker marker) {
+                // Triggered when user click any marker on the map
+              /*  if(marker.getSnippet())
+                    Toast.makeText(getActivity().getApplicationContext(), "Hamdy", Toast.LENGTH_SHORT).show();*/
+                markerid = marker.getSnippet();
+                //Toast.makeText(getActivity().getApplicationContext(), markerid, Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
+
     }
+
 
     private void getMartMarkers() {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -211,10 +150,8 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback,
 
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(Double.parseDouble(lat_i), Double.parseDouble(long_i)))
-                                .title(name).snippet(address)
+                                .title(name).snippet(martid)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
-
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.8607, 67.0011), 6.0f));
 
@@ -265,11 +202,6 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback,
 
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-
-        return false;
-    }
 
     @Override
     public void onClick(View v) {
@@ -277,9 +209,10 @@ public class MartMapFragment extends BaseFragment implements OnMapReadyCallback,
             case R.id.btnproduct:
                 Bundle b = new Bundle();
                 Intent i = new Intent(getActivity(), ProductActivity.class);
-                b.putString("id","2");
+                b.putString("id",markerid);
                 i.putExtras(b);
                 startActivity(i);
+
                 break;
             default:
                 break;

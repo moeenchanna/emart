@@ -11,9 +11,6 @@ import android.view.MenuItem;
 
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
-import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
-import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
-import com.fyp.emart.project.fragment.customer_fragment.MartMapFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartHomeFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProductFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProfileFragment;

@@ -14,9 +14,6 @@ import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.admin_fragment.AdminComplainFragment;
 import com.fyp.emart.project.fragment.admin_fragment.AdminOrderFragment;
 import com.fyp.emart.project.fragment.admin_fragment.AdminProfileFragment;
-import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
-import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
-import com.fyp.emart.project.fragment.customer_fragment.MartMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminDashboardActivity extends AppCompatActivity {

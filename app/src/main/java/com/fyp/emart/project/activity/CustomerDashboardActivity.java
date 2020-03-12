@@ -11,13 +11,12 @@ import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
-import com.fyp.emart.project.fragment.customer_fragment.MartMapFragment;
+import com.fyp.emart.project.fragment.customer_fragment.CustomerMapFragment;
 import com.fyp.emart.project.fragment.customer_fragment.OrderHistoryFragment;
 import com.fyp.emart.project.helper.Converter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 public class CustomerDashboardActivity extends BaseActivity {
@@ -98,7 +97,7 @@ public class CustomerDashboardActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         CustomerHomeFragment customerHomeFragment = new CustomerHomeFragment();
-        MartMapFragment martMapFragment = new MartMapFragment();
+        CustomerMapFragment martMapFragment = new CustomerMapFragment();
         OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
         CustomerProfileFragment customerProfileFragment = new CustomerProfileFragment();
 

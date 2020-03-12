@@ -48,9 +48,10 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         mPriceProduct = (TextInputEditText) view.findViewById(R.id.product_price);
         mQuanProduct = (TextInputEditText) view.findViewById(R.id.product_quan);
         mCodeProduct = (TextInputEditText) view.findViewById(R.id.product_code);
+        mImageUrlProduct = (TextInputEditText) view.findViewById(R.id.pr_image_url);
         mButton = (Button) view.findViewById(R.id.btnupload);
         mButton.setOnClickListener(this);
-        mImageUrlProduct = (TextInputEditText) view.findViewById(R.id.pr_image_url);
+
     }
 
     @Override
