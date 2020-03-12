@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.MartHomeAdapter;
@@ -33,6 +34,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 
 public class MartHomeFragment extends Fragment {
 
@@ -67,7 +71,9 @@ public class MartHomeFragment extends Fragment {
         progressDialog.setMessage("Loading please wait...");
 
 
-        orderData();
+        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        String martid = sp.getString(CUSTOMER_iD, null);
+        orderData(martid);
 
 
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
@@ -81,14 +87,14 @@ public class MartHomeFragment extends Fragment {
     }
 
 
-    private void orderData() {
+    private void orderData(String id) {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
         orderAdapter = new OrderAdapter(orderListList,mContext);
         mRecyclerViewMart.setAdapter(orderAdapter);
 
-        final Call<List<OrderList>> adminOrder = mApiService.getMartOrders("2");
+        final Call<List<OrderList>> adminOrder = mApiService.getMartOrders(id);
         adminOrder.enqueue(new Callback<List<OrderList>>() {
             @Override
             public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {

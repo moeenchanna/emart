@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.chootdev.recycleclick.RecycleClick;
 import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
@@ -33,6 +34,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class OrderHistoryFragment extends BaseFragment {
 
@@ -70,20 +75,21 @@ public class OrderHistoryFragment extends BaseFragment {
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading please wait...");
 
-
-        orderData();
+        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        String customerid = sp.getString(MART_iD, null);
+        orderData(customerid);
 
 
     }
 
-    private void orderData() {
+    private void orderData(String id) {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
         orderAdapter = new OrderAdapter(orderListList,mContext);
         mRecyclerViewMart.setAdapter(orderAdapter);
 
-        final Call<List<OrderList>> adminOrder = mApiService.getOrderHistory("2");
+        final Call<List<OrderList>> adminOrder = mApiService.getOrderHistory(id);
         adminOrder.enqueue(new Callback<List<OrderList>>() {
             @Override
             public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
