@@ -104,7 +104,7 @@ public interface BaseApiService {
 
     // Get mart
     @GET("FypProject/Emart/location.php")
-    Call<List<MartLocationList>> getMartsLocation();
+    Call<String>  getMartsLocation();
 
     // Get Mart Profile
     @POST("FypProject/Emart/getmartrsid.php")

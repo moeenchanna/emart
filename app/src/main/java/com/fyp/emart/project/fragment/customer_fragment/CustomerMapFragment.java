@@ -28,6 +28,7 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.activity.CartActivity;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.activity.ProductActivity;
 import com.fyp.emart.project.model.MartLocationList;
@@ -45,6 +46,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
