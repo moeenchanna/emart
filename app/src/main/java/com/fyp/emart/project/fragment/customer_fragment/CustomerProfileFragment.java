@@ -90,7 +90,6 @@ public class CustomerProfileFragment extends BaseFragment {
                             List<CustomerProfileList> adslist = response.body();
 
                             String name = adslist.get(0).getCname();
-                            String id = adslist.get(0).getCid();
                             String phone = adslist.get(0).getPhone();
                             String email = adslist.get(0).getEmail();
                             String address = adslist.get(0).getAddress();
