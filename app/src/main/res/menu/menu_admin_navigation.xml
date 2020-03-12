@@ -15,11 +15,5 @@
         android:title="Complain List"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_profile"
-        android:checked="false"
-        android:icon="@drawable/ic_person_black_24dp"
-        android:title="Admin Profile"
-        app:showAsAction="ifRoom" />
 
 </menu>
