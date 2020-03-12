@@ -257,11 +257,11 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
 
 
 
-                Toast.makeText(mContext, "cust id "+custid, Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, "custemail "+custemail, Toast.LENGTH_SHORT).show();
+                ///Toast.makeText(mContext, "cust id "+custid, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, "custemail "+custemail, Toast.LENGTH_SHORT).show();
 
-               // loading = ProgressDialog.show(this, null, "Please wait...", true, false);
-               // punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
+                loading = ProgressDialog.show(this, null, "Please wait...", true, false);
+                punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
                 break;
             default:
                 break;
