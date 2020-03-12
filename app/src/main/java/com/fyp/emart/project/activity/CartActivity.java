@@ -244,8 +244,9 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date date = new Date();
                 String curdatetime = formatter.format(date);
-
-                String orderdetail = "empty";
+                localStorage.getCart();
+                String orderdetail =localStorage.getCart();
+                Toast.makeText(mContext, ""+orderdetail, Toast.LENGTH_SHORT).show();
                 String status = "processing";
                 String statusid = "1";
                 String subtotal = String.valueOf(getTotalPrice());
@@ -279,6 +280,8 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
+                                    localStorage.deleteCart();
+                                    Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
                                     checkoutOrder();
                                     Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role + "Order punch successfull");

@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputLayout mTilPassword;
     /**
      * Forgot password?
+     *
      */
     private TextView mTvForgotPassword;
     /**
