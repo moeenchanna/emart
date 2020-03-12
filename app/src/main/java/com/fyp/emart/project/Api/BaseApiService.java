@@ -1,6 +1,8 @@
 package com.fyp.emart.project.Api;
 
+import com.fyp.emart.project.model.CustomerProfileList;
 import com.fyp.emart.project.model.MartLocationList;
+import com.fyp.emart.project.model.MartProfileList;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
@@ -106,10 +108,10 @@ public interface BaseApiService {
 
     // Get Mart Profile
     @POST("FypProject/Emart/getmartrsid.php")
-    Call<List<OrderList>> getMartProfile(@Query("email") String email);
+    Call<List<MartProfileList>> getMartProfile(@Query("email") String email);
 
     // Get Customer Profile
     @POST("FypProject/Emart/getcustomersid.php")
-    Call<List<OrderList>> getCustomerProfile(@Query("email") String email);
+    Call<List<CustomerProfileList>> getCustomerProfile(@Query("email") String email);
 
 }

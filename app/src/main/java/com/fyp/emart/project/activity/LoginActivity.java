@@ -22,6 +22,8 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.model.CustomerProfileList;
+import com.fyp.emart.project.model.MartProfileList;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +32,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,9 +48,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_ADDRESS;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_NAME;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_PHONE;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.KEY_EMAIL;
 import static com.fyp.emart.project.Api.DataConfig.KEY_PASSWORD;
 import static com.fyp.emart.project.Api.DataConfig.KEY_ROLE_ID;
+import static com.fyp.emart.project.Api.DataConfig.MART_ADDRESS;
+import static com.fyp.emart.project.Api.DataConfig.MART_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
+import static com.fyp.emart.project.Api.DataConfig.MART_PHONE;
+import static com.fyp.emart.project.Api.DataConfig.MART_iD;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -158,12 +176,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void requestLogin(final String email, final String password) {
         mApiService.loginUser(email, password)
-                // mApiService.loginUser("moeen@gmail.com", "moeen")
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             loading.dismiss();
+
                             try {
                                 if (response.body() != null) {
 
@@ -185,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     switch (role) {
                                         case "1"://Customer Role
-
+                                            requestCustomerData(email);
                                             i = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
@@ -193,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             break;
 
                                         case "2"://Mart Role
-
+                                            requestMartData(email);
                                             i = new Intent(LoginActivity.this, MartDashboardActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
@@ -302,6 +320,82 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
     }
 
+    private void requestCustomerData(String email) {
+        mApiService.getCustomerProfile(email)
+                .enqueue(new  Callback<List<CustomerProfileList>>() {
+                    @Override
+                    public void onResponse(Call<List<CustomerProfileList>> call, Response<List<CustomerProfileList>> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
 
+                            List<CustomerProfileList> adslist = response.body();
+
+                            String name = adslist.get(0).getCname();
+                            String id = adslist.get(0).getCid();
+                            String phone = adslist.get(0).getPhone();
+                            String email = adslist.get(0).getEmail();
+                            String address = adslist.get(0).getAddress();
+
+                            SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString(CUSTOMER_NAME, name);
+                            editor.putString(CUSTOMER_iD, id);
+                            editor.putString(CUSTOMER_PHONE, phone);
+                            editor.putString(CUSTOMER_EMAIL, email);
+                            editor.putString(CUSTOMER_ADDRESS, address);
+                            editor.apply();
+
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<CustomerProfileList>> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(LoginActivity.this, "network failure :( inform the user and possibly retry\n"+t.toString(), Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
+
+    private void requestMartData(String email) {
+        mApiService.getMartProfile(email)
+                .enqueue(new  Callback<List<MartProfileList>>() {
+                    @Override
+                    public void onResponse(Call<List<MartProfileList>> call, Response<List<MartProfileList>> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+
+                            List<MartProfileList> adslist = response.body();
+
+                            String name = adslist.get(0).getName();
+                            String id = adslist.get(0).getId();
+                            String phone = adslist.get(0).getPhone();
+                            String email = adslist.get(0).getEmail();
+                            String address = adslist.get(0).getAddress();
+
+                            SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString(MART_EMAIL, name);
+                            editor.putString(MART_NAME, id);
+                            editor.putString(MART_iD, phone);
+                            editor.putString(MART_PHONE, email);
+                            editor.putString(MART_ADDRESS, address);
+                            editor.apply();
+
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<MartProfileList>> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(LoginActivity.this, "network failure :( inform the user and possibly retry\n"+t.toString(), Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
 
 }
