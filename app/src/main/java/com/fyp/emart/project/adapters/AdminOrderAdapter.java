@@ -13,22 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.model.OrderList;
+import com.fyp.emart.project.model.AdminOrderModel;
 
 import java.util.List;
 
 public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.MyviewHolder> {
 
-    private List<OrderList> orderListList;
+    private List<AdminOrderModel> adminOrderListModel;
     private Context context;
 
-    public AdminOrderAdapter(List<OrderList> orderListList, Context context) {
-        this.orderListList = orderListList;
+    public AdminOrderAdapter(List<AdminOrderModel> adminOrderListModel, Context context) {
+        this.adminOrderListModel = adminOrderListModel;
         this.context = context;
     }
 
-    public void setOrderList(List<OrderList> orderLists) {
-        this.orderListList = orderLists;
+    public void setOrderList(List<AdminOrderModel> adminOrderModels) {
+        this.adminOrderListModel = adminOrderModels;
         notifyDataSetChanged();
     }
 
@@ -47,7 +47,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
-        final OrderList order = orderListList.get(position);
+        final AdminOrderModel order = adminOrderListModel.get(position);
         String id = order.getStatusid();
 
 
@@ -76,14 +76,14 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
 
     @Override
     public int getItemCount() {
-        if (orderListList != null) {
-            return orderListList.size();
+        if (adminOrderListModel != null) {
+            return adminOrderListModel.size();
         }
         return 0;
     }
 
     static class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView date, order, name, email, total, status;
+        TextView date, order, email, total, status;
 
         MyviewHolder(View itemView) {
             super(itemView);

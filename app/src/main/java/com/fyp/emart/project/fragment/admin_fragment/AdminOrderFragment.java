@@ -21,7 +21,7 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.AdminOrderAdapter;
-import com.fyp.emart.project.model.OrderList;
+import com.fyp.emart.project.model.AdminOrderModel;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class AdminOrderFragment extends Fragment {
     private AdminOrderAdapter adminOrderAdapter;
     private ProgressDialog progressDialog;
 
-    private List<OrderList> orderListList;
+    private List<AdminOrderModel> adminOrderListModel;
 
     private Context mContext;
     private BaseApiService mApiService;
@@ -71,22 +71,22 @@ public class AdminOrderFragment extends Fragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        adminOrderAdapter = new AdminOrderAdapter(orderListList,mContext);
+        adminOrderAdapter = new AdminOrderAdapter(adminOrderListModel,mContext);
         mRecyclerViewMart.setAdapter(adminOrderAdapter);
 
-        final Call<List<OrderList>> adminOrder = mApiService.getAdminorder();
-        adminOrder.enqueue(new Callback<List<OrderList>>() {
+        final Call<List<AdminOrderModel>> adminOrder = mApiService.getAdminorder();
+        adminOrder.enqueue(new Callback<List<AdminOrderModel>>() {
             @Override
-            public void onResponse(@Nullable Call<List<OrderList>> call, @Nullable Response<List<OrderList>> response) {
+            public void onResponse(@Nullable Call<List<AdminOrderModel>> call, @Nullable Response<List<AdminOrderModel>> response) {
                 progressDialog.dismiss();
-                orderListList = response.body();
-                Log.d("TAG","Response = "+ orderListList);
-                adminOrderAdapter.setOrderList(orderListList);
+                adminOrderListModel = response.body();
+                Log.d("TAG","Response = "+ adminOrderListModel);
+                adminOrderAdapter.setOrderList(adminOrderListModel);
 
             }
 
             @Override
-            public void onFailure(@Nullable Call<List<OrderList>> call, @Nullable Throwable t) {
+            public void onFailure(@Nullable Call<List<AdminOrderModel>> call, @Nullable Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();

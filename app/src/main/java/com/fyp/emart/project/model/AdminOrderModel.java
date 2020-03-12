@@ -3,7 +3,7 @@ package com.fyp.emart.project.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OrderList {
+public class AdminOrderModel {
     @SerializedName("id")
     @Expose
     private String id;

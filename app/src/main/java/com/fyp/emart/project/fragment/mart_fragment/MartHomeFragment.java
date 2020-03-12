@@ -25,7 +25,7 @@ import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.AdminOrderAdapter;
-import com.fyp.emart.project.model.OrderList;
+import com.fyp.emart.project.model.AdminOrderModel;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class MartHomeFragment extends Fragment {
     private AdminOrderAdapter adminOrderAdapter;
     private ProgressDialog progressDialog;
 
-    List<OrderList> orderListList;
+    List<AdminOrderModel> adminOrderListModel;
 
     private Context mContext;
     private BaseApiService mApiService;
@@ -89,21 +89,21 @@ public class MartHomeFragment extends Fragment {
         progressDialog.show();
 
         mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        adminOrderAdapter = new AdminOrderAdapter(orderListList,mContext);
+        adminOrderAdapter = new AdminOrderAdapter(adminOrderListModel,mContext);
         mRecyclerViewMart.setAdapter(adminOrderAdapter);
 
-        final Call<List<OrderList>> adminOrder = mApiService.getMartOrders(id);
-        adminOrder.enqueue(new Callback<List<OrderList>>() {
+        final Call<List<AdminOrderModel>> adminOrder = mApiService.getMartOrders(id);
+        adminOrder.enqueue(new Callback<List<AdminOrderModel>>() {
             @Override
-            public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
+            public void onResponse(Call<List<AdminOrderModel>> call, Response<List<AdminOrderModel>> response) {
                 progressDialog.dismiss();
-                orderListList = response.body();
-                Log.d("TAG","Response = "+ orderListList);
-                adminOrderAdapter.setOrderList(orderListList);
+                adminOrderListModel = response.body();
+                Log.d("TAG","Response = "+ adminOrderListModel);
+                adminOrderAdapter.setOrderList(adminOrderListModel);
             }
 
             @Override
-            public void onFailure(Call<List<OrderList>> call, Throwable t) {
+            public void onFailure(Call<List<AdminOrderModel>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();

@@ -13,6 +13,7 @@ import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.admin_fragment.AdminComplainFragment;
 import com.fyp.emart.project.fragment.admin_fragment.AdminOrderFragment;
+import com.fyp.emart.project.fragment.admin_fragment.AdminReviewsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminDashboardActivity extends AppCompatActivity {
@@ -85,12 +86,13 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         AdminOrderFragment adminOrderFragment = new AdminOrderFragment();
         AdminComplainFragment adminComplainFragment = new AdminComplainFragment();
+        AdminReviewsFragment adminReviewsFragment = new AdminReviewsFragment();
 
         adapter.addFragment(adminOrderFragment);
         adapter.addFragment(adminComplainFragment);
-        adapter.addFragment(adminComplainFragment);
+        adapter.addFragment(adminReviewsFragment);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(adapter.getCount());
 
     }
 
