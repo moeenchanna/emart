@@ -160,4 +160,17 @@ public interface BaseApiService {
             @Field("martid") String martid,
             @Field("statusid") String statusid,
             @Field("dispatchid") String dispatchid);
+
+
+    //Add Complaints
+    @FormUrlEncoded
+    @POST("FypProject/Emart/addproducts.php")
+    Call<ResponseBody> AddProducts(
+            @Field("ProductName") String ProductName,
+            @Field("ProductDescription") String ProductDescription,
+            @Field("Productimage") String Productimage,
+            @Field("ProductBrand") String ProductBrand,
+            @Field("ProductPrice") String ProductPrice,
+            @Field("ProductQty") String ProductQty,
+            @Field("martid") String martid);
 }
