@@ -241,19 +241,18 @@
 
                     </LinearLayout>
 
-
-                    <TextView
-                        android:id="@+id/txt_pyment"
+                    <Button
+                        android:id="@+id/btnpyment"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="20dp"
-                        android:background="@color/colorPrimary"
-                        android:elevation="5dp"
-                        android:gravity="center"
+                        android:background="@color/colorAccent"
+                        android:fontFamily="@font/nunito_sans_bold"
                         android:text="Save"
-                        android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:textColor="@color/colorTextORIcon"
+                        android:textSize="@dimen/text_btn_size" />
+
 
                 </LinearLayout>
             </ScrollView>
