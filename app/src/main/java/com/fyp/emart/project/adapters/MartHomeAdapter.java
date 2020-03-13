@@ -16,23 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.model.AdminOrderModel;
-import com.fyp.emart.project.model.AdminOrderModel;
 import com.fyp.emart.project.model.MartList;
+import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
 
 public class MartHomeAdapter extends RecyclerView.Adapter<MartHomeAdapter.MyviewHolder>{
 
-    private List<AdminOrderModel> adminOrderList;
+    private List<OrderList> adminOrderList;
     private Context context;
 
-    public MartHomeAdapter(List<AdminOrderModel> adminOrderList, Context context) {
+    public MartHomeAdapter(List<OrderList> adminOrderList, Context context) {
         this.adminOrderList = adminOrderList;
         this.context = context;
     }
 
-    public void setOrderList(List<AdminOrderModel> adminOrders) {
+    public void setOrderList(List<OrderList> adminOrders) {
         this.adminOrderList = adminOrders;
         notifyDataSetChanged();
     }
@@ -52,7 +51,7 @@ public class MartHomeAdapter extends RecyclerView.Adapter<MartHomeAdapter.Myview
     @Override
     public void onBindViewHolder(@NonNull MartHomeAdapter.MyviewHolder holder, int position) {
 
-        final AdminOrderModel order = adminOrderList.get(position);
+        final OrderList order = adminOrderList.get(position);
 
         String id = order.getStatusid();
 

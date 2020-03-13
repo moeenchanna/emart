@@ -91,7 +91,7 @@ public class ConfirmFragment extends Fragment {
         gson = new Gson();
         orderList = ((BaseActivity) getActivity()).getOrderList();
         Random rnd = new Random();
-        orderNo = "Order #" + (100000 + rnd.nextInt(900000));
+        orderNo = "#" + (100000 + rnd.nextInt(900000));
         setUpCartRecyclerview();
         if (orderList.isEmpty()) {
             id = "1";
@@ -123,15 +123,16 @@ public class ConfirmFragment extends Fragment {
                 Order order = new Order(id, orderNo, currentDateandTime, "Rs. " + _totalAmount,"Pending" );
                 orderList.add(order);
                 String orderString = gson.toJson(orderList);
-                String status = "processing";
+                String status = "Pending";
                 String statusid = "1";
                 SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
                 String martid = sp.getString(TEMP_MART_iD, null);
                 String custid = sp.getString(CUSTOMER_iD, null);
                 String custemail = sp.getString(CUSTOMER_EMAIL, null);
                 String subtotal = String.valueOf(_totalAmount);
+
                 loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                punchOrder(orderNo, orderString, currentDateandTime, status, statusid,subtotal , custemail, custid, martid);
+                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
 
             }
         });
@@ -175,7 +176,7 @@ public class ConfirmFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void punchOrder(String orderno, final String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid) {
+    private void punchOrder(String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata) {
         mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -186,7 +187,7 @@ public class ConfirmFragment extends Fragment {
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    localStorage.setOrder(orderdetail);
+                                    localStorage.setOrder(orderdata);//Delete cart
                                     localStorage.deleteCart();
                                     showCustomDialog();
                                     Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
