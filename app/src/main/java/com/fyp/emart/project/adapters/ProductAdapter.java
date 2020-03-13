@@ -102,7 +102,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
     @Override
     public void onBindViewHolder(final ProductAdapter.MyviewHolder holder, final int position) {
 
-        final ProductList product = productLists.get(position);
+        final ProductList product = productListsFiltered.get(position);
         localStorage = new LocalStorage(context);
         gson = new Gson();
         cartList = ((BaseActivity) context).getCartList();
@@ -275,7 +275,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
 
     @Override
     public int getItemCount() {
-        if (productLists != null) {
+        if (productListsFiltered != null) {
             return productListsFiltered.size();
         } else {
             return 0;
