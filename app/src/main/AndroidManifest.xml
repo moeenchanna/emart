@@ -17,10 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.CheckoutActivity"></activity>
         <activity android:name=".activity.CartActivity" />
         <activity android:name=".activity.ProductActivity" />
         <activity android:name=".activity.MartDashboardActivity" />
-        <activity android:name=".activity.AdminDashboardActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdminDashboardActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.CustomerDashboardActivity" />
         <activity
             android:name=".activity.SignupActivity"

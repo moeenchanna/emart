@@ -233,8 +233,8 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.checkout:
-
-                //generate order no
+                startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
+               /* //generate order no
                 SimpleDateFormat sm = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
                 Date myDate = new Date();
                 String strDate = sm.format(myDate);
@@ -244,8 +244,8 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date date = new Date();
                 String curdatetime = formatter.format(date);
-                localStorage.getCart();
-                String orderdetail =localStorage.getCart();
+
+                String orderdetail =  "";
                 String status = "processing";
                 String statusid = "1";
                 String subtotal = String.valueOf(getTotalPrice());
@@ -256,12 +256,10 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 String custemail = sp.getString(CUSTOMER_EMAIL, null);
 
 
-
-                ///Toast.makeText(mContext, "cust id "+custid, Toast.LENGTH_SHORT).show();
-               // Toast.makeText(mContext, "custemail "+custemail, Toast.LENGTH_SHORT).show();
-
-                loading = ProgressDialog.show(this, null, "Please wait...", true, false);
-                punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
+                Toast.makeText(mContext, "orderdetail "+orderdetail, Toast.LENGTH_SHORT).show();
+*/
+                ///loading = ProgressDialog.show(this, null, "Please wait...", true, false);
+                //punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
                 break;
             default:
                 break;
