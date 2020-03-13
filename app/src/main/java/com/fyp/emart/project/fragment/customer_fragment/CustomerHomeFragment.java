@@ -63,6 +63,7 @@ public class CustomerHomeFragment extends BaseFragment {
 
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        getActivity().setTitle("Marts");
         cart_count = cartCount();
 
         mApiService = UtilsApi.getAPIService();

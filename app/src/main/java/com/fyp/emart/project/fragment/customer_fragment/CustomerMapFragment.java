@@ -88,6 +88,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        getActivity().setTitle("Nearby Marts");
         cart_count = cartCount();
 
         mBtnproduct = (Button) view.findViewById(R.id.btnproduct);
