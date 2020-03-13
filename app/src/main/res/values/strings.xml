@@ -33,5 +33,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="show_location_picker">Show Location Picker</string>
     <string name="api_key">AIzaSyC8ywB6LrBgrCheRG7AjnSdITGlx-ftXt8</string>
+    <string name="reviews">Reviews</string>
 
 </resources>

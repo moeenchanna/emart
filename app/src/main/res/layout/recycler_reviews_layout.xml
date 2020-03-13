@@ -26,7 +26,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:text="DATE: "
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -34,10 +33,9 @@
                 android:padding="8dp" />
 
             <TextView
-                android:id="@+id/complain_time"
+                android:id="@+id/reviews_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:text="17/02/2020"
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -64,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Complaint: "
+                android:text="Reviews: "
                 android:padding="8dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -72,18 +70,16 @@
                 android:layout_gravity="center_vertical" />
 
             <TextView
-                android:id="@+id/complain_detail"
+                android:id="@+id/reviews_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Complaint"
+                android:text="Reviews"
                 android:padding="8dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 
