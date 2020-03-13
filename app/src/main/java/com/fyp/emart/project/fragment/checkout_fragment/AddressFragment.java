@@ -41,7 +41,6 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     Context context;
 
     String _name, _email, _mobile, _address, userString;
-    EditText name, email, mobile, address, state, zip;
 
     LocalStorage localStorage;
     Gson gson;
@@ -86,34 +85,34 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnpyment:
-                _name = name.getText().toString();
-                _email = email.getText().toString();
-                _mobile = mobile.getText().toString();
-                _address = address.getText().toString();
+                _name = mNameSa.getText().toString();
+                _email = mEmailSa.getText().toString();
+                _mobile = mMobileSa.getText().toString();
+                _address = mAddressSa.getText().toString();
 
                 Pattern p = Pattern.compile(DataConfig.regEx);
 
                 Matcher m = p.matcher(_email);
 
                 if (_name.length() == 0) {
-                    name.setError("Enter Name");
-                    name.requestFocus();
+                    mNameSa.setError("Enter Name");
+                    mNameSa.requestFocus();
                 } else if (_email.length() == 0) {
-                    email.setError("Enter email");
-                    email.requestFocus();
+                    mEmailSa.setError("Enter email");
+                    mEmailSa.requestFocus();
                 } else if (!m.find()) {
-                    email.setError("Enter Correct email");
-                    email.requestFocus();
+                    mEmailSa.setError("Enter Correct email");
+                    mEmailSa.requestFocus();
 
                 } else if (_mobile.length() == 0) {
-                    mobile.setError("Enter mobile Number");
-                    mobile.requestFocus();
+                    mMobileSa.setError("Enter mobile Number");
+                    mMobileSa.requestFocus();
                 } else if (_mobile.length() < 10) {
-                    mobile.setError("Enter Corretct mobile Number");
-                    mobile.requestFocus();
+                    mMobileSa.setError("Enter Corretct mobile Number");
+                    mMobileSa.requestFocus();
                 } else if (_address.length() == 0) {
-                    address.setError("Enter your Address");
-                    address.requestFocus();
+                    mAddressSa.setError("Enter your Address");
+                    mAddressSa.requestFocus();
                 }else {
 
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

@@ -45,7 +45,7 @@ import retrofit2.Response;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
-import static com.fyp.emart.project.Api.DataConfig.TEMP_PRODUCT_iD;
+
 
 public class CartActivity extends BaseActivity implements View.OnClickListener {
     LocalStorage localStorage;
@@ -68,9 +68,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-        mContext = this;
-        mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
 
         initView();
 
@@ -242,88 +239,12 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.checkout:
                 startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
-               /* //generate order no
-                SimpleDateFormat sm = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
-                Date myDate = new Date();
-                String strDate = sm.format(myDate);
-                String orderno = strDate.replace(".", "");
 
-                //generate current date time
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date date = new Date();
-                String curdatetime = formatter.format(date);
-
-                String orderdetail =  "";
-                String status = "processing";
-                String statusid = "1";
-                String subtotal = String.valueOf(getTotalPrice());
-
-                SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-                String martid = sp.getString(TEMP_PRODUCT_iD, null);
-                String custid = sp.getString(CUSTOMER_iD, null);
-                String custemail = sp.getString(CUSTOMER_EMAIL, null);
-
-
-                Toast.makeText(mContext, "orderdetail "+orderdetail, Toast.LENGTH_SHORT).show();
-*/
-                ///loading = ProgressDialog.show(this, null, "Please wait...", true, false);
-                //punchOrder(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid);
                 break;
             default:
                 break;
         }
     }
-
-    private void punchOrder(String orderno,String orderdetail,String curdatetime,String status,String statusid,String subtotal,String custemail,String custid,String martid) {
-        mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid)
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            loading.dismiss();
-                            try {
-                                if (response.body() != null) {
-
-                                    String role = response.body().string();
-                                    localStorage.deleteCart();
-                                    Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
-                                    checkoutOrder();
-                                    Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
-                                    Log.d("debug", role + "Order punch successfull");
-                                } else {
-                                    // If the login fails
-                                    // error case
-                                    switch (response.code()) {
-                                        case 404:
-                                            Toast.makeText(CartActivity.this, "Server not found", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        case 500:
-                                            Toast.makeText(CartActivity.this, "Server request not found", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        default:
-                                            Toast.makeText(CartActivity.this, "unknown error", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            loading.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
-                        Toast.makeText(CartActivity.this, "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                        loading.dismiss();
-                    }
-                });
-
-    }
-
-
 
     @Override
     public void onBackPressed() {

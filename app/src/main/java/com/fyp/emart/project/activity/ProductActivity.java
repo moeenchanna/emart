@@ -39,7 +39,7 @@ import static com.fyp.emart.project.Api.DataConfig.MART_EMAIL;
 import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
 import static com.fyp.emart.project.Api.DataConfig.MART_PHONE;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
-import static com.fyp.emart.project.Api.DataConfig.TEMP_PRODUCT_iD;
+import static com.fyp.emart.project.Api.DataConfig.TEMP_MART_iD;
 
 public class ProductActivity extends BaseActivity {
     private static int cart_count = 0;
@@ -64,7 +64,7 @@ public class ProductActivity extends BaseActivity {
 
         SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(TEMP_PRODUCT_iD, martid);
+        editor.putString(TEMP_MART_iD, martid);
         editor.apply();
         initView();
 
