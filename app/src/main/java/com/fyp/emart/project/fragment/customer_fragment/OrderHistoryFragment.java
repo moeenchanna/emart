@@ -63,6 +63,7 @@ public class OrderHistoryFragment extends BaseFragment {
 
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        getActivity().setTitle("Order History");
 
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
