@@ -44,7 +44,7 @@
         android:id="@+id/complaints_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/order_title"
+        android:layout_below="@+id/complain_title"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
