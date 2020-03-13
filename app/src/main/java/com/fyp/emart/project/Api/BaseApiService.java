@@ -4,7 +4,7 @@ import com.fyp.emart.project.model.ComplaintList;
 import com.fyp.emart.project.model.CustomerProfileList;
 import com.fyp.emart.project.model.MartLocationList;
 import com.fyp.emart.project.model.MartProfileList;
-import com.fyp.emart.project.model.AdminOrderModel;
+import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
 import com.fyp.emart.project.model.ReviewList;
@@ -79,15 +79,15 @@ public interface BaseApiService {
 
     // Get all orders for admin
     @GET("FypProject/Emart/getorders.php")
-    Call<List<AdminOrderModel>> getAdminorder();
+    Call<List<OrderList>> getAdminorder();
 
     // Get all orders for customer
     @POST("FypProject/Emart//getorderhistory.php")
-    Call<List<AdminOrderModel>> getOrderHistory(@Query("custid") String custid);
+    Call<List<OrderList>> getOrderHistory(@Query("custid") String custid);
 
     // Get all orders for mart
     @GET("FypProject/Emart/getmartorders.php")
-    Call<List<AdminOrderModel>> getMartOrders(@Query("martid") String martid);
+    Call<List<OrderList>> getMartOrders(@Query("martid") String martid);
 
 
     // Punch Order
