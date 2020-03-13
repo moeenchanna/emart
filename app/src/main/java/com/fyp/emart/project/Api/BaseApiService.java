@@ -9,6 +9,8 @@ import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
 import com.fyp.emart.project.model.ReviewList;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -106,7 +108,7 @@ public interface BaseApiService {
 
     // Get mart
     @GET("FypProject/Emart/location.php")
-    Call<List<MartLocationList>> getMartsLocation();
+    Call<JSONObject> getMartsLocation();
 
     // Get Mart Profile
     @POST("FypProject/Emart/getmartrsid.php")

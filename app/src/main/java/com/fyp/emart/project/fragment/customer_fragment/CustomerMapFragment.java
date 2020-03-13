@@ -32,6 +32,7 @@ import com.fyp.emart.project.activity.CartActivity;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.activity.ProductActivity;
 import com.fyp.emart.project.model.MartLocationList;
+import com.fyp.emart.project.model.MartProfileList;
 import com.fyp.emart.project.model.ProductList;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -56,6 +57,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -116,7 +118,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading please wait...");
         getMartMarkers();
-
+        //getMarkerRetrofit();
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -131,9 +133,59 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
 
     }
 
+    public void getMarkerRetrofit() {
+        mApiService.getMartsLocation()
+                .enqueue(new Callback<JSONObject>() {
+                    @Override
+                    public void onResponse(Call<JSONObject> call, retrofit2.Response<JSONObject> response) {
+                        if (response.isSuccessful()) {
+                            Log.d("JSONResult", response.toString());
+                            JSONObject j = null;
+                            try {
+                                j = response.body();
+                                result = j.getJSONArray("FL");
+                                for (int i = 0; i < result.length(); i++) {
+                                    JSONObject jsonObject1 = result.getJSONObject(i);
+
+
+                                    final String name = jsonObject1.getString("1");
+                                    String address = jsonObject1.getString("5");
+                                    String lat_i = jsonObject1.getString("6");
+                                    String long_i = jsonObject1.getString("7");
+                                    final String martid = jsonObject1.getString("0");
+
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(Double.parseDouble(lat_i), Double.parseDouble(long_i)))
+                                            .title(name).snippet(martid)
+                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.8607, 67.0011), 6.0f));
+
+
+                                }
+
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JSONObject> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry\n" + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
 
     private void getMartMarkers() {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -213,7 +265,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
             case R.id.btnproduct:
                 Bundle b = new Bundle();
                 Intent i = new Intent(getActivity(), ProductActivity.class);
-                b.putString("id",markerid);
+                b.putString("id", markerid);
                 i.putExtras(b);
                 startActivity(i);
 
