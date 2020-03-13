@@ -13,21 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.model.AdminOrderModel;
+import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
 
 public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.MyviewHolder> {
 
-    private List<AdminOrderModel> adminOrderListModel;
+    private List<OrderList> adminOrderListModel;
     private Context context;
 
-    public AdminOrderAdapter(List<AdminOrderModel> adminOrderListModel, Context context) {
+    public AdminOrderAdapter(List<OrderList> adminOrderListModel, Context context) {
         this.adminOrderListModel = adminOrderListModel;
         this.context = context;
     }
 
-    public void setOrderList(List<AdminOrderModel> adminOrderModels) {
+    public void setOrderList(List<OrderList> adminOrderModels) {
         this.adminOrderListModel = adminOrderModels;
         notifyDataSetChanged();
     }
@@ -47,7 +47,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
-        final AdminOrderModel order = adminOrderListModel.get(position);
+        final OrderList order = adminOrderListModel.get(position);
         String id = order.getStatusid();
 
 

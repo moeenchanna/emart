@@ -18,7 +18,7 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.AdminComplaintAdapter;
-import com.fyp.emart.project.model.AdminComplaintModel;
+import com.fyp.emart.project.model.ComplaintList;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class AdminComplainFragment extends Fragment {
     private AdminComplaintAdapter orderAdapter;
     private ProgressDialog progressDialog;
 
-    private List<AdminComplaintModel> complaintModel;
+    private List<ComplaintList> complaintModel;
 
     private Context mContext;
     private BaseApiService mApiService;

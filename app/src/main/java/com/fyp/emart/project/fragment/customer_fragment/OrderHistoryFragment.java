@@ -24,7 +24,7 @@ import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.AdminOrderAdapter;
-import com.fyp.emart.project.model.AdminOrderModel;
+import com.fyp.emart.project.model.OrderList;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class OrderHistoryFragment extends BaseFragment {
     private AdminOrderAdapter adminOrderAdapter;
     private ProgressDialog progressDialog;
 
-    List<AdminOrderModel> adminOrderListModel;
+    List<OrderList> adminOrderListModel;
 
     private Context mContext;
     private BaseApiService mApiService;
@@ -85,10 +85,10 @@ public class OrderHistoryFragment extends BaseFragment {
         adminOrderAdapter = new AdminOrderAdapter(adminOrderListModel,mContext);
         mRecyclerViewMart.setAdapter(adminOrderAdapter);
 
-        final Call<List<AdminOrderModel>> adminOrder = mApiService.getOrderHistory(id);
-        adminOrder.enqueue(new Callback<List<AdminOrderModel>>() {
+        final Call<List<OrderList>> adminOrder = mApiService.getOrderHistory(id);
+        adminOrder.enqueue(new Callback<List<OrderList>>() {
             @Override
-            public void onResponse(Call<List<AdminOrderModel>> call, Response<List<AdminOrderModel>> response) {
+            public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
                 progressDialog.dismiss();
                 adminOrderListModel = response.body();
                 Log.d("TAG","Response = "+ adminOrderListModel);
@@ -96,7 +96,7 @@ public class OrderHistoryFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<List<AdminOrderModel>> call, Throwable t) {
+            public void onFailure(Call<List<OrderList>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();

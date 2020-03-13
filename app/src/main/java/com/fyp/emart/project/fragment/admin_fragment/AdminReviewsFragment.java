@@ -19,8 +19,8 @@ import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.AdminComplaintAdapter;
 import com.fyp.emart.project.adapters.AdminReviewsAdapter;
-import com.fyp.emart.project.model.AdminComplaintModel;
-import com.fyp.emart.project.model.AdminReviewsModel;
+
+import com.fyp.emart.project.model.ReviewList;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class AdminReviewsFragment extends Fragment {
     private AdminReviewsAdapter reviewsAdapter;
     private ProgressDialog progressDialog;
 
-    private List<AdminReviewsModel> reviewsModel;
+    private List<ReviewList> reviewsModel;
 
     private Context mContext;
     private BaseApiService mApiService;
