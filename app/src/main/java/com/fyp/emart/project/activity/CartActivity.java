@@ -74,8 +74,21 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
 
         initView();
 
+
+
+
+    }
+
+    private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Cart");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mCheckout = (LinearLayout) findViewById(R.id.checkout);
+        mCheckout.setOnClickListener(this);
+
         localStorage = new LocalStorage(getApplicationContext());
         gson = new Gson();
         emptyCart = findViewById(R.id.empty_cart_img);
@@ -83,12 +96,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         totalPrice = findViewById(R.id.total_price);
         totalPrice.setText("Rs. " + getTotalPrice() + "");
         setUpCartRecyclerview();
-
-    }
-
-    private void initView() {
-        mCheckout = (LinearLayout) findViewById(R.id.checkout);
-        mCheckout.setOnClickListener(this);
     }
 
     @Override
@@ -106,6 +113,9 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
         switch (item.getItemId()) {
             case R.id.cart_delete:
 
@@ -123,6 +133,7 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 finish();
                 return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -198,10 +209,7 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
+
 
     public void checkoutOrder() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -315,4 +323,11 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), CustomerDashboardActivity.class));
+    }
 }

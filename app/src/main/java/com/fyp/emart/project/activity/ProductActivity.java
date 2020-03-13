@@ -76,6 +76,9 @@ public class ProductActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Product List");
+
+
         cart_count = cartCount();
 
         mApiService = UtilsApi.getAPIService();
