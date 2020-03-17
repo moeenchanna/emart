@@ -157,7 +157,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
             //Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
             RegisterRequest(name,email,password,phone,address,token);
-            customerLoginDetails(email,password);
+
         }
 
 
@@ -173,7 +173,7 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role +"Customer Login Created", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, role +"Customer Created", Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role +"Customer Login Created");
                                 } else {
                                     // If the login fails
@@ -207,21 +207,21 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
                 });
     }
 
-    private void RegisterRequest(final String name, String email, String password, String phone, final String address,String token) {
+    private void RegisterRequest(final String name, final String email, final String password, String phone, final String address, String token) {
 
         mApiService.registerCustomer(name,email,password,phone,address,token)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                            loading.dismiss();
+                            //loading.dismiss();
                             try {
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
-
+                                    customerLoginDetails(email,password);
                                     mTitName.setText("");
                                     mTitEmail.setText("");
                                     mTitPassword.setText("");

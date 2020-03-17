@@ -205,7 +205,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
             Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
             MartRequest(name,email,password,phone,ownername,ownerphone,ownerdetail,voucher,token);
-            martLoginDetails(email,password);
+
         }
 
 
@@ -222,7 +222,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role +"Mart Login Created", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, role +"Mart Created", Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role+"Mart Login Created");
                                 } else {
                                     // If the login fails
@@ -256,7 +256,7 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                 });
     }
 
-    private void MartRequest(String name, String email, String password, String phone, String ownername, String ownerphone, String ownerdetail,String voucher,String token) {
+    private void MartRequest(String name, final String email, final String password, String phone, String ownername, String ownerphone, String ownerdetail, String voucher, String token) {
 
         String logo = null;
         String banner= null;
@@ -266,14 +266,14 @@ public class MartSignupFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                            loading.dismiss();
+                          //  loading.dismiss();
                             try {
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
-
+                                    martLoginDetails(email,password);
                                     mTitName.setText("");
                                     mTitEmail.setText("");
                                     mTitPassword.setText("");
