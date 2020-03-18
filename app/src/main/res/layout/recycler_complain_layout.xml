@@ -63,7 +63,8 @@
 
             </LinearLayout>
 
-            <LinearLayout style="@style/orderlinear">
+            <LinearLayout style="@style/orderlinear"
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/orderlayout"
