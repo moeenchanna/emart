@@ -123,7 +123,7 @@ public interface BaseApiService {
     Call<List<ComplaintList>> getAdminComplaint();
 
     // Get all complaint for customer
-    @POST("FypProject/Emart//getcustomercomplaint.php")
+    @POST("FypProject/Emart/getcustomercomplaint.php")
     Call<List<ComplaintList>> getCustomerComplaint(@Query("custid") String custid);
 
     // Get all complaint for mart
@@ -168,7 +168,7 @@ public interface BaseApiService {
             @Field("dispatchid") String dispatchid);
 
 
-    //Add Products
+    //Add Products by Mart
     @FormUrlEncoded
     @POST("FypProject/Emart/addproducts.php")
     Call<ResponseBody> AddProducts(
