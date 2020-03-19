@@ -13,9 +13,11 @@ import android.view.MenuItem;
 
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
+import com.fyp.emart.project.fragment.mart_fragment.MartComplaintListFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartHomeFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProductFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProfileFragment;
+import com.fyp.emart.project.fragment.mart_fragment.MartReviewListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MartDashboardActivity extends AppCompatActivity {
@@ -46,8 +48,14 @@ public class MartDashboardActivity extends AppCompatActivity {
                             case R.id.action_product:
                                 mViewpager.setCurrentItem(1);
                                 break;
-                            case R.id.action_profile:
+                            case R.id.action_complaints:
                                 mViewpager.setCurrentItem(2);
+                                break;
+                            case R.id.action_reviews:
+                                mViewpager.setCurrentItem(3);
+                                break;
+                            case R.id.action_profile:
+                                mViewpager.setCurrentItem(4);
                                 break;
                         }
                         return false;
@@ -89,11 +97,15 @@ public class MartDashboardActivity extends AppCompatActivity {
 
         MartHomeFragment martHomeFragment = new MartHomeFragment();
         MartProductFragment martProductFragment = new MartProductFragment();
+
+        MartComplaintListFragment martComplaintListFragment = new MartComplaintListFragment();
+        MartReviewListFragment martReviewListFragment = new MartReviewListFragment();
         MartProfileFragment martProfileFragment = new MartProfileFragment();
 
         adapter.addFragment(martHomeFragment);
         adapter.addFragment(martProductFragment);
-
+        adapter.addFragment(martComplaintListFragment);
+        adapter.addFragment(martReviewListFragment);
         adapter.addFragment(martProfileFragment);
         viewPager.setAdapter(adapter);
     }
