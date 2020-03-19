@@ -75,6 +75,16 @@ private Button medit, msubit;
         msubit = (Button) view.findViewById(R.id.btnsubmt);
 
 
+        medit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTvname.setFocusable(true);
+                mTvname.setClickable(true);
+
+            }
+        });
+
+
 
 
 
