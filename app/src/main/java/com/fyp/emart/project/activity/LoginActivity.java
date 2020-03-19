@@ -42,6 +42,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      *
      */
     private TextView mTvToSignUp;
+    LinearLayout loginForm;
 
     private CheckBox mCheckBox;
     private LinearLayout mLoginForm;
@@ -115,6 +117,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
+        // Check if UserResponse is Already Logged In
+        if (SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
+            doSomethingElse();
+
+        } else {
+            loginForm.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -132,6 +141,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mBtnSignIn = (Button) findViewById(R.id.btnSignIn);
         mTvToSignUp = (TextView) findViewById(R.id.tvToSignUp);
         mCheckBox = (CheckBox) findViewById(R.id.checkBox);
+        loginForm = (LinearLayout) findViewById(R.id.loginForm);
+
         mTvForgotPassword.setOnClickListener(this);
         mBtnSignIn.setOnClickListener(this);
         mTvToSignUp.setOnClickListener(this);
@@ -148,7 +159,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mCheckBox.setChecked(true);
         }
     }
+    public void doSomethingElse() {
+       /* startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        LoginActivity.this.finish();*/
 
+
+        // Set Logged In statue to 'true'
+        SaveSharedPreference.setLoggedIn(mContext, true);
+        email = mTitEmail.getText().toString();
+        password = mTitPassword.getText().toString();
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mTitEmail.getWindowToken(), 0);
+
+        if (mCheckBox.isChecked()) {
+            loginPrefsEditor.putBoolean("saveLogin", true);
+            loginPrefsEditor.putString("username", mTitEmail.getText().toString());
+            loginPrefsEditor.putString("password", mTitPassword.getText().toString());
+            loginPrefsEditor.commit();
+        } else {
+            loginPrefsEditor.clear();
+            loginPrefsEditor.commit();
+        }
+
+        loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
+        requestLogin(email, password);
+    }
     @Override
     public void onClick(View v) {
 

@@ -1,5 +1,7 @@
 package com.fyp.emart.project.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.fyp.emart.project.fragment.customer_fragment.CustomerMapFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerReviewListFragment;
 import com.fyp.emart.project.fragment.customer_fragment.OrderHistoryFragment;
 import com.fyp.emart.project.helper.Converter;
+import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -174,12 +177,38 @@ public class CustomerDashboardActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.logout_action:
 
-                Intent i = new Intent(CustomerDashboardActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
+                logout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void logout()
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you want to logout?");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
+                        Intent intent = new Intent(CustomerDashboardActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 }
