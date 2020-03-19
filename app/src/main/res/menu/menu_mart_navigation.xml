@@ -16,6 +16,20 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_complaints"
+        android:checked="false"
+        android:icon="@drawable/ic_star_half_black_24dp"
+        android:title="Complaints"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_reviews"
+        android:checked="false"
+        android:icon="@drawable/ic_rate_review_black_24dp"
+        android:title="Reviews"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_profile"
         android:checked="false"
         android:icon="@drawable/ic_person_black_24dp"
