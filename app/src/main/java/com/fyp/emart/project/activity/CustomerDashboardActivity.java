@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.fyp.emart.project.BaseActivity;
@@ -129,7 +130,7 @@ public class CustomerDashboardActivity extends BaseActivity {
         super.onRemoveProduct();
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -149,6 +150,26 @@ public class CustomerDashboardActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
 
-    }
+    }*/
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+      MenuInflater inflater = getMenuInflater();
+      inflater.inflate(R.menu.logout_main, menu);
+      return true;
+  }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.logout_action:
+
+                Intent i = new Intent(CustomerDashboardActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
