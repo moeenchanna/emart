@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,11 +43,11 @@ import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 public class MartProfileFragment extends Fragment {
 
 
-    private TextView mTvname;
-    private TextView mTvemail;
-    private TextView mTvmobile;
-    private TextView mTvaddress;
-
+    private EditText mTvname;
+    private EditText mTvemail;
+    private EditText mTvmobile;
+    private EditText mTvaddress;
+private Button medit, msubit;
     private ProgressDialog loading;
     private Context mContext;
     private BaseApiService mApiService;
@@ -65,10 +67,16 @@ public class MartProfileFragment extends Fragment {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        mTvname = (TextView) view.findViewById(R.id.tvname);
-        mTvemail = (TextView) view.findViewById(R.id.tvemail);
-        mTvmobile = (TextView) view.findViewById(R.id.tvmobile);
-        mTvaddress = (TextView) view.findViewById(R.id.tvaddress);
+        mTvname = (EditText) view.findViewById(R.id.tvname);
+        mTvemail = (EditText) view.findViewById(R.id.tvemail);
+        mTvmobile = (EditText) view.findViewById(R.id.tvmobile);
+        mTvaddress = (EditText) view.findViewById(R.id.tvaddress);
+        medit = (Button) view.findViewById(R.id.btnedit);
+        msubit = (Button) view.findViewById(R.id.btnsubmt);
+
+
+
+
 
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         String email = sp.getString(MART_EMAIL, null);

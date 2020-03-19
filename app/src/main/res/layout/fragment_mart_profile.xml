@@ -55,11 +55,12 @@
                         android:layout_marginRight="40dp"
                         android:text="Name :" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tvname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:focusable="false"
                         android:textStyle="bold"
                         android:text="Huzaifa" />
                 </LinearLayout>
@@ -83,11 +84,11 @@
                         android:layout_marginRight="40dp"
                         android:text="Email :" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tvemail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+android:focusable="false"
                         android:textStyle="bold"
                         android:text="huzaifa@gmail.com" />
                 </LinearLayout>
@@ -111,11 +112,12 @@
                         android:layout_marginRight="35dp"
                         android:text="Mobile :" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tvmobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:focusable="false"
                         android:text="03001234567" />
                 </LinearLayout>
 
@@ -138,11 +140,12 @@
                         android:textStyle="bold"
                         android:text="Address :" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tvaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:focusable="false"
                         android:text="Karachi" />
                 </LinearLayout>
 
@@ -151,8 +154,48 @@
                     android:layout_height="1dp"
                     android:background="@color/cardBorderColor" />
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="30dp"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="30dp">
+                    <Button
+                        android:id="@+id/btnedit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:text="Edit"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/shop_button_bg"/>
+
+
+                    <Button
+                        android:id="@+id/btnsubmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Update"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:background="@drawable/shop_button_bg"/>
+
+
+
+
+
+
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
+
+
+
 
 </RelativeLayout>
