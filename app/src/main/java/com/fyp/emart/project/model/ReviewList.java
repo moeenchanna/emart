@@ -14,15 +14,18 @@ public class ReviewList {
     @SerializedName("comment")
     @Expose
     private String comment;
-    @SerializedName("rate")
-    @Expose
-    private String rate;
     @SerializedName("custid")
     @Expose
     private String custid;
+    @SerializedName("custname")
+    @Expose
+    private String custname;
     @SerializedName("martid")
     @Expose
     private String martid;
+    @SerializedName("martname")
+    @Expose
+    private String martname;
 
     public String getId() {
         return id;
@@ -48,14 +51,6 @@ public class ReviewList {
         this.comment = comment;
     }
 
-    public String getRate() {
-        return rate;
-    }
-
-    public void setRate(String rate) {
-        this.rate = rate;
-    }
-
     public String getCustid() {
         return custid;
     }
@@ -64,12 +59,28 @@ public class ReviewList {
         this.custid = custid;
     }
 
+    public String getCustname() {
+        return custname;
+    }
+
+    public void setCustname(String custname) {
+        this.custname = custname;
+    }
+
     public String getMartid() {
         return martid;
     }
 
     public void setMartid(String martid) {
         this.martid = martid;
+    }
+
+    public String getMartname() {
+        return martname;
+    }
+
+    public void setMartname(String martname) {
+        this.martname = martname;
     }
 
 }
