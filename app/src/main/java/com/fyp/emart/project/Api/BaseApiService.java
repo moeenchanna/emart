@@ -150,7 +150,9 @@ public interface BaseApiService {
             @Field("comment") String comment,
             @Field("rate") String rate,
             @Field("custid") String custid,
-            @Field("martid") String martid);
+            @Field("custname") String custname,
+            @Field("martid") String martid,
+            @Field("martname") String martname);
 
     //Add Complaints
     @FormUrlEncoded
@@ -159,7 +161,9 @@ public interface BaseApiService {
             @Field("detail") String detail,
             @Field("datetime") String datetime,
             @Field("custid") String custid,
+            @Field("custname") String custname,
             @Field("martid") String martid,
+            @Field("martname") String martname,
             @Field("statusid") String statusid,
             @Field("dispatchid") String dispatchid);
 
@@ -175,4 +179,24 @@ public interface BaseApiService {
             @Field("ProductPrice") String ProductPrice,
             @Field("ProductQty") String ProductQty,
             @Field("martid") String martid);
+
+    // Customer Profile Update
+    @FormUrlEncoded
+    @POST("FypProject/Emart/")
+    Call<ResponseBody> updateCustomerProfile(
+            @Field("cname") String name,
+            @Field("email") String email,
+            @Field("phone") String phone,
+            @Field("address") String address);
+
+    // Mart Signup
+    @FormUrlEncoded
+    @POST("FypProject/Emart/.php")
+    Call<ResponseBody> updateMartProfile(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone") String phone,
+            @Field("address") String address,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude);
 }

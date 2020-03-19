@@ -112,8 +112,6 @@ public class CustomerDashboardActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent i = new Intent(CustomerDashboardActivity.this,LoginActivity.class);
-        startActivity(i);
         finish();
     }
 
