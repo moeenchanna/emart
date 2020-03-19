@@ -2,6 +2,7 @@ package com.fyp.emart.project.fragment.mart_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.AdminReviewsAdapter;
 import com.fyp.emart.project.model.ReviewList;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class MartReviewListFragment extends Fragment {
 
@@ -60,11 +66,13 @@ public class MartReviewListFragment extends Fragment {
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading please wait...");
 
-        reviewsData();
+        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        String martid = sp.getString(MART_iD, null);
+        reviewsData(martid);
 
     }
 
-    private void reviewsData() {
+    private void reviewsData(String martid) {
 
         progressDialog.show();
 
@@ -73,7 +81,7 @@ public class MartReviewListFragment extends Fragment {
         recyclerView.setAdapter(reviewsAdapter);
         recyclerView.setHasFixedSize(true);
 
-        final Call<List<ReviewList>> call = mApiService.getAdminReviews();
+        final Call<List<ReviewList>> call = mApiService.getMartReviews(martid);
         call.enqueue(new Callback<List<ReviewList>>() {
             @Override
             public void onResponse(@Nullable Call<List<ReviewList>> call, @Nullable Response<List<ReviewList>> response) {
