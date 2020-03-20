@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
 public class CustomerDashboardActivity extends BaseActivity {
-    private static int cart_count = 0;
+
 
     private BottomNavigationView mBottomNavigation;
     private ViewPager mViewpager;
@@ -42,7 +42,6 @@ public class CustomerDashboardActivity extends BaseActivity {
     }
 
     private void initView() {
-        cart_count = cartCount();
 
         mBottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mViewpager = (ViewPager) findViewById(R.id.viewpager);
@@ -52,10 +51,11 @@ public class CustomerDashboardActivity extends BaseActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.action_home:
+
+                            case R.id.action_map:
                                 mViewpager.setCurrentItem(0);
                                 break;
-                            case R.id.action_map:
+                            case R.id.action_home:
                                 mViewpager.setCurrentItem(1);
                                 break;
                             case R.id.action_orders:
@@ -115,12 +115,12 @@ public class CustomerDashboardActivity extends BaseActivity {
         CustomerReviewListFragment reviewListFragment = new CustomerReviewListFragment();
         CustomerProfileFragment customerProfileFragment = new CustomerProfileFragment();
 
-        adapter.addFragment(customerHomeFragment);
         adapter.addFragment(martMapFragment);
+        adapter.addFragment(customerHomeFragment);
         adapter.addFragment(orderHistoryFragment);
         adapter.addFragment(customerComplaintListFragment);
         adapter.addFragment(reviewListFragment);
-        adapter.addFragment(customerProfileFragment);
+       // adapter.addFragment(customerProfileFragment);
         viewPager.setAdapter(adapter);
     }
 
@@ -130,85 +130,6 @@ public class CustomerDashboardActivity extends BaseActivity {
         finish();
     }
 
-    @Override
-    public void onAddProduct() {
-        super.onAddProduct();
-        cart_count++;
-        invalidateOptionsMenu();
 
-    }
 
-    @Override
-    public void onRemoveProduct() {
-        super.onRemoveProduct();
-    }
-
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem menuItem = menu.findItem(R.id.cart_action);
-        menuItem.setIcon(Converter.convertLayoutToImage(CustomerDashboardActivity.this, cart_count, R.drawable.ic_shopping_basket));
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.cart_action:
-                startActivity(new Intent(getApplicationContext(), CartActivity.class));
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-    }*/
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.logout_main, menu);
-      return true;
-  }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.logout_action:
-
-                logout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public void logout()
-    {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        builder1.setMessage("Are you sure you want to logout?");
-        builder1.setCancelable(false);
-        builder1.setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
-                        Intent intent = new Intent(CustomerDashboardActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-
-        builder1.setNegativeButton("No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
 }

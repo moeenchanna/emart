@@ -39,7 +39,7 @@ import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class CustomerProfileFragment extends BaseFragment {
-    private static int cart_count = 0;
+    
     private TextView mTvname;
     private TextView mTvemail;
     private TextView mTvmobile;
@@ -65,7 +65,7 @@ public class CustomerProfileFragment extends BaseFragment {
 
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        cart_count = cartCount();
+
 
         mTvname = (TextView) view.findViewById(R.id.tvname);
         mTvemail = (TextView) view.findViewById(R.id.tvemail);

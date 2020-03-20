@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_map"
+        android:checked="false"
+        android:icon="@drawable/ic_pin_drop_black_24dp"
+        android:title="Locate"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_home"
+        android:checked="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Marts"
+        app:showAsAction="ifRoom" />
+
+
+
+    <item
+        android:id="@+id/action_orders"
+        android:checked="false"
+        android:icon="@drawable/ic_reorder_black_24dp"
+        android:title="Orders"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_complaints"
+        android:checked="false"
+        android:icon="@drawable/ic_rate_review_black_24dp"
+        android:title="Complaints"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_reviews"
+        android:checked="false"
+        android:icon="@drawable/ic_star_half_black_24dp"
+        android:title="Reviews"
+        app:showAsAction="ifRoom" />
+
+  <!--  <item
+        android:id="@+id/action_profile"
+        android:checked="false"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />-->
+
+
+</menu>
