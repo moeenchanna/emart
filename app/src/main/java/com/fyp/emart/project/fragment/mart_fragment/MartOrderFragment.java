@@ -51,7 +51,7 @@ import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
-public class MartHomeFragment extends Fragment implements View.OnClickListener {
+public class MartOrderFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView mRecyclerViewMart;
     private AdminOrderAdapter adminOrderAdapter;
@@ -112,7 +112,7 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
                 String orderNo = adminOrderListModel.get(position).getOrderno();
                 String subtotal = adminOrderListModel.get(position).getSubtotal();
 //                startActivity(new Intent(mContext, ProductActivity.class));
-                askComplaintOrReview();
+                askComplaintOrReview(customerId,customerEmail);
 
             }
         });
@@ -193,14 +193,14 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void askComplaintOrReview() {
+    public void askComplaintOrReview(final String custid, final String custeremail) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Want to add complaints or reviews?");
         builder1.setCancelable(false);
         builder1.setPositiveButton("Add Complaints",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        complaintAlert();
+                        complaintAlert(custid,custeremail);
                         dialog.cancel();
                     }
                 });
@@ -208,7 +208,7 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
         builder1.setNegativeButton("Add Reviews",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        reviewAlert();
+                        reviewAlert(custid,custeremail);
                         dialog.cancel();
                     }
                 });
@@ -225,7 +225,7 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void complaintAlert() {
+    public void complaintAlert(final String custid, final String custname) {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(getActivity()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.complain_layout, null);
@@ -238,8 +238,6 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         final String martid = sp.getString(MART_iD, null);
         final String martname = sp.getString(MART_NAME, null);
-        final String custid = sp.getString(CUSTOMER_iD, null);
-        final String custname = sp.getString(CUSTOMER_NAME, null);
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,7 +259,7 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void reviewAlert() {
+    public void reviewAlert(final String custid, final String custname) {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(getActivity()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.review_layout, null);
@@ -274,8 +272,7 @@ public class MartHomeFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         final String martid = sp.getString(MART_iD, null);
         final String martname = sp.getString(MART_NAME, null);
-        final String custid = sp.getString(CUSTOMER_iD, null);
-        final String custname = sp.getString(CUSTOMER_NAME, null);
+
 
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

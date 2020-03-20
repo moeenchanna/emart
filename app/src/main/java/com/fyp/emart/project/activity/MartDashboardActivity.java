@@ -4,23 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
 import com.fyp.emart.project.fragment.mart_fragment.MartComplaintListFragment;
-import com.fyp.emart.project.fragment.mart_fragment.MartHomeFragment;
+import com.fyp.emart.project.fragment.mart_fragment.MartOrderFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProductFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartProfileFragment;
 import com.fyp.emart.project.fragment.mart_fragment.MartReviewListFragment;
-import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MartDashboardActivity extends AppCompatActivity {
@@ -98,13 +92,13 @@ public class MartDashboardActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        MartHomeFragment martHomeFragment = new MartHomeFragment();
+        MartOrderFragment martOrderFragment = new MartOrderFragment();
         MartProductFragment martProductFragment = new MartProductFragment();
         MartComplaintListFragment martComplaintListFragment = new MartComplaintListFragment();
         MartReviewListFragment martReviewListFragment = new MartReviewListFragment();
         MartProfileFragment martProfileFragment = new MartProfileFragment();
 
-        adapter.addFragment(martHomeFragment);
+        adapter.addFragment(martOrderFragment);
         adapter.addFragment(martProductFragment);
         adapter.addFragment(martComplaintListFragment);
         adapter.addFragment(martReviewListFragment);
