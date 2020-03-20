@@ -22,6 +22,8 @@ import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
+import com.shivtechs.maplocationpicker.LocationPickerActivity;
+import com.shivtechs.maplocationpicker.MapUtility;
 
 public class MartProductFragment extends Fragment implements View.OnClickListener {
 
@@ -35,6 +37,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
 
     private TextInputEditText mImageUrlProduct;
     private ImageView mLogout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return  inflater.inflate(R.layout.fragment_mart_product, container, false);
@@ -49,7 +52,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         mLogout = (ImageView) view.findViewById(R.id.logout);
-        mLogout.setOnClickListener(this);
+
 
         mProductname = (TextInputEditText) view.findViewById(R.id.productname);
         mPriceProduct = (TextInputEditText) view.findViewById(R.id.product_price);
@@ -58,7 +61,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         mImageUrlProduct = (TextInputEditText) view.findViewById(R.id.pr_image_url);
         mButton = (Button) view.findViewById(R.id.btnupload);
         mButton.setOnClickListener(this);
-
+        mLogout.setOnClickListener(this);
     }
 
 
@@ -103,6 +106,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
+
 
 
 

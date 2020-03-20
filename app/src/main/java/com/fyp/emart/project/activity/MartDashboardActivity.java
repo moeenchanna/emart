@@ -100,7 +100,6 @@ public class MartDashboardActivity extends AppCompatActivity {
 
         MartHomeFragment martHomeFragment = new MartHomeFragment();
         MartProductFragment martProductFragment = new MartProductFragment();
-
         MartComplaintListFragment martComplaintListFragment = new MartComplaintListFragment();
         MartReviewListFragment martReviewListFragment = new MartReviewListFragment();
         MartProfileFragment martProfileFragment = new MartProfileFragment();

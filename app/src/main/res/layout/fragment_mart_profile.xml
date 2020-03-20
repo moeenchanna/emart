@@ -26,29 +26,17 @@
             tools:ignore="RtlCompat" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tool_bar"
-        android:fillViewport="true">
 
         <RelativeLayout
+            android:layout_below="@id/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/no_image"
-                    app:civ_border_color="@color/colorPrimaryDark"
-                    app:civ_border_width="2dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,6 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="40dp"
+                        android:textSize="15dp"
                         android:text="Name :" />
 
                     <EditText
@@ -69,7 +58,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:clickable="false"
-                        android:focusable="false"
+
+                        android:textSize="15dp"
                         android:text="Huzaifa" />
                 </LinearLayout>
 
@@ -89,13 +79,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="40dp"
+                        android:textSize="15dp"
                         android:text="Email :" />
 
                     <EditText
                         android:id="@+id/tvemail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
+
+                        android:textSize="15dp"
                         android:text="huzaifa@gmail.com" />
                 </LinearLayout>
 
@@ -115,13 +107,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="35dp"
+                        android:textSize="15dp"
                         android:text="Mobile :" />
 
                     <EditText
                         android:id="@+id/tvmobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
+
+                        android:textSize="15dp"
                         android:text="03001234567" />
                 </LinearLayout>
 
@@ -141,21 +135,29 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="25dp"
+                        android:textSize="15dp"
                         android:text="Address :" />
+
+                    <ImageButton
+                        android:id="@+id/imgbtnlocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:layout_marginTop="30dp"
+                        android:scaleType="fitCenter"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_my_location_black_24dp" />
 
                     <EditText
                         android:id="@+id/tvaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
+
+                        android:textSize="15dp"
                         android:text="Karachi" />
+
+
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/cardBorderColor" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -163,8 +165,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnedit"
@@ -188,9 +189,11 @@
 
 
                 </LinearLayout>
+
+
             </LinearLayout>
         </RelativeLayout>
-    </ScrollView>
+
 
 
 </RelativeLayout>

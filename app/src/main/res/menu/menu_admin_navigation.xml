@@ -4,21 +4,21 @@
     <item
         android:id="@+id/action_order"
         android:checked="true"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_reorder_black_24dp"
         android:title="Order List"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_complain"
         android:checked="false"
-        android:icon="@drawable/ic_report_problem_black_24dp"
-        android:title="Complain List"
+        android:icon="@drawable/ic_rate_review_black_24dp"
+        android:title="Complaints"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_review"
         android:checked="false"
-        android:icon="@drawable/ic_rate_review_black_24dp"
+        android:icon="@drawable/ic_star_half_black_24dp"
         android:title="Reviews"
         app:showAsAction="ifRoom" />
 
