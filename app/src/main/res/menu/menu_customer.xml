@@ -29,7 +29,7 @@
         android:id="@+id/action_complaints"
         android:checked="false"
         android:icon="@drawable/ic_rate_review_black_24dp"
-        android:title="Complaints"
+        android:title="Complaints/Reviews"
         app:showAsAction="ifRoom" />
 
    <!-- <item
