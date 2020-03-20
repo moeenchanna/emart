@@ -102,7 +102,7 @@ public class AdminComplainFragment extends Fragment implements View.OnClickListe
             public void onFailure(@Nullable Call<List<ComplaintList>> call, @Nullable Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
-                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -106,7 +106,7 @@ public class AdminReviewsFragment extends Fragment implements View.OnClickListen
                 progressDialog.dismiss();
                 assert t != null;
                 Log.e("Error", t.getMessage());
-                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
