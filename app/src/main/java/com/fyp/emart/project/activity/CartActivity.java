@@ -70,10 +70,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_cart);
 
         initView();
-
-
-
-
     }
 
     private void initView() {
@@ -249,6 +245,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(), CustomerDashboardActivity.class));
+        startActivity(new Intent(getApplicationContext(), ProductActivity.class));
     }
 }

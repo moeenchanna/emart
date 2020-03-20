@@ -199,7 +199,12 @@ public class ProductActivity extends BaseActivity {
             searchView.setIconified(true);
             return;
         }
-        super.onBackPressed();
+       // super.onBackPressed();
+        localStorage.deleteCart();
+        Intent intent = new Intent(ProductActivity.this, CustomerDashboardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
     public void noProductAlert()
@@ -211,7 +216,6 @@ public class ProductActivity extends BaseActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
                         Intent intent = new Intent(ProductActivity.this, CustomerDashboardActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

@@ -66,6 +66,11 @@ public class CheckoutActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(), CustomerDashboardActivity.class));
+
+        Intent intent = new Intent(CheckoutActivity.this, CartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+        finish();
     }
 }
