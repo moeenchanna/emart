@@ -64,11 +64,11 @@ public class CustomerDashboardActivity extends BaseActivity {
                             case R.id.action_complaints:
                                 mViewpager.setCurrentItem(3);
                                 break;
-                            case R.id.action_reviews:
+                            /*case R.id.action_reviews:
                                 mViewpager.setCurrentItem(4);
-                                break;
+                                break;*/
                             case R.id.action_profile:
-                                mViewpager.setCurrentItem(5);
+                                mViewpager.setCurrentItem(4);
                                 break;
                         }
                         return false;
@@ -119,8 +119,8 @@ public class CustomerDashboardActivity extends BaseActivity {
         adapter.addFragment(customerHomeFragment);
         adapter.addFragment(orderHistoryFragment);
         adapter.addFragment(customerComplaintListFragment);
-        adapter.addFragment(reviewListFragment);
-       // adapter.addFragment(customerProfileFragment);
+        ///adapter.addFragment(reviewListFragment);
+        adapter.addFragment(customerProfileFragment);
         viewPager.setAdapter(adapter);
     }
 

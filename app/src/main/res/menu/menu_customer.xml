@@ -32,19 +32,19 @@
         android:title="Complaints"
         app:showAsAction="ifRoom" />
 
-    <item
+   <!-- <item
         android:id="@+id/action_reviews"
         android:checked="false"
         android:icon="@drawable/ic_star_half_black_24dp"
         android:title="Reviews"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />-->
 
-  <!--  <item
+    <item
         android:id="@+id/action_profile"
         android:checked="false"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="Profile"
-        app:showAsAction="ifRoom" />-->
+        app:showAsAction="ifRoom" />
 
 
 </menu>
