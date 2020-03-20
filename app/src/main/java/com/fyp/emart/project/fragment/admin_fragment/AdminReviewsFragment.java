@@ -2,34 +2,42 @@ package com.fyp.emart.project.fragment.admin_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.UtilsApi;
+import com.fyp.emart.project.R;
+import com.fyp.emart.project.activity.LoginActivity;
+import com.fyp.emart.project.adapters.AdminReviewsAdapter;
+import com.fyp.emart.project.model.ReviewList;
+import com.fyp.emart.project.utils.SaveSharedPreference;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.fyp.emart.project.Api.BaseApiService;
-import com.fyp.emart.project.Api.UtilsApi;
-import com.fyp.emart.project.R;
-import com.fyp.emart.project.adapters.AdminReviewsAdapter;
-import com.fyp.emart.project.model.ReviewList;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminReviewsFragment extends Fragment {
+public class AdminReviewsFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private AdminReviewsAdapter reviewsAdapter;
@@ -39,6 +47,7 @@ public class AdminReviewsFragment extends Fragment {
 
     private Context mContext;
     private BaseApiService mApiService;
+    private ImageView mLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +58,16 @@ public class AdminReviewsFragment extends Fragment {
 
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Toolbar toolbar = view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        mLogout = (ImageView) view.findViewById(R.id.logout);
+        mLogout.setOnClickListener(this);
 
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
@@ -97,5 +110,53 @@ public class AdminReviewsFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
+    }
+
+
+
+    public void  logout(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Are you sure you want to logout?");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SaveSharedPreference.setLoggedIn(getActivity(), false);
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logout:
+                logout();
+                break;
+            default:
+                break;
+        }
     }
 }

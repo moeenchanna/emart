@@ -16,7 +16,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_orderz"
+        android:id="@+id/action_orders"
         android:checked="false"
         android:icon="@drawable/ic_reorder_black_24dp"
         android:title="Orders"

@@ -34,8 +34,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     //New AndroidX design dependency
-    implementation 'com.google.android.material:material:1.0.0-beta01'
-
+    implementation 'com.google.android.material:material:1.1.0'
     //Url Image View
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'

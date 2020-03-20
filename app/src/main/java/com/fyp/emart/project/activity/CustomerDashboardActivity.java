@@ -58,7 +58,7 @@ public class CustomerDashboardActivity extends BaseActivity {
                             case R.id.action_map:
                                 mViewpager.setCurrentItem(1);
                                 break;
-                            case R.id.action_orderz:
+                            case R.id.action_orders:
                                 mViewpager.setCurrentItem(2);
                                 break;
                             case R.id.action_complaints:
