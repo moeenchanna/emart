@@ -11,9 +11,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ProductAdapter;
 import com.fyp.emart.project.helper.Converter;
 import com.fyp.emart.project.model.ProductList;
+import com.fyp.emart.project.utils.SaveSharedPreference;
 
 import java.util.List;
 
@@ -116,7 +119,8 @@ public class ProductActivity extends BaseActivity {
             public void onFailure(Call<List<ProductList>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
-                Toast.makeText(ProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                noProductAlert();
+                //Toast.makeText(ProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -198,4 +202,22 @@ public class ProductActivity extends BaseActivity {
         super.onBackPressed();
     }
 
+    public void noProductAlert()
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("There is no product available..");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("Try again later.",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
+                        Intent intent = new Intent(ProductActivity.this, CustomerDashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+    }
 }
