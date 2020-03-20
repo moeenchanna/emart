@@ -2,6 +2,8 @@ package com.fyp.emart.project.fragment.mart_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +22,13 @@ import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.model.MartProfileList;
+import com.fyp.emart.project.utils.SaveSharedPreference;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -40,17 +45,18 @@ import static com.fyp.emart.project.Api.DataConfig.MART_PHONE;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 
-public class MartProfileFragment extends Fragment {
+public class MartProfileFragment extends Fragment implements View.OnClickListener {
 
 
     private EditText mTvname;
     private EditText mTvemail;
     private EditText mTvmobile;
     private EditText mTvaddress;
-private Button medit, msubit;
+    private Button medit, msubit;
     private ProgressDialog loading;
     private Context mContext;
     private BaseApiService mApiService;
+    private ImageView mLogout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +72,8 @@ private Button medit, msubit;
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        mLogout = (ImageView) view.findViewById(R.id.logout);
+        mLogout.setOnClickListener(this);
 
         mTvname = (EditText) view.findViewById(R.id.tvname);
         mTvemail = (EditText) view.findViewById(R.id.tvemail);
@@ -85,9 +93,6 @@ private Button medit, msubit;
         });
 
 
-
-
-
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         String email = sp.getString(MART_EMAIL, null);
         loading = ProgressDialog.show(mContext, null, "Loading", true, false);
@@ -96,7 +101,7 @@ private Button medit, msubit;
 
     private void requestMartData(String email) {
         mApiService.getMartProfile(email)
-                .enqueue(new  Callback<List<MartProfileList>>() {
+                .enqueue(new Callback<List<MartProfileList>>() {
                     @Override
                     public void onResponse(Call<List<MartProfileList>> call, Response<List<MartProfileList>> response) {
                         if (response.isSuccessful()) {
@@ -121,9 +126,47 @@ private Button medit, msubit;
                     @Override
                     public void onFailure(Call<List<MartProfileList>> call, Throwable t) {
                         Log.e("checkerror", "onFailure: ERROR > " + t.toString());
-                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry\n"+t.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry\n" + t.toString(), Toast.LENGTH_SHORT).show();
                         loading.dismiss();
                     }
                 });
+    }
+
+    public void logout() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Are you sure you want to logout?");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SaveSharedPreference.setLoggedIn(getActivity(), false);
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logout:
+                logout();
+                break;
+            default:
+                break;
+        }
     }
 }

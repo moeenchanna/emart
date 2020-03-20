@@ -2,11 +2,14 @@ package com.fyp.emart.project.fragment.mart_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -17,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chootdev.recycleclick.RecycleClick;
@@ -24,8 +28,10 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.model.OrderList;
+import com.fyp.emart.project.utils.SaveSharedPreference;
 
 import java.util.List;
 
@@ -36,7 +42,7 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
-public class MartHomeFragment extends Fragment {
+public class MartHomeFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView mRecyclerViewMart;
     private AdminOrderAdapter adminOrderAdapter;
@@ -47,7 +53,7 @@ public class MartHomeFragment extends Fragment {
     private Context mContext;
     private BaseApiService mApiService;
     SharedPreferences loginPreferences;
-
+    private ImageView mLogout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,6 +70,8 @@ public class MartHomeFragment extends Fragment {
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
         mRecyclerViewMart = view.findViewById(R.id.order_recycler_view);
+        mLogout = (ImageView) view.findViewById(R.id.logout);
+        mLogout.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading please wait...");
@@ -117,6 +125,44 @@ public class MartHomeFragment extends Fragment {
         super.onDestroy();
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
+        }
+    }
+
+    public void  logout(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Are you sure you want to logout?");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SaveSharedPreference.setLoggedIn(getActivity(), false);
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logout:
+                logout();
+                break;
+            default:
+                break;
         }
     }
 }

@@ -100,7 +100,7 @@ public class AdminOrderFragment extends Fragment implements View.OnClickListener
             public void onFailure(@Nullable Call<List<OrderList>> call, @Nullable Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
-               // Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

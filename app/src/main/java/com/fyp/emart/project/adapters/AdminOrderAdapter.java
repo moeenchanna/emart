@@ -59,17 +59,17 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
 
         if (id.contains("0")) {
             holder.status.setTextColor(Color.RED);// on hold
-            Toast.makeText(context, "0", Toast.LENGTH_SHORT).show();
+           //// Toast.makeText(context, "0", Toast.LENGTH_SHORT).show();
             return;
         }
         if (id.contains("1")) {
             holder.status.setTextColor(Color.MAGENTA);// in process
-            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
             return;
         }
         if (id.contains("2")) {
             holder.status.setTextColor(Color.GREEN);// delievered success
-            Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
         }
 
     }

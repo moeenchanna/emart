@@ -223,7 +223,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
 
                                     Intent i;

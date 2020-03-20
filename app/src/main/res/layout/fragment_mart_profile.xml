@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,17 +10,26 @@
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
-        android:elevation="6dp"
+        app:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:id="@+id/logout"
+            android:layout_gravity="right"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_power_settings_new_black_24dp"
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_below="@id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -60,9 +68,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:focusable="false"
                         android:clickable="false"
-                        android:textStyle="bold"
+                        android:focusable="false"
                         android:text="Huzaifa" />
                 </LinearLayout>
 
@@ -81,7 +88,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:textStyle="bold"
                         android:layout_marginRight="40dp"
                         android:text="Email :" />
 
@@ -89,8 +95,7 @@
                         android:id="@+id/tvemail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-android:focusable="false"
-                        android:textStyle="bold"
+                        android:focusable="false"
                         android:text="huzaifa@gmail.com" />
                 </LinearLayout>
 
@@ -109,7 +114,6 @@ android:focusable="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:textStyle="bold"
                         android:layout_marginRight="35dp"
                         android:text="Mobile :" />
 
@@ -117,7 +121,6 @@ android:focusable="false"
                         android:id="@+id/tvmobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:focusable="false"
                         android:text="03001234567" />
                 </LinearLayout>
@@ -138,14 +141,12 @@ android:focusable="false"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="25dp"
-                        android:textStyle="bold"
                         android:text="Address :" />
 
                     <EditText
                         android:id="@+id/tvaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:focusable="false"
                         android:text="Karachi" />
                 </LinearLayout>
@@ -159,21 +160,21 @@ android:focusable="false"
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
                     android:orientation="horizontal"
-                    android:layout_marginEnd="30dp">
+                    android:weightSum="2">
+
                     <Button
                         android:id="@+id/btnedit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textStyle="bold"
-                        android:textColor="#fff"
-                        android:text="Edit"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/shop_button_bg"/>
+                        android:layout_weight="1"
+                        android:background="@drawable/shop_button_bg"
+                        android:text="Edit"
+                        android:textColor="#fff" />
 
 
                     <Button
@@ -181,22 +182,15 @@ android:focusable="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/shop_button_bg"
                         android:text="Update"
-                        android:textStyle="bold"
-                        android:textColor="#fff"
-                        android:background="@drawable/shop_button_bg"/>
-
-
-
-
+                        android:textColor="#fff" />
 
 
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-
-
 
 
 </RelativeLayout>
