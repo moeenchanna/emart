@@ -251,7 +251,7 @@ public class MartProfileFragment extends Fragment implements View.OnClickListene
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                            //loading.dismiss();
+                            loading.dismiss();
                             try {
                                 if (response.body() != null) {
 
