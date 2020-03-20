@@ -2,6 +2,7 @@ package com.fyp.emart.project.fragment.customer_fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -29,11 +31,13 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
+import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.activity.ProductActivity;
 import com.fyp.emart.project.adapters.MartAdapter;
 import com.fyp.emart.project.adapters.ProductAdapter;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
+import com.fyp.emart.project.utils.SaveSharedPreference;
 
 import java.util.List;
 
@@ -41,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerHomeFragment extends BaseFragment {
+public class CustomerHomeFragment extends BaseFragment  implements View.OnClickListener{
     private static int cart_count = 0;
     private RecyclerView mRecyclerViewMart;
     private List<MartList> martLists;
@@ -50,6 +54,8 @@ public class CustomerHomeFragment extends BaseFragment {
 
     private Context mContext;
     private BaseApiService mApiService;
+    private ImageView mLogout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -63,7 +69,12 @@ public class CustomerHomeFragment extends BaseFragment {
 
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        getActivity().setTitle("Marts");
+
+
+        mLogout = (ImageView) view.findViewById(R.id.logout);
+        mLogout.setOnClickListener(this);
+
+
         cart_count = cartCount();
 
         mApiService = UtilsApi.getAPIService();
@@ -126,6 +137,44 @@ public class CustomerHomeFragment extends BaseFragment {
         super.onDestroy();
         if ( progressDialog!=null && progressDialog.isShowing() ){
             progressDialog.cancel();
+        }
+    }
+
+    public void  logout(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Are you sure you want to logout?");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SaveSharedPreference.setLoggedIn(getActivity(), false);
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logout:
+                logout();
+                break;
+            default:
+                break;
         }
     }
 }

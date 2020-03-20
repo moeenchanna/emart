@@ -182,14 +182,14 @@ public interface BaseApiService {
 
     // Customer Profile Update
     @FormUrlEncoded
-    @POST("FypProject/Emart/")
+    @POST("FypProject/Emart/customer_profile_update.php")
     Call<ResponseBody> updateCustomerProfile(
             @Field("cname") String name,
             @Field("email") String email,
             @Field("phone") String phone,
             @Field("address") String address);
 
-    // Mart Signup
+    // Mart Profile Update
     @FormUrlEncoded
     @POST("FypProject/Emart/mart_profile_update.php")
     Call<ResponseBody> updateMartProfile(
