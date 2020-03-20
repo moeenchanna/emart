@@ -148,7 +148,6 @@ public interface BaseApiService {
     Call<ResponseBody> AddReview(
             @Field("datetime") String datetime,
             @Field("comment") String comment,
-            @Field("rate") String rate,
             @Field("custid") String custid,
             @Field("custname") String custname,
             @Field("martid") String martid,
@@ -163,9 +162,7 @@ public interface BaseApiService {
             @Field("custid") String custid,
             @Field("custname") String custname,
             @Field("martid") String martid,
-            @Field("martname") String martname,
-            @Field("statusid") String statusid,
-            @Field("dispatchid") String dispatchid);
+            @Field("martname") String martname);
 
 
     //Add Products by Mart
