@@ -78,4 +78,7 @@ dependencies {
 
     //This Volley library yes
     implementation 'com.android.volley:volley:1.1.0'
+
+    //Permissions
+    implementation 'gun0912.ted:tedpermission:2.1.1'
 }
