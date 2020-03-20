@@ -191,7 +191,7 @@ public interface BaseApiService {
 
     // Mart Signup
     @FormUrlEncoded
-    @POST("FypProject/Emart/.php")
+    @POST("FypProject/Emart/mart_profile_update.php")
     Call<ResponseBody> updateMartProfile(
             @Field("name") String name,
             @Field("email") String email,
