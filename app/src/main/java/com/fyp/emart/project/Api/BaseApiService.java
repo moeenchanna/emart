@@ -135,7 +135,7 @@ public interface BaseApiService {
     Call<List<ReviewList>> getAdminReviews();
 
     // Get all reviews for customer
-    @POST("FypProject/Emart//getcustomerreviews.php")
+    @POST("FypProject/Emart/getcustomerreviews.php")
     Call<List<ReviewList>> getCustomerReviews(@Query("custid") String custid);
 
     // Get all reviews for mart
@@ -146,8 +146,8 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("FypProject/Emart/addreview.php")
     Call<ResponseBody> AddReview(
-            @Field("datetime") String datetime,
             @Field("comment") String comment,
+            @Field("datetime") String datetime,
             @Field("custid") String custid,
             @Field("custname") String custname,
             @Field("martid") String martid,

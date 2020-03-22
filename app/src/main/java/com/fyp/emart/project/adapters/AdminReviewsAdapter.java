@@ -50,6 +50,8 @@ public class AdminReviewsAdapter extends RecyclerView.Adapter<AdminReviewsAdapte
 
         holder.time.setText(review.getDatetime());
         holder.comment.setText(review.getComment());
+        holder.martname.setText(review.getMartname());
+        holder.customername.setText(review.getCustname());
 
     }
 
@@ -62,12 +64,14 @@ public class AdminReviewsAdapter extends RecyclerView.Adapter<AdminReviewsAdapte
     }
 
     static class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView time, comment;
+        TextView time, comment,martname,customername;
 
         MyviewHolder(View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.reviews_time);
             comment = itemView.findViewById(R.id.reviews_comment);
+            martname = itemView.findViewById(R.id.reviews_mart_name);
+            customername = itemView.findViewById(R.id.reviews_customer_name);
         }
     }
 

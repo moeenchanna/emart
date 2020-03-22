@@ -113,15 +113,12 @@ public class CustomerDashboardActivity extends BaseActivity {
         CustomerMapFragment martMapFragment = new CustomerMapFragment();
         OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
         CustomerChildFragment customerChildFragment = new CustomerChildFragment();
-        CustomerComplaintListFragment customerComplaintListFragment = new CustomerComplaintListFragment();
-        CustomerReviewListFragment reviewListFragment = new CustomerReviewListFragment();
         CustomerProfileFragment customerProfileFragment = new CustomerProfileFragment();
 
         adapter.addFragment(martMapFragment);
         adapter.addFragment(customerHomeFragment);
         adapter.addFragment(orderHistoryFragment);
         adapter.addFragment(customerChildFragment);
-        ///adapter.addFragment(reviewListFragment);
         adapter.addFragment(customerProfileFragment);
         viewPager.setAdapter(adapter);
     }

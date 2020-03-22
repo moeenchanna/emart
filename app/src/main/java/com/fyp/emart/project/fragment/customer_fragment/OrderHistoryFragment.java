@@ -70,7 +70,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
     private TextInputEditText mTxtcomplaints;
     private Button mBtnAdd;
     ProgressDialog loading;
-
+    AlertDialog dialogBuilder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -234,7 +234,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
     }
 
     public void complaintAlert() {
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(getActivity()).create();
+        dialogBuilder = new AlertDialog.Builder(getActivity()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.complain_layout, null);
         mTxtcomplaints = (TextInputEditText) dialogView.findViewById(R.id.txtcomplaints);
@@ -267,10 +267,13 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
             }
         });
 
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+
     }
 
     public void reviewAlert() {
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(getActivity()).create();
+         dialogBuilder = new AlertDialog.Builder(getActivity()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.review_layout, null);
         mTxtcomplaints = (TextInputEditText) dialogView.findViewById(R.id.txtcomplaints);
@@ -303,6 +306,9 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
             }
         });
 
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+
     }
 
     private void addComplaints(String detail, String datetime, String custid, String custname, String martid, String martname) {
@@ -319,7 +325,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                                     String role = response.body().string();
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
-
+                                    dialogBuilder.dismiss();
                                     Toast.makeText(mContext, "Your Complaint Submit Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails
@@ -363,12 +369,12 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                             loading.dismiss();
                             try {
                                 if (response.body() != null) {
-
+                                    dialogBuilder.dismiss();
                                     String role = response.body().string();
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
 
-                                    Toast.makeText(mContext, "Your Complaint Submit Successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, "Your Review Submit Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails
                                     // error case
