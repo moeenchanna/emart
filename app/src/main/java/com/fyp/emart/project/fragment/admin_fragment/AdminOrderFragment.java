@@ -49,6 +49,8 @@ public class AdminOrderFragment extends Fragment implements View.OnClickListener
     private Context mContext;
     private BaseApiService mApiService;
     private ImageView mLogout;
+    AlertDialog dialogBuilder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
