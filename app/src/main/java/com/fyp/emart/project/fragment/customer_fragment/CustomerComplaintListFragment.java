@@ -65,12 +65,12 @@ public class CustomerComplaintListFragment extends Fragment  implements View.OnC
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+           /* Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
             mLogout = (ImageView) view.findViewById(R.id.logout);
             mLogout.setOnClickListener(this);
-
+*/
 
             mApiService = UtilsApi.getAPIService();
             mContext = getActivity();

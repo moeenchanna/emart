@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.ViewPagerAdapter;
+import com.fyp.emart.project.fragment.customer_fragment.CustomerChildFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerComplaintListFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerHomeFragment;
 import com.fyp.emart.project.fragment.customer_fragment.CustomerProfileFragment;
@@ -61,14 +62,14 @@ public class CustomerDashboardActivity extends BaseActivity {
                             case R.id.action_orders:
                                 mViewpager.setCurrentItem(2);
                                 break;
-                           /* case R.id.action_complaints:
+                            case R.id.action_complaints:
                                 mViewpager.setCurrentItem(3);
-                                break;*/
+                                break;
                             /*case R.id.action_reviews:
                                 mViewpager.setCurrentItem(4);
                                 break;*/
                             case R.id.action_profile:
-                                mViewpager.setCurrentItem(3);
+                                mViewpager.setCurrentItem(4);
                                 break;
                         }
                         return false;
@@ -111,6 +112,7 @@ public class CustomerDashboardActivity extends BaseActivity {
         CustomerHomeFragment customerHomeFragment = new CustomerHomeFragment();
         CustomerMapFragment martMapFragment = new CustomerMapFragment();
         OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
+        CustomerChildFragment customerChildFragment = new CustomerChildFragment();
         CustomerComplaintListFragment customerComplaintListFragment = new CustomerComplaintListFragment();
         CustomerReviewListFragment reviewListFragment = new CustomerReviewListFragment();
         CustomerProfileFragment customerProfileFragment = new CustomerProfileFragment();
@@ -118,7 +120,7 @@ public class CustomerDashboardActivity extends BaseActivity {
         adapter.addFragment(martMapFragment);
         adapter.addFragment(customerHomeFragment);
         adapter.addFragment(orderHistoryFragment);
-       // adapter.addFragment(customerComplaintListFragment);
+        adapter.addFragment(customerChildFragment);
         ///adapter.addFragment(reviewListFragment);
         adapter.addFragment(customerProfileFragment);
         viewPager.setAdapter(adapter);

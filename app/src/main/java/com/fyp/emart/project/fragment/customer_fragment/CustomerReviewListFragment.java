@@ -78,11 +78,11 @@ public class CustomerReviewListFragment extends Fragment implements View.OnClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = view.findViewById(R.id.tool_bar);
+       /* Toolbar toolbar = view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         mLogout = (ImageView) view.findViewById(R.id.logout);
-        mLogout.setOnClickListener(this);
+        mLogout.setOnClickListener(this);*/
 
 
         mApiService = UtilsApi.getAPIService();

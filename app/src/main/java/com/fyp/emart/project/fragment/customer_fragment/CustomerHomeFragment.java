@@ -70,16 +70,15 @@ public class CustomerHomeFragment extends BaseFragment  implements View.OnClickL
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.tool_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-
-        mLogout = (ImageView) view.findViewById(R.id.logout);
-        mLogout.setOnClickListener(this);
-
-
         cart_count = cartCount();
 
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
         mRecyclerViewMart = (RecyclerView) view.findViewById(R.id.mart_recycler_view);
+
+
+        mLogout = (ImageView) view.findViewById(R.id.logout);
+        mLogout.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading please wait...");
