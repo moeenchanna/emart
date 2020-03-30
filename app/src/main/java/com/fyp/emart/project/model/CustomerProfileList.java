@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CustomerProfileList {
+
+
     @SerializedName("cid")
     @Expose
     private String cid;

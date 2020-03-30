@@ -127,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
                     android:hint="@string/text_hint_phone"
+                    android:digits="0123456789"
                     android:inputType="phone"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"

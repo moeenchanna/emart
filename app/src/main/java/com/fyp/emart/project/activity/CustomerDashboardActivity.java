@@ -109,8 +109,8 @@ public class CustomerDashboardActivity extends BaseActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        CustomerHomeFragment customerHomeFragment = new CustomerHomeFragment();
         CustomerMapFragment martMapFragment = new CustomerMapFragment();
+        CustomerHomeFragment customerHomeFragment = new CustomerHomeFragment();
         OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
         CustomerChildFragment customerChildFragment = new CustomerChildFragment();
         CustomerProfileFragment customerProfileFragment = new CustomerProfileFragment();

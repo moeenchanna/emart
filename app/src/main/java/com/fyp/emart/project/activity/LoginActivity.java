@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mBtnSignIn = (Button) findViewById(R.id.btnSignIn);
         mTvToSignUp = (TextView) findViewById(R.id.tvToSignUp);
         mCheckBox = (CheckBox) findViewById(R.id.checkBox);
-        loginForm = (LinearLayout) findViewById(R.id.loginForm);
+
 
         mTvForgotPassword.setOnClickListener(this);
         mBtnSignIn.setOnClickListener(this);
@@ -245,8 +245,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.apply();
                                     SaveSharedPreference.setLoggedIn(mContext, true);
 
-
-
                                     switch (role) {
                                         case "1"://Customer Role
                                             requestCustomerData(email);
@@ -265,7 +263,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             break;
 
                                         case "3"://Admin Role
-
                                             i = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(i);
@@ -315,7 +312,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void checkValidations() {
         if (!isEmailValid(mTitEmail.getText().toString())) {
-            mTitEmail.requestFocus();
+            mTitEmail.requestFocus();// focus cursor
             mTitEmail.setError("Valid email required.");
         } else if (mTitPassword.getText().length() < 1) {
             mTitPassword.requestFocus();
@@ -325,9 +322,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             email = mTitEmail.getText().toString();
             password = mTitPassword.getText().toString();
 
+            //Keyboard hiding
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mTitEmail.getWindowToken(), 0);
 
+            //Shared prefrence usage
             if (mCheckBox.isChecked()) {
                 loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.putString("username", mTitEmail.getText().toString());

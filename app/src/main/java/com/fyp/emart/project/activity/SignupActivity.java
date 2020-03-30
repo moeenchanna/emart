@@ -33,6 +33,7 @@ public class SignupActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_signup);
+        //Keyboard hiding
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
     }
@@ -41,10 +42,13 @@ public class SignupActivity extends AppCompatActivity  {
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
         tabLayout.addTab(tabLayout.newTab().setText("Customer Signup"));
         tabLayout.addTab(tabLayout.newTab().setText("Mart Signup"));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager =(ViewPager)findViewById(R.id.view_pager);
+
         TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(tabsAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

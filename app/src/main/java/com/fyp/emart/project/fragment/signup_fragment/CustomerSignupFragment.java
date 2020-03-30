@@ -159,8 +159,6 @@ public class CustomerSignupFragment extends Fragment implements View.OnClickList
             RegisterRequest(name,email,password,phone,address,token);
 
         }
-
-
     }
     private void customerLoginDetails(String email, String password) {
         mApiService.registerUser(email,password,"1")//1 for Customer
