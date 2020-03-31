@@ -95,6 +95,7 @@ public class CustomerReviewListFragment extends Fragment implements View.OnClick
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         String custid = sp.getString(CUSTOMER_iD, null);
         reviewsData(custid);
+/*
 
         RecycleClick.addTo(recyclerView).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override
@@ -112,6 +113,7 @@ public class CustomerReviewListFragment extends Fragment implements View.OnClick
 
             }
         });
+*/
 
     }
 

@@ -65,7 +65,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
 
     private Context mContext;
     private BaseApiService mApiService;
-    SharedPreferences loginPreferences;
+
     private ImageView mLogout;
     private TextInputEditText mTxtcomplaints;
     private Button mBtnAdd;
@@ -104,9 +104,10 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
                 //Toast.makeText(getApplicationContext(), "id: "+productCategoryListPojos.get(position).getId(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(mContext, position, Toast.LENGTH_SHORT).show();
-                String orderId = adminOrderListModel.get(position).getId();
+              /*  String orderId = adminOrderListModel.get(position).getId();
                 String customerEmail = adminOrderListModel.get(position).getCustemail();
                 String customerId = adminOrderListModel.get(position).getCustid();
                 String datetime = adminOrderListModel.get(position).getDatetime();
@@ -115,11 +116,12 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                 String status = adminOrderListModel.get(position).getStatus();
                 String orderDetail = adminOrderListModel.get(position).getOrderdetail();
                 String orderNo = adminOrderListModel.get(position).getOrderno();
-                String subtotal = adminOrderListModel.get(position).getSubtotal();
+                String subtotal = adminOrderListModel.get(position).getSubtotal();*/
 
                 askComplaintOrReview();
 
 //                startActivity(new Intent(mContext, ProductActivity.class));
+
             }
         });
 
@@ -313,7 +315,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
 
     private void addComplaints(String detail, String datetime, String custid, String custname, String martid, String martname) {
 
-        mApiService.AddComplaints(detail, datetime, custid, custname, martid, martname)
+        mApiService.AddComplaints(detail, datetime, custid, custname, martid,martname)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

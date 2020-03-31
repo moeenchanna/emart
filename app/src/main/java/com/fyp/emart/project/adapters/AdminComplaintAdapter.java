@@ -49,7 +49,8 @@ public class AdminComplaintAdapter extends RecyclerView.Adapter<AdminComplaintAd
 
         holder.time.setText(complaint.getDatetime());
         holder.detail.setText(complaint.getDetail());
-
+        holder.martname.setText(complaint.getMartname());
+        holder.customername.setText(complaint.getCustname());
     }
 
     @Override
@@ -61,12 +62,15 @@ public class AdminComplaintAdapter extends RecyclerView.Adapter<AdminComplaintAd
     }
 
     static class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView time, detail;
+        TextView time, detail,martname,customername;
 
         MyviewHolder(View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.complain_time);
             detail = itemView.findViewById(R.id.complain_detail);
+
+            martname = itemView.findViewById(R.id.complaints_mart_name);
+            customername = itemView.findViewById(R.id.complaints_customer_name);
         }
     }
 }
