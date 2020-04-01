@@ -62,6 +62,7 @@ public class ProductActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        //Get bundle id
         Intent intent = getIntent();
         martid = intent.getStringExtra("id");
 

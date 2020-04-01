@@ -73,6 +73,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
 
     private GoogleMap mMap;
     public static final String URL = UtilsApi.BASE_URL_API + "FypProject/Emart/location.php";
+
     private JSONArray result;
     private Button mBtnproduct;
     List<MartLocationList> martLocationLists;
@@ -118,8 +119,10 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
@@ -239,7 +242,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         });
 
 
-        int socketTimeout = 10000;
+        int socketTimeout = 10000;//10 sec
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
@@ -272,7 +275,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnproduct:
-                Bundle b = new Bundle();
+                Bundle b = new Bundle();// pass data in any activity
                 Intent i = new Intent(getActivity(), ProductActivity.class);
                 b.putString("id", markerid);
                 i.putExtras(b);
