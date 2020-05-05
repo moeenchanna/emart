@@ -399,8 +399,10 @@ public class CustomerMapFragment extends BaseFragment
         Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
         //MarkerOptions are used to create a new Marker.You can specify location, title etc with MarkerOptions
-        MarkerOptions markerOptions = new MarkerOptions().position(new
-                LatLng(location.getLatitude(), location.getLongitude())).title("You are Here");
+        //MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("You are Here");
+
+        //Adding the created the marker on the map
+        //mMap.addMarker(markerOptions);
 
         final CircleOptions circle = new CircleOptions()
                 .center(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -480,8 +482,7 @@ public class CustomerMapFragment extends BaseFragment
 
         });
 
-        //Adding the created the marker on the map
-        mMap.addMarker(markerOptions);
+
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16.0f));
     }

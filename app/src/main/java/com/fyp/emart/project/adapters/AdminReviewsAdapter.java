@@ -48,10 +48,10 @@ public class AdminReviewsAdapter extends RecyclerView.Adapter<AdminReviewsAdapte
         String id = review.getId();
 
 
-        holder.time.setText(review.getDatetime());
-        holder.comment.setText(review.getComment());
-        holder.martname.setText(review.getMartname());
-        holder.customername.setText(review.getCustname());
+        holder.time.setText("Date Time: "+review.getDatetime());
+        holder.martname.setText("Mart Name: "+review.getMartname());
+        holder.customername.setText("Customer Name: "+review.getCustname());
+        holder.comment.setText("Reviews: "+review.getComment());
 
     }
 
@@ -68,7 +68,7 @@ public class AdminReviewsAdapter extends RecyclerView.Adapter<AdminReviewsAdapte
 
         MyviewHolder(View itemView) {
             super(itemView);
-            time = itemView.findViewById(R.id.reviews_time);
+            time = itemView.findViewById(R.id.date);
             comment = itemView.findViewById(R.id.reviews_comment);
             martname = itemView.findViewById(R.id.reviews_mart_name);
             customername = itemView.findViewById(R.id.reviews_customer_name);
