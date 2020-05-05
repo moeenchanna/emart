@@ -23,16 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseActivity extends AppCompatActivity implements AddorRemoveCallbacks {
+
     public static final String TAG = "BaseActivity===>";
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 10;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 20;
     List<Cart> cartList = new ArrayList<Cart>();
     List<Order> orderList = new ArrayList<Order>();
+
     public Gson gson;
     public LocalStorage localStorage;
     String userJson;
     ProgressDialog progressDialog;
-
     //test video ke lie
 
 
@@ -41,6 +42,7 @@ public class BaseActivity extends AppCompatActivity implements AddorRemoveCallba
         super.onCreate(savedInstanceState);
 
         localStorage = new LocalStorage(getApplicationContext());
+
         gson = new Gson();
         userJson = localStorage.getUserLogin();
         progressDialog = new ProgressDialog(BaseActivity.this);

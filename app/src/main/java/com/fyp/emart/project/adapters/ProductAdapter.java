@@ -53,9 +53,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
         this.productLists = productLists;
     }
 
-    public void setProductList(Context context,final List<ProductList> productLists){
+    public void setProductList(Context context, final List<ProductList> productLists) {
         this.context = context;
-        if(this.productLists == null){
+        if (this.productLists == null) {
             this.productLists = productLists;
             this.productListsFiltered = productLists;
             notifyItemChanged(0, productListsFiltered.size());
@@ -73,18 +73,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+
                     return ProductAdapter.this.productLists.get(oldItemPosition).getProductName() == productLists.get(newItemPosition).getProductName();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 
+                    ///https://velmm.com/android-recyclerview-search-filter-example-download/
 
                     ProductList newProduct = ProductAdapter.this.productLists.get(oldItemPosition);
 
                     ProductList oldProduct = productLists.get(newItemPosition);
 
-                    return newProduct.getProductName() == oldProduct.getProductName() ;
+                    return newProduct.getProductName() == oldProduct.getProductName();
                 }
             });
             this.productLists = productLists;
@@ -130,6 +132,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                     @Override
                     public void onError(Exception e) {
                         Log.d("Error : ", e.getMessage());
+                        holder.imageView.setImageResource(R.drawable.loading);
                     }
                 });
 
@@ -234,7 +237,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                     _subtotal = String.valueOf(Double.parseDouble(_price) * Integer.parseInt(_quantity));
                     holder.subTotal.setText(_quantity + "X" + _price + "= Rs." + _subtotal);
                     if (context instanceof ProductActivity) {
-                        Cart cart = new Cart(product.getIdProduct(), product.getProductName(), product.getProductimage(), "Rs", _price, _attribute, _quantity, _subtotal,product.getMartid());
+                        Cart cart = new Cart(product.getIdProduct(), product.getProductName(), product.getProductimage(), "Rs", _price, _attribute, _quantity, _subtotal, product.getMartid());
                         cartList = ((BaseActivity) context).getCartList();
                         cartList.add(cart);
                         String cartStr = gson.toJson(cartList);
@@ -264,7 +267,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                 intent.putExtra("discount", "0");
                 intent.putExtra("description", product.getProductDescription());
                 intent.putExtra("mart", product.getMartid());
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }
@@ -283,6 +285,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
 
 
     }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -327,6 +330,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
         CardView cardView;
         TextView offer, currency, price, quantity, attribute, addToCart, subTotal;
         Button plus, minus;
+
         public MyviewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.product_title);

@@ -9,15 +9,15 @@ public class Cart {
     String attribute;
     String quantity;
     String subTotal;
-    String martid;
+    String martid;// in future multple marts
 
     public Cart() {
     }
 
 
-
-
     public Cart(String id, String title, String image, String currency, String price, String attribute, String quantity, String subTotal, String martid) {
+
+      // this keyword is for refrence variable
         this.id = id;
         this.image = image;
         this.title = title;

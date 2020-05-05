@@ -42,11 +42,14 @@ public class MartAdapter extends RecyclerView.Adapter<MartAdapter.MyviewHolder> 
     public void onBindViewHolder(MartAdapter.MyviewHolder holder, int position) {
         holder.tvmartname.setText(martLists.get(position).getName());
 
+
+        //Glide library use for load image url
         RequestOptions options = new RequestOptions()
                 .centerInside()
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.loading);
 
+/// https:\/\/www.awamipolitics.com\/wp-content\/uploads\/2019\/04\/imtiaz-super-market-1.jpg
         String Simage = martLists.get(position).getLogo();
         Simage.replace("\\/","");
         Glide.with(context).load(Simage).apply(options).into(holder.image);

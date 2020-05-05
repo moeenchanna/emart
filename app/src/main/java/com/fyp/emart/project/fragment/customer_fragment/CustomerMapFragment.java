@@ -1,22 +1,35 @@
 package com.fyp.emart.project.fragment.customer_fragment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -30,44 +43,47 @@ import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.activity.CartActivity;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.activity.ProductActivity;
 import com.fyp.emart.project.model.MartLocationList;
-import com.fyp.emart.project.model.MartProfileList;
-import com.fyp.emart.project.model.ProductList;
 import com.fyp.emart.project.utils.SaveSharedPreference;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallback, LocationListener, View.OnClickListener {
+public class CustomerMapFragment extends BaseFragment
+        implements
+        OnMapReadyCallback,
+        LocationListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener ,
+        View.OnClickListener {
 
+    private GoogleApiClient googleApiClient;
+
+    private static final int LOCATION_REQUEST_CODE = 101;
 
     private static int cart_count = 0;
 
@@ -84,6 +100,10 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
     String markerid;
     private ImageView mLogout;
 
+    private SeekBar seekBarAreaCover;
+    private TextView tvProgress;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,9 +111,19 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         return inflater.inflate(R.layout.fragment_mart_map, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        googleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
@@ -106,18 +136,23 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         mBtnproduct = (Button) view.findViewById(R.id.btnproduct);
         mBtnproduct.setOnClickListener(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
-        mapFragment.getMapAsync(this);
+
         mApiService = UtilsApi.getAPIService();
         mContext = getActivity();
+
+        seekBarAreaCover= view.findViewById(R.id.seekBar);
+        tvProgress = view.findViewById(R.id.count);
+
+
 
 
     }
 
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
-
+        checkLocationandAddToMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
 
         if (ActivityCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -126,6 +161,8 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
             return;
         }
         mMap.setMyLocationEnabled(true);
+
+
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading please wait...");
@@ -144,6 +181,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         });
 
     }
+
 
     public void getMarkerRetrofit() {
         mApiService.getMartsLocation()
@@ -221,7 +259,8 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
                                 .title(name).snippet(martid)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.8607, 67.0011), 6.0f));
+                         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.8607, 67.0011), 6.0f));
+                        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 14));
 
 
                     }
@@ -250,8 +289,21 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
     }
 
 
+
+    public void onStart() {
+        super.onStart();
+        googleApiClient.connect();
+    }
+
+    public void onStop() {
+        super.onStop();
+        googleApiClient.disconnect();
+
+    }
+
     @Override
     public void onLocationChanged(Location location) {
+
 
     }
 
@@ -291,7 +343,7 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         }
     }
 
-    public void  logout(){
+    public void logout() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Are you sure you want to logout?");
         builder1.setCancelable(false);
@@ -318,4 +370,119 @@ public class CustomerMapFragment extends BaseFragment implements OnMapReadyCallb
         alert11.show();
     }
 
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private void checkLocationandAddToMap() {
+        //Checking if the user has granted the permission
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //Requesting the Location permission
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+            return;
+        }
+
+        //Fetching the last known location using the Fus
+        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+
+        //MarkerOptions are used to create a new Marker.You can specify location, title etc with MarkerOptions
+        MarkerOptions markerOptions = new MarkerOptions().position(new
+                LatLng(location.getLatitude(), location.getLongitude())).title("You are Here");
+
+        final CircleOptions circle = new CircleOptions()
+                .center(new LatLng(location.getLatitude(), location.getLongitude()))
+                .radius(40.0)
+                .strokeColor(Color.RED)
+                .fillColor(0x300000FF);//Transparent Blue color
+        mMap.addCircle(circle);
+
+        seekBarAreaCover.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int seekBarProgress = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarProgress = progress;
+                //Toast.makeText(getActivity(),"SeekBar Progress Change",Toast.LENGTH_SHORT).show();
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //Toast.makeText(getActivity(),"SeekBar Touch Started",Toast.LENGTH_SHORT).show();
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //  tvProgress.setText("KM: " + seekBarProgress + " / " + seekBar.getMax());
+                switch (seekBarProgress)
+                {
+                    case 0:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("1 KM");
+                        circle.radius(40.0);
+                        mMap.addCircle(circle);
+                        break;
+                    case 1:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("2 KM");
+                        circle.radius(50.5);
+                        mMap.addCircle(circle);
+                        break;
+                    case 2:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("3 KM");
+                        circle.radius(80.0);
+                        mMap.addCircle(circle);
+                        break;
+                    case 3:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("5 KM");
+                        circle.radius(110.0);
+                        mMap.addCircle(circle);
+                        break;
+                    case 4:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("7 KM");
+                        circle.radius(120.0);
+                        mMap.addCircle(circle);
+                        break;
+                    case 5:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("10 KM");
+                        circle.radius(150.0);
+                        mMap.addCircle(circle);
+                        break;
+                    case 6:
+                        mMap.clear();
+                        getMartMarkers();
+                        tvProgress.setText("12 KM");
+                        circle.radius(170.0);
+                        mMap.addCircle(circle);
+                        break;
+                }
+                //Toast.makeText(getActivity(), "SeekBar Touch Stop ", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        //Adding the created the marker on the map
+        mMap.addMarker(markerOptions);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16.0f));
+    }
 }

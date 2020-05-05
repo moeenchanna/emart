@@ -26,12 +26,54 @@
             tools:ignore="RtlCompat" />
     </androidx.appcompat.widget.Toolbar>
 
+
+
     <fragment
         android:id="@+id/mapFragment"
         android:layout_below="@+id/tool_bar"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_above="@id/btnproduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 KM"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="22sp" />
+
+
+        <LinearLayout
+            android:id="@+id/cover_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:max="6" />
+
+
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnproduct"
@@ -45,5 +87,9 @@
         android:fontFamily="@font/nunito_sans_bold"
         android:text="Show Products"
         android:textColor="@color/colorTextORIcon"
-        android:textSize="@dimen/text_btn_size" />
+        android:textSize="@dimen/text_btn_size"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp" />
+
+
 </RelativeLayout>

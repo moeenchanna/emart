@@ -60,9 +60,7 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     private String mState = "SHOW_MENU";
 
     private LinearLayout mCheckout;
-    Context mContext;
-    BaseApiService mApiService;
-    ProgressDialog loading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -146,6 +146,7 @@ public class ProductActivity extends BaseActivity {
     @Override
     public void onRemoveProduct() {
         super.onRemoveProduct();
+
     }
 
     @Override

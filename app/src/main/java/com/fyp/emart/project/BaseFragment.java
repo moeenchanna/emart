@@ -26,6 +26,8 @@ public class BaseFragment extends Fragment implements AddorRemoveCallbacks {
     public LocalStorage localStorage;
     String userJson;
     ProgressDialog progressDialog;
+
+    //Cart Model Pass
     List<Cart> cartList = new ArrayList<Cart>();
 
     @Override
@@ -58,14 +60,14 @@ public class BaseFragment extends Fragment implements AddorRemoveCallbacks {
 
     public int cartCount() {
 
+
+        ///Gson Library model related work
         gson = new Gson();
         if (localStorage.getCart() != null) {
             String jsonCart = localStorage.getCart();
             Log.d("CART : ", jsonCart);
-            Type type = new TypeToken<List<Cart>>() {
-            }.getType();
+            Type type = new TypeToken<List<Cart>>(){}.getType();
             cartList = gson.fromJson(jsonCart, type);
-
 
             //Toast.makeText(getContext(),remedyList.size()+"",Toast.LENGTH_LONG).show();
             return cartList.size();

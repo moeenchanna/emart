@@ -98,7 +98,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      *
      */
     private TextView mTvToSignUp;
-    LinearLayout loginForm;
 
     private CheckBox mCheckBox;
     private LinearLayout mLoginForm;
@@ -121,12 +120,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mApiService = UtilsApi.getAPIService(); // heat the contents of the package api helper
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initView();
+
+
+        mLoginForm = (LinearLayout) findViewById(R.id.loginForm);
+
         // Check if UserResponse is Already Logged In
         if (SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
             doSomethingElse();
 
+
         } else {
-            loginForm.setVisibility(View.VISIBLE);
+            mLoginForm.setVisibility(View.VISIBLE);
         }
 
 
@@ -156,7 +160,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mBtnSignIn.setOnClickListener(this);
         mTvToSignUp.setOnClickListener(this);
         mCheckBox.setOnClickListener(this);
-        mLoginForm = (LinearLayout) findViewById(R.id.loginForm);
 
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();

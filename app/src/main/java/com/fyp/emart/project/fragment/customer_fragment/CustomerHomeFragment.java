@@ -62,7 +62,6 @@ public class CustomerHomeFragment extends BaseFragment  implements View.OnClickL
         return inflater.inflate(R.layout.fragment_customer_home, container, false);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -86,8 +85,6 @@ public class CustomerHomeFragment extends BaseFragment  implements View.OnClickL
 
         martData();
 
-
-
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
@@ -107,7 +104,8 @@ public class CustomerHomeFragment extends BaseFragment  implements View.OnClickL
     public void martData()
     {
         progressDialog.show();
-         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
         mRecyclerViewMart.setLayoutManager(layoutManager);
         martAdapter = new MartAdapter(getActivity(),martLists);
         mRecyclerViewMart.setAdapter(martAdapter);
