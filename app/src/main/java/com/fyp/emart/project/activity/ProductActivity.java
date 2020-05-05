@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import com.fyp.emart.project.helper.Converter;
 import com.fyp.emart.project.model.ProductList;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.fyp.emart.project.Api.DataConfig.MART_ADDRESS;
@@ -57,6 +59,9 @@ public class ProductActivity extends BaseActivity {
     Context mContext;
     BaseApiService mApiService;
     String martid;
+    ImageView emptyCart;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +86,7 @@ public class ProductActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Product List");
+        emptyCart = findViewById(R.id.empty_cart_img);
 
 
         cart_count = cartCount();
@@ -100,6 +106,14 @@ public class ProductActivity extends BaseActivity {
 
     public void productData()
     {
+
+        productLists = new ArrayList<>();
+
+        if (productLists.isEmpty()) {
+
+            emptyCart.setVisibility(View.VISIBLE);
+
+        }
         progressDialog.show();
         GridLayoutManager layoutManager = new GridLayoutManager(ProductActivity.this,2);
         mRecyclerViewProduct.setLayoutManager(layoutManager);
@@ -112,6 +126,7 @@ public class ProductActivity extends BaseActivity {
             public void onResponse(Call<List<ProductList>> call, Response<List<ProductList>> response) {
                 progressDialog.dismiss();
                 productLists = response.body();
+                emptyCart.setVisibility(View.INVISIBLE);
                 Log.d("TAG","Response = "+productLists);
                 productAdapter.setProductList(ProductActivity.this,productLists);
             }
@@ -120,7 +135,7 @@ public class ProductActivity extends BaseActivity {
             public void onFailure(Call<List<ProductList>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
-                noProductAlert();
+               // noProductAlert();
                 //Toast.makeText(ProductActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
