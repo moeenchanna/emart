@@ -46,11 +46,11 @@ public class AdminComplaintAdapter extends RecyclerView.Adapter<AdminComplaintAd
         final ComplaintList complaint = complaintLists.get(position);
         String id = complaint.getId();
 
+        holder.time.setText("Date Time: "+complaint.getDatetime());
+        holder.martname.setText("Mart Name: "+complaint.getMartname());
+        holder.customername.setText("Customer Name: "+complaint.getCustname());
+        holder.detail.setText("Complaint: "+complaint.getDetail());
 
-        holder.time.setText(complaint.getDatetime());
-        holder.detail.setText(complaint.getDetail());
-        holder.martname.setText(complaint.getMartname());
-        holder.customername.setText(complaint.getCustname());
     }
 
     @Override

@@ -96,6 +96,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
         orderData(martid);
 
 
+
         RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {

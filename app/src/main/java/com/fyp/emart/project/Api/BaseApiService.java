@@ -88,7 +88,7 @@ public interface BaseApiService {
     Call<List<OrderList>> getOrderHistory(@Query("custid") String custid);
 
     // Get all orders for mart
-    @GET("FypProject/Emart/getmartorders.php")
+    @GET("FypProject/Emart/getMartOrders.php")
     Call<List<OrderList>> getMartOrders(@Query("martid") String martid);
 
 
