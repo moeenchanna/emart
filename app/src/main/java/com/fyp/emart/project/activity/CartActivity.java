@@ -1,13 +1,9 @@
 package com.fyp.emart.project.activity;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fyp.emart.project.Api.BaseApiService;
-import com.fyp.emart.project.Api.DataConfig;
-import com.fyp.emart.project.Api.UtilsApi;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.CartAdapter;
@@ -26,25 +25,8 @@ import com.fyp.emart.project.model.Cart;
 import com.fyp.emart.project.utils.LocalStorage;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
-import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
-import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 
 public class CartActivity extends BaseActivity implements View.OnClickListener {
@@ -61,6 +43,10 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout mCheckout;
 
+
+    String discount;
+    private LinearLayout mLinearcoupon;
+    private TextView mPromocode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +70,28 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         gson = new Gson();
         emptyCart = findViewById(R.id.empty_cart_img);
         checkoutLL = findViewById(R.id.checkout_LL);
+        mLinearcoupon = (LinearLayout) findViewById(R.id.linearcoupon);
+        mLinearcoupon.setOnClickListener(this);
+        mPromocode = (TextView) findViewById(R.id.promocode);
         totalPrice = findViewById(R.id.total_price);
-        totalPrice.setText("Rs. " + getTotalPrice() + "");
+         totalPrice.setText("Rs. " + getTotalPrice() + "");
+
         setUpCartRecyclerview();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+
+            discount = null;
+
+            totalPrice.setText("Rs. " + getTotalPrice());
+
+        } else {
+
+            discount = extras.getString("promo");
+            mPromocode.setText("Applied promo code discount"+"\n"+"Rs. " + discount);
+            Toast.makeText(this, "Promo Code Applied.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -106,7 +111,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-
         switch (item.getItemId()) {
             case R.id.cart_delete:
 
@@ -118,10 +122,10 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
             case android.R.id.home:
                 // todo: goto back activity from here
 
-                Intent intent = new Intent(CartActivity.this, CustomerDashboardActivity.class);
+               /* Intent intent = new Intent(CartActivity.this, CustomerDashboardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);*/
                 finish();
                 return true;
 
@@ -191,7 +195,8 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void updateTotalPrice() {
 
-        totalPrice.setText("Rs. " + getTotalPrice() + "");
+
+        totalPrice.setText("Rs. " + getTotalPrice() + "\n" + "Discount " + discount);
         if (getTotalPrice() == 0.0) {
             mState = "HIDE_MENU";
             invalidateOptionsMenu();
@@ -199,7 +204,6 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
             checkoutLL.setVisibility(View.GONE);
         }
     }
-
 
 
     public void checkoutOrder() {
@@ -235,14 +239,18 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(getApplicationContext(), CheckoutActivity.class));
 
                 break;
+            case R.id.linearcoupon:// TODO 20/05/17
+                startActivity(new Intent(getApplicationContext(), PromotionActivity.class));
+
+                break;
             default:
                 break;
         }
     }
 
-    @Override
+  /*  @Override
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(getApplicationContext(), ProductActivity.class));
-    }
+    }*/
 }

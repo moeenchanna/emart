@@ -7,6 +7,7 @@ import com.fyp.emart.project.model.MartProfileList;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
 import com.fyp.emart.project.model.ProductList;
+import com.fyp.emart.project.model.PromotionList;
 import com.fyp.emart.project.model.ReviewList;
 
 import org.json.JSONObject;
@@ -196,4 +197,9 @@ public interface BaseApiService {
             @Field("address") String address,
             @Field("latitude") String latitude,
             @Field("longitude") String longitude);
+
+    // Get all promotions
+    @GET("FypProject/Emart/getpromo.php")
+    Call<List<PromotionList>> gePromotion(@Query("martid") String martid);
+
 }

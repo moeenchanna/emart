@@ -18,27 +18,66 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-
-
-
     <RelativeLayout
         android:layout_below="@id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-      <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="50dp"/>
+            android:layout_height="559dp"
+            android:layout_marginBottom="50dp" />
+
 
         <View
+            android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="49dp"
             android:background="@color/cardBorderColor" />
+
+
+        <LinearLayout
+            android:id="@+id/linearcoupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/checkout_LL"
+            android:layout_marginBottom="11dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                app:srcCompat="@drawable/ic_discount" />
+
+
+
+            <TextView
+                android:id="@+id/promocode"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.8"
+                android:text="Apply Promotion"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                app:srcCompat="@drawable/right_arrow" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/checkout_LL"
@@ -70,7 +109,7 @@
                     android:id="@+id/total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$12"
+                    android:text="Rs. 12"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
                     android:textStyle="bold" />
