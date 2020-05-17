@@ -49,6 +49,7 @@ import java.util.Random;
 import static android.content.Context.MODE_PRIVATE;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.DISCOUNT_AMOUNT;
 import static com.fyp.emart.project.Api.DataConfig.TEMP_MART_iD;
 
 
@@ -60,8 +61,8 @@ public class ConfirmFragment extends Fragment {
     CheckoutCartAdapter adapter;
     RecyclerView.LayoutManager recyclerViewlayoutManager;
     TextView back, placeOrder;
-    TextView total, shipping, totalAmount;
-    Double _total, _shipping, _totalAmount;
+    TextView total, discountamount, totalAmount;
+    Double _total, _discountamount, _totalAmount;
     ProgressDialog progressDialog;
     List<Order> orderList = new ArrayList<>();
     String orderNo;
@@ -84,7 +85,7 @@ public class ConfirmFragment extends Fragment {
         recyclerView = view.findViewById(R.id.cart_rv);
         totalAmount = view.findViewById(R.id.total_amount);
         total = view.findViewById(R.id.total);
-        shipping = view.findViewById(R.id.shipping_amount);
+        discountamount = view.findViewById(R.id.shipping_amount);
         back = view.findViewById(R.id.back);
         placeOrder = view.findViewById(R.id.place_order);
         progressDialog = new ProgressDialog(getContext());
@@ -101,10 +102,14 @@ public class ConfirmFragment extends Fragment {
 
 
         _total = ((BaseActivity) getActivity()).getTotalPrice();
-        _shipping = 0.0;
-        _totalAmount = _total + _shipping;
+        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        double _discountamount = Double.parseDouble(sp.getString(DISCOUNT_AMOUNT, null));
+
+        //_discountamount = 0.0;
+
+        _totalAmount = _total - _discountamount;
         total.setText(_total + "");
-        shipping.setText(_shipping + "");
+        discountamount.setText(_discountamount + "");
         totalAmount.setText(_totalAmount + "");
 
         back.setOnClickListener(new View.OnClickListener() {

@@ -20,6 +20,9 @@ public class DataConfig {
     //Mart temp id
     public static final String TEMP_MART_iD= "TEMP_PRODUCT_ID";
 
+    //Discount Ammount
+    public static final String DISCOUNT_AMOUNT= "DISCOUNT_AMOUNT";
+
     //Mart Methods
     public static final String MART_EMAIL = "MART_EMAIL";
     public static final String MART_NAME = "MART_NAME";

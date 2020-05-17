@@ -1,5 +1,6 @@
 package com.fyp.emart.project.fragment.checkout_fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.DISCOUNT_AMOUNT;
 
 
 public class PaymentFragment extends Fragment {
@@ -45,7 +51,11 @@ public class PaymentFragment extends Fragment {
         payll = view.findViewById(R.id.pay_ll);
         pay = view.findViewById(R.id.total_pay);
         Double amount = ((BaseActivity) getActivity()).getTotalPrice();
-        pay.append(amount + "");
+        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        double discount = Double.parseDouble(sp.getString(DISCOUNT_AMOUNT, null));
+
+        double afterdiscount = amount - discount;
+        pay.append(afterdiscount+"");
 
         payll.setOnClickListener(new View.OnClickListener() {
             @Override

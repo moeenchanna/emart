@@ -2,6 +2,7 @@ package com.fyp.emart.project.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.BaseActivity;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.adapters.CartAdapter;
@@ -27,6 +29,13 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_ADDRESS;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_NAME;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_PHONE;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
+import static com.fyp.emart.project.Api.DataConfig.DISCOUNT_AMOUNT;
 
 
 public class CartActivity extends BaseActivity implements View.OnClickListener {
@@ -74,7 +83,7 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         mLinearcoupon.setOnClickListener(this);
         mPromocode = (TextView) findViewById(R.id.promocode);
         totalPrice = findViewById(R.id.total_price);
-         totalPrice.setText("Rs. " + getTotalPrice() + "");
+        totalPrice.setText("Rs. " + getTotalPrice() + "");
 
         setUpCartRecyclerview();
 
@@ -82,12 +91,19 @@ public class CartActivity extends BaseActivity implements View.OnClickListener {
         if (extras == null) {
 
             discount = null;
-
+            SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(DISCOUNT_AMOUNT, "0.0");
+            editor.apply();
             totalPrice.setText("Rs. " + getTotalPrice());
 
         } else {
 
             discount = extras.getString("promo");
+            SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(DISCOUNT_AMOUNT, discount);
+            editor.apply();
             mPromocode.setText("Applied promo code discount"+"\n"+"Rs. " + discount);
             Toast.makeText(this, "Promo Code Applied.", Toast.LENGTH_SHORT).show();
         }
