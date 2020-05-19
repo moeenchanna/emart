@@ -39,6 +39,7 @@ public class CheckoutCartAdapter extends RecyclerView.Adapter<CheckoutCartAdapte
     }
 
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -174,8 +175,7 @@ public class CheckoutCartAdapter extends RecyclerView.Adapter<CheckoutCartAdapte
         ImageView imageView;
         TextView title;
         ProgressBar progressBar;
-        CardView cardView;
-        TextView offer, currency, price, quantity, attribute, addToCart, subTotal;
+        TextView  currency, price, quantity, attribute, subTotal;
         Button plus, minus, delete;
 
         public MyViewHolder(@NonNull View itemView) {

@@ -65,6 +65,7 @@ public class ConfirmFragment extends Fragment {
     Double _total, _discountamount, _totalAmount;
     ProgressDialog progressDialog;
     List<Order> orderList = new ArrayList<>();
+
     String orderNo;
     String id;
 
@@ -127,6 +128,8 @@ public class ConfirmFragment extends Fragment {
                 String currentDateandTime = sdf.format(new Date());
                 Order order = new Order(id, orderNo, currentDateandTime, "Rs. " + _totalAmount,"Pending" );
                 orderList.add(order);
+
+
                 String orderString = gson.toJson(orderList);
                 String status = "Pending";
                 String statusid = "1";
@@ -136,8 +139,12 @@ public class ConfirmFragment extends Fragment {
                 String custemail = sp.getString(CUSTOMER_EMAIL, null);
                 String subtotal = String.valueOf(_totalAmount);
 
+
                 loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
                 punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
+
+
+
 
             }
         });
@@ -179,6 +186,14 @@ public class ConfirmFragment extends Fragment {
         recyclerView.setLayoutManager(recyclerViewlayoutManager);
         adapter = new CheckoutCartAdapter(cartList, getContext());
         recyclerView.setAdapter(adapter);
+
+
+        for (int i = 0; i < cartList.size(); i++)
+        {
+            Toast.makeText(mContext, cartList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void punchOrder(String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata) {

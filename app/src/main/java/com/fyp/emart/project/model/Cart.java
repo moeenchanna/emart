@@ -11,8 +11,7 @@ public class Cart {
     String subTotal;
     String martid;// in future multple marts
 
-    public Cart() {
-    }
+
 
 
     public Cart(String id, String title, String image, String currency, String price, String attribute, String quantity, String subTotal, String martid) {
