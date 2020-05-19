@@ -1,43 +1,38 @@
-package com.fyp.emart.project.fragment.customer_fragment;
+package com.fyp.emart.project.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chootdev.recycleclick.RecycleClick;
+import com.baoyachi.stepview.HorizontalStepView;
+import com.baoyachi.stepview.bean.StepBean;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
-import com.fyp.emart.project.BaseFragment;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.activity.LoginActivity;
-import com.fyp.emart.project.activity.OrderHistoryActivity;
-import com.fyp.emart.project.adapters.AdminOrderAdapter;
-import com.fyp.emart.project.model.OrderList;
-import com.fyp.emart.project.utils.SaveSharedPreference;
+import com.fyp.emart.project.adapters.OrderHistoryAdapter;
+import com.fyp.emart.project.model.ProductDetailsList;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,122 +41,113 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_NAME;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
-import static com.fyp.emart.project.Api.DataConfig.TEMP_MART_iD;
 
-public class OrderHistoryFragment extends BaseFragment implements View.OnClickListener {
+public class OrderHistoryActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static int cart_count = 0;
+    private Toolbar mBarTool;
 
-    private RecyclerView mRecyclerViewMart;
-    private AdminOrderAdapter adminOrderAdapter;
+    private RecyclerView orderhistory_list;
+    OrderHistoryAdapter orderHistoryAdapter;
+    List<ProductDetailsList> productDetailsLists;
     private ProgressDialog progressDialog;
-
-    List<OrderList> adminOrderListModel;
 
     private Context mContext;
     private BaseApiService mApiService;
+    private ImageView mComplaint;
+    private ImageView mReview;
 
-    private ImageView mLogout;
-    private TextInputEditText mTxtcomplaints;
     private Button mBtnAdd;
     ProgressDialog loading;
     AlertDialog dialogBuilder;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_history, container, false);
-    }
+    private TextInputEditText mTxtcomplaints;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        cart_count = cartCount();
-
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-        mLogout = (ImageView) view.findViewById(R.id.logout);
-        mLogout.setOnClickListener(this);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_history);
 
         mApiService = UtilsApi.getAPIService();
-        mContext = getActivity();
-        mRecyclerViewMart = view.findViewById(R.id.order_recycler_view);
+        mContext = this;
 
+        initView();
+    }
+
+    private void initView() {
+        mBarTool = (Toolbar) findViewById(R.id.tool_bar);
+        mBarTool.setTitle("Order Product Details");
+        setSupportActionBar(mBarTool);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        Intent intent = getIntent();
+        String orderid = intent.getStringExtra("orderno");
+        String statusid = intent.getStringExtra("statusid");
+        String status = intent.getStringExtra("status");
+
+        orderhistory_list = findViewById(R.id.produt_list);
+        orderhistory_list.setLayoutManager(new LinearLayoutManager(this));
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Loading please wait...");
 
-        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-        String customerid = sp.getString(CUSTOMER_iD, null);
-        orderData(customerid);
 
-        RecycleClick.addTo(mRecyclerViewMart).setOnItemClickListener(new RecycleClick.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
-                String orderNo = adminOrderListModel.get(position).getOrderno();
-                String statusId = adminOrderListModel.get(position).getStatusid();
-                String status = adminOrderListModel.get(position).getStatus();
+        mComplaint = (ImageView) findViewById(R.id.complaint);
+        mComplaint.setOnClickListener(this);
+        mReview = (ImageView) findViewById(R.id.review);
+        mReview.setOnClickListener(this);
 
-                Bundle b =new Bundle();
-                Intent i = new Intent(getActivity(), OrderHistoryActivity.class);
-                b.putString("orderno",orderNo);
-                b.putString("statusid",statusId);
-                b.putString("status",status);
-                i.putExtras(b);
-                startActivity(i);
+        getProductDetails(orderid);
 
-                //Toast.makeText(getApplicationContext(), "id: "+productCategoryListPojos.get(position).getId(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(mContext, position, Toast.LENGTH_SHORT).show();
-              /*  String orderId = adminOrderListModel.get(position).getId();
-                String customerEmail = adminOrderListModel.get(position).getCustemail();
-                String customerId = adminOrderListModel.get(position).getCustid();
-                String datetime = adminOrderListModel.get(position).getDatetime();
-                String martId = adminOrderListModel.get(position).getMartid();
-                String statusId = adminOrderListModel.get(position).getStatusid();
-                String status = adminOrderListModel.get(position).getStatus();
-                String orderDetail = adminOrderListModel.get(position).getOrderdetail();
-                String orderNo = adminOrderListModel.get(position).getOrderno();
-                String subtotal = adminOrderListModel.get(position).getSubtotal();*/
-
-               // askComplaintOrReview();
-
-//                startActivity(new Intent(mContext, ProductActivity.class));
-
-            }
-        });
+        HorizontalStepView setpview5 = (HorizontalStepView) findViewById(R.id.step_view);
+        List<StepBean> stepsBeanList = new ArrayList<>();
+        StepBean stepBean0 = new StepBean("Pending",1);
+        StepBean stepBean1 = new StepBean("Process",1);
+        StepBean stepBean2 = new StepBean("Dispatch",1);
+        StepBean stepBean3 = new StepBean("Delivered",0);
+        StepBean stepBean4 = new StepBean("Picket",-1);
+        stepsBeanList.add(stepBean0);
+        stepsBeanList.add(stepBean1);
+        stepsBeanList.add(stepBean2);
+        stepsBeanList.add(stepBean3);
+        stepsBeanList.add(stepBean4);
+        setpview5
+                .setStepViewTexts(stepsBeanList)//总步骤
+                .setTextSize(12)//set textSize
+                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(this, android.R.color.white))//设置StepsViewIndicator完成线的颜色
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(this, R.color.uncompleted_text_color))//设置StepsViewIndicator未完成线的颜色
+                .setStepViewComplectedTextColor(ContextCompat.getColor(this, android.R.color.white))//设置StepsView text完成线的颜色
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(this, R.color.uncompleted_text_color))//设置StepsView text未完成线的颜色
+                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this, R.drawable.complted))//设置StepsViewIndicator CompleteIcon
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this, R.drawable.default_icon))//设置StepsViewIndicator DefaultIcon
+                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this, R.drawable.attention));//设置StepsViewIndicator AttentionIcon
 
     }
 
+    private void getProductDetails(String orderid) {
 
-
-
-    private void orderData(String id) {
         progressDialog.show();
+        orderhistory_list.setLayoutManager(new LinearLayoutManager(mContext));
+        orderHistoryAdapter = new OrderHistoryAdapter(productDetailsLists, mContext);
+        orderhistory_list.setAdapter(orderHistoryAdapter);
 
-        mRecyclerViewMart.setLayoutManager(new LinearLayoutManager(mContext));
-        adminOrderAdapter = new AdminOrderAdapter(adminOrderListModel, mContext);
-        mRecyclerViewMart.setAdapter(adminOrderAdapter);
-
-        final Call<List<OrderList>> adminOrder = mApiService.getOrderHistory(id);
-        adminOrder.enqueue(new Callback<List<OrderList>>() {
+        final Call<List<ProductDetailsList>> productsdetail = mApiService.geOrderDetails(orderid);
+        productsdetail.enqueue(new Callback<List<ProductDetailsList>>() {
             @Override
-            public void onResponse(Call<List<OrderList>> call, Response<List<OrderList>> response) {
+            public void onResponse(@Nullable Call<List<ProductDetailsList>> call, @Nullable Response<List<ProductDetailsList>> response) {
                 progressDialog.dismiss();
-                adminOrderListModel = response.body();
-                Log.d("TAG", "Response = " + adminOrderListModel);
-                adminOrderAdapter.setOrderList(adminOrderListModel);
+                productDetailsLists = response.body();
+                Log.d("TAG", "Response = " + productDetailsLists);
+                orderHistoryAdapter.setCodeLists(productDetailsLists);
+
             }
 
             @Override
-            public void onFailure(Call<List<OrderList>> call, Throwable t) {
+            public void onFailure(@Nullable Call<List<ProductDetailsList>> call, @Nullable Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -169,6 +155,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
         });
 
     }
+
 
     @Override
     public void onDestroy() {
@@ -178,78 +165,24 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-    public void logout() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-        builder1.setMessage("Are you sure you want to logout?");
-        builder1.setCancelable(false);
-        builder1.setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        SaveSharedPreference.setLoggedIn(getActivity(), false);
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
-                });
-
-        builder1.setNegativeButton("No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.logout:
-                logout();
+            case R.id.complaint:
+                complaintAlert();
+                // TODO 20/05/20
+                break;
+            case R.id.review:
+                reviewAlert();
+                // TODO 20/05/20
                 break;
             default:
                 break;
         }
     }
 
-    public void askComplaintOrReview() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-        builder1.setMessage("Want to add complaints or reviews?");
-        builder1.setCancelable(false);
-        builder1.setPositiveButton("Add Complaints",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        complaintAlert();
-                        dialog.cancel();
-                    }
-                });
-
-        builder1.setNegativeButton("Add Reviews",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        reviewAlert();
-                        dialog.cancel();
-                    }
-                });
-
-        builder1.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
-
     public void complaintAlert() {
-        dialogBuilder = new AlertDialog.Builder(getActivity()).create();
+        dialogBuilder = new AlertDialog.Builder(OrderHistoryActivity.this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.complain_layout, null);
         mTxtcomplaints = (TextInputEditText) dialogView.findViewById(R.id.txtcomplaints);
@@ -258,7 +191,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         final String currentDateandTime = sdf.format(new Date());
 
-        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sp = OrderHistoryActivity.this.getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         final String martid = sp.getString(MART_iD, null);
         final String martname = sp.getString(MART_NAME, null);
         final String custid = sp.getString(CUSTOMER_iD, null);
@@ -288,7 +221,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
     }
 
     public void reviewAlert() {
-         dialogBuilder = new AlertDialog.Builder(getActivity()).create();
+        dialogBuilder = new AlertDialog.Builder(OrderHistoryActivity.this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.review_layout, null);
         mTxtcomplaints = (TextInputEditText) dialogView.findViewById(R.id.txtcomplaints);
@@ -297,7 +230,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         final String currentDateandTime = sdf.format(new Date());
 
-        SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sp = OrderHistoryActivity.this.getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
         final String martid = sp.getString(MART_iD, null);
         final String martname = sp.getString(MART_NAME, null);
         final String custid = sp.getString(CUSTOMER_iD, null);
@@ -347,13 +280,13 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                                     // error case
                                     switch (response.code()) {
                                         case 404:
-                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderHistoryActivity.this, "Server not found", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 500:
-                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderHistoryActivity.this, "Server request not found", Toast.LENGTH_SHORT).show();
                                             break;
                                         default:
-                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderHistoryActivity.this, "unknown error", Toast.LENGTH_SHORT).show();
 
                                     }
                                 }
@@ -368,7 +301,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("checkerror", "onFailure: ERROR > " + t.toString());
-                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderHistoryActivity.this, "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
                         loading.dismiss();
                     }
                 });
@@ -395,13 +328,13 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                                     // error case
                                     switch (response.code()) {
                                         case 404:
-                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderHistoryActivity.this, "Server not found", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 500:
-                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderHistoryActivity.this, "Server request not found", Toast.LENGTH_SHORT).show();
                                             break;
                                         default:
-                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderHistoryActivity.this, "unknown error", Toast.LENGTH_SHORT).show();
 
                                     }
                                 }
@@ -416,7 +349,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("checkerror", "onFailure: ERROR > " + t.toString());
-                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderHistoryActivity.this, "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
                         loading.dismiss();
                     }
                 });

@@ -78,5 +78,8 @@ dependencies {
     //Permissions
     implementation 'gun0912.ted:tedpermission:2.1.1'
 
+    //Indicator
+    implementation 'com.github.baoyachi:StepView:1.9'
+
 
 }

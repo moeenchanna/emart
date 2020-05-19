@@ -219,6 +219,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);*/
                 Toast.makeText(context, "Product Clicked", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, ""+product.getIdProduct(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -237,7 +238,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                     _subtotal = String.valueOf(Double.parseDouble(_price) * Integer.parseInt(_quantity));
                     holder.subTotal.setText(_quantity + "X" + _price + "= Rs." + _subtotal);
                     if (context instanceof ProductActivity) {
-                        Cart cart = new Cart(product.getIdProduct(), product.getProductName(), product.getProductimage(), "Rs", _price, _attribute, _quantity, _subtotal, product.getMartid());
+                        Cart cart = new Cart(product.getIdProduct(), product.getProductName(), product.getProductimage(),
+                                "Rs", _price, _attribute, _quantity, _subtotal, product.getMartid());
                         cartList = ((BaseActivity) context).getCartList();
                         cartList.add(cart);
                         String cartStr = gson.toJson(cartList);

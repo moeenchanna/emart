@@ -6,6 +6,7 @@ import com.fyp.emart.project.model.MartLocationList;
 import com.fyp.emart.project.model.MartProfileList;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.model.MartList;
+import com.fyp.emart.project.model.ProductDetailsList;
 import com.fyp.emart.project.model.ProductList;
 import com.fyp.emart.project.model.PromotionList;
 import com.fyp.emart.project.model.ReviewList;
@@ -201,5 +202,21 @@ public interface BaseApiService {
     // Get all promotions
     @GET("FypProject/Emart/getpromo.php")
     Call<List<PromotionList>> gePromotion(@Query("martid") String martid);
+
+    // Get order details
+    @GET("FypProject/Emart/getorderdetail.php")
+    Call<List<ProductDetailsList>> geOrderDetails(@Query("orderid") String orderid);
+
+
+    // Punch Order details
+    @FormUrlEncoded
+    @POST("FypProject/Emart/addorderdetail.php")
+    Call<ResponseBody> OrderDetailPunch(
+            @Field("orderid") String orderid,
+            @Field("producdid") String producdid,
+            @Field("qty") String qty,
+            @Field("name") String name,
+            @Field("url") String url,
+            @Field("cost") String cost);
 
 }

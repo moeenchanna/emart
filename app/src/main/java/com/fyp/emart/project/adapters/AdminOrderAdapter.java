@@ -51,13 +51,13 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
         String id = order.getStatusid();
 
 
-        holder.date.setText(order.getDatetime());
-        holder.order.setText(order.getOrderno());
-        holder.email.setText(order.getCustemail());
-        holder.total.setText("Rs: " + order.getSubtotal());
+        holder.date.setText("Date Time: "+order.getDatetime());
+        holder.order.setText("Order No: "+order.getOrderno());
+        //holder.email.setText(order.getCustemail());
+        holder.total.setText("Total Amount Rs: " + order.getSubtotal());
         // holder.status.setText(order.getStatus());
 
-        if (id.contains("0")) {
+      /*  if (id.contains("0")) {
             holder.status.setTextColor(Color.RED);// on hold
            //// Toast.makeText(context, "0", Toast.LENGTH_SHORT).show();
             return;
@@ -70,7 +70,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
         if (id.contains("2")) {
             holder.status.setTextColor(Color.GREEN);// delievered success
            // Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
     }
 
@@ -89,9 +89,9 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
             super(itemView);
             date = itemView.findViewById(R.id.admin_order_date);
             order = itemView.findViewById(R.id.admin_order_number);
-            email = itemView.findViewById(R.id.admin_order_email);
+            //email = itemView.findViewById(R.id.admin_order_email);
             total = itemView.findViewById(R.id.admin_order_total);
-            status = itemView.findViewById(R.id.admin_order_status);
+            //status = itemView.findViewById(R.id.admin_order_status);
         }
     }
 

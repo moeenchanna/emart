@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,8 +94,13 @@ public class ConfirmFragment extends Fragment {
         gson = new Gson();
         orderList = ((BaseActivity) getActivity()).getOrderList();
         Random rnd = new Random();
-        orderNo = "#" + (100000 + rnd.nextInt(900000));
+        orderNo = "" + (100000 + rnd.nextInt(900000));
+
+        cartList = new ArrayList<>();
+        cartList = ((BaseActivity) getContext()).getCartList();
+
         setUpCartRecyclerview();
+
         if (orderList.isEmpty()) {
             id = "1";
         } else {
@@ -125,23 +131,50 @@ public class ConfirmFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                String currentDateandTime = sdf.format(new Date());
+                final String currentDateandTime = sdf.format(new Date());
                 Order order = new Order(id, orderNo, currentDateandTime, "Rs. " + _totalAmount,"Pending" );
                 orderList.add(order);
 
 
-                String orderString = gson.toJson(orderList);
-                String status = "Pending";
-                String statusid = "1";
+                final String orderString = gson.toJson(orderList);
+
                 SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-                String martid = sp.getString(TEMP_MART_iD, null);
-                String custid = sp.getString(CUSTOMER_iD, null);
-                String custemail = sp.getString(CUSTOMER_EMAIL, null);
-                String subtotal = String.valueOf(_totalAmount);
+                final String martid = sp.getString(TEMP_MART_iD, null);
+                final String custid = sp.getString(CUSTOMER_iD, null);
+                final String custemail = sp.getString(CUSTOMER_EMAIL, null);
+                final String subtotal = String.valueOf(_totalAmount);
 
 
-                loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                builder1.setMessage("Select Your Option.");
+                builder1.setCancelable(false);
+                builder1.setPositiveButton(
+                        "Home Delivery.",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String status = "Pending";
+                                String statusid = "1";
+                                loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
+                                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
+
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "Take Away.",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String status = "Picked";
+                                String statusid = "4";
+                                loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
+                                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
+
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
 
 
 
@@ -155,7 +188,9 @@ public class ConfirmFragment extends Fragment {
 
 
 
-    private void showCustomDialog() {
+    private void showCustomDialog(String orderdata) {
+
+        localStorage.setOrder(orderdata);//Delete cart
 
         // Create custom dialog object
         final Dialog dialog = new Dialog(getContext());
@@ -166,6 +201,8 @@ public class ConfirmFragment extends Fragment {
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
+
+                localStorage.deleteCart();
                 startActivity(new Intent(getContext(), CustomerDashboardActivity.class));
                 getActivity().finish();
             }
@@ -177,9 +214,6 @@ public class ConfirmFragment extends Fragment {
 
     private void setUpCartRecyclerview() {
 
-        cartList = new ArrayList<>();
-        cartList = ((BaseActivity) getContext()).getCartList();
-
 
         recyclerView.setHasFixedSize(true);
         recyclerViewlayoutManager = new LinearLayoutManager(getContext());
@@ -188,29 +222,79 @@ public class ConfirmFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        for (int i = 0; i < cartList.size(); i++)
-        {
-            Toast.makeText(mContext, cartList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
-        }
 
 
     }
 
-    private void punchOrder(String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata) {
+    private void punchOrder(final String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata) {
         mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                            loading.dismiss();
+                           // loading.dismiss();
                             try {
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-                                    localStorage.setOrder(orderdata);//Delete cart
-                                    localStorage.deleteCart();
-                                    showCustomDialog();
+
+
+                                    for (int i = 0; i < cartList.size(); i++)
+                                    {
+                                        punchOrderDetails(orderno,cartList.get(i).getId(),cartList.get(i).getQuantity(),cartList.get(i).getTitle(),cartList.get(i).getImage(),cartList.get(i).getPrice());
+                                       // Toast.makeText(mContext, cartList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "Order punching please wait", Toast.LENGTH_SHORT).show();
+                                    }
+                                  //  loading.dismiss();
+
+                                    showCustomDialog(orderdata);
                                     Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role + "Order punch successfull");
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(mContext, "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(mContext, "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(mContext, "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(mContext, "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+
+    }
+
+    private void punchOrderDetails(String orderno,String producdid, String qty, String name,String url, String cost) {
+        mApiService.OrderDetailPunch(orderno, producdid, qty, name, url, cost)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                             loading.dismiss();
+                            try {
+                                if (response.body() != null) {
+
+                                    String role = response.body().string();
+                                    Toast.makeText(mContext, "Order Punching Please Wait...", Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role + "Order punch successfull");
                                 } else {
                                     // If the login fails

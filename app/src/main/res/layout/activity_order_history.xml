@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:id="@+id/complaint"
+            android:layout_gravity="right"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_rate_review_black_24dp"
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:id="@+id/review"
+            android:layout_gravity="right"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_star_half_black_24dp"
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <com.baoyachi.stepview.HorizontalStepView
+        android:id="@+id/step_view"
+        android:layout_below="@id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/step_view">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/available"
+                android:layout_below="@+id/linearcouponcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Details"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_text"
+                android:textSize="14sp"
+                android:layout_margin="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/produt_list"
+                android:layout_below="@+id/available"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:nestedScrollingEnabled="false"
+                android:background="@color/white" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
