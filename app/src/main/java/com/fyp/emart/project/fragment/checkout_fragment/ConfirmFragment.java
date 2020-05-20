@@ -167,7 +167,7 @@ public class ConfirmFragment extends Fragment {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String status = "Picked";
-                                String statusid = "4";
+                                String statusid = "5";
                                 loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
                                 punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString,fcm);
 
