@@ -254,6 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_layout"
                 android:layout_marginEnd="@dimen/margin_layout"
+                android:visibility="gone"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -265,6 +266,7 @@
                     android:backgroundTint="@color/colorPrimaryText"
                     android:hint="@string/Voucher"
                     android:inputType="textPersonName"
+                    android:text="Not Available"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
                     android:textSize="@dimen/text_body_size" />
