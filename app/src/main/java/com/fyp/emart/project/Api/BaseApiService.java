@@ -106,7 +106,8 @@ public interface BaseApiService {
             @Field("subtotal") String subtotal,
             @Field("custemail") String custemai,
             @Field("custid") String custid,
-            @Field("martid") String martid);
+            @Field("martid") String martid,
+            @Field("fcm") String fcm);
 
     // Get mart
     @GET("FypProject/Emart/location.php")
@@ -218,5 +219,19 @@ public interface BaseApiService {
             @Field("name") String name,
             @Field("url") String url,
             @Field("cost") String cost);
+
+
+    // Punch Order details
+    @FormUrlEncoded
+    @POST("FypProject/Emart/addpromo.php")
+    Call<ResponseBody> AddPromo(
+            @Field("martid") String martid,
+            @Field("title") String title,
+            @Field("detail") String detail,
+            @Field("code") String code,
+            @Field("dicount") String dicount,
+            @Field("amount") String amount,
+            @Field("url") String url);
+
 
 }

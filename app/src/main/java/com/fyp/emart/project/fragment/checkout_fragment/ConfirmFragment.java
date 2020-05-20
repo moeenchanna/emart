@@ -49,6 +49,7 @@ import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_FCM_KEY;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.DISCOUNT_AMOUNT;
 import static com.fyp.emart.project.Api.DataConfig.TEMP_MART_iD;
@@ -142,6 +143,7 @@ public class ConfirmFragment extends Fragment {
                 final String martid = sp.getString(TEMP_MART_iD, null);
                 final String custid = sp.getString(CUSTOMER_iD, null);
                 final String custemail = sp.getString(CUSTOMER_EMAIL, null);
+                final String fcm = sp.getString(CUSTOMER_FCM_KEY, null);
                 final String subtotal = String.valueOf(_totalAmount);
 
 
@@ -155,7 +157,7 @@ public class ConfirmFragment extends Fragment {
                                 String status = "Pending";
                                 String statusid = "1";
                                 loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
+                                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString,fcm);
 
                             }
                         });
@@ -167,7 +169,7 @@ public class ConfirmFragment extends Fragment {
                                 String status = "Picked";
                                 String statusid = "4";
                                 loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString);
+                                punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString,fcm);
 
                             }
                         });
@@ -224,8 +226,8 @@ public class ConfirmFragment extends Fragment {
 
     }
 
-    private void punchOrder(final String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata) {
-        mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid)
+    private void punchOrder(final String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata,String fcm) {
+        mApiService.OrderPunch(orderno, orderdetail, curdatetime, status, statusid, subtotal, custemail, custid, martid,fcm)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -235,8 +237,6 @@ public class ConfirmFragment extends Fragment {
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
-
-
                                     for (int i = 0; i < cartList.size(); i++)
                                     {
                                         punchOrderDetails(orderno,cartList.get(i).getId(),cartList.get(i).getQuantity(),cartList.get(i).getTitle(),cartList.get(i).getImage(),cartList.get(i).getPrice());
