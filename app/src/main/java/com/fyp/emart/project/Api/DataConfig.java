@@ -16,6 +16,7 @@ public class DataConfig {
     public static final String CUSTOMER_iD= "CUSTOMERI_D";
     public static final String CUSTOMER_PHONE = "CUSTOMER_PHONE";
     public static final String CUSTOMER_ADDRESS = "CUSTOMER_ADDRESS";
+    public static final String CUSTOMER_FCM_KEY = "CUSTOMER_FCM_KEY";
 
     //Mart temp id
     public static final String TEMP_MART_iD= "TEMP_PRODUCT_ID";
@@ -29,4 +30,5 @@ public class DataConfig {
     public static final String MART_iD= "MART_iD";
     public static final String MART_PHONE = "MART_PHONE";
     public static final String MART_ADDRESS = "MART_ADDRESS";
+    public static final String MART_FCM_KEY = "MART_FCM_KEY";
 }

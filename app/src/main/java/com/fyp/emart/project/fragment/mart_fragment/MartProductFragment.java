@@ -189,6 +189,8 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
                                     mImageUrlProduct.setText("");
                                     mBrand.setText("");
                                     mDescription.setText("");
+                                    loading.dismiss();
+
                                     Toast.makeText(mContext, "Successfully added now add another", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails

@@ -55,6 +55,7 @@ import retrofit2.Response;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_ADDRESS;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_FCM_KEY;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_NAME;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_PHONE;
 import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
@@ -63,6 +64,7 @@ import static com.fyp.emart.project.Api.DataConfig.KEY_PASSWORD;
 import static com.fyp.emart.project.Api.DataConfig.KEY_ROLE_ID;
 import static com.fyp.emart.project.Api.DataConfig.MART_ADDRESS;
 import static com.fyp.emart.project.Api.DataConfig.MART_EMAIL;
+import static com.fyp.emart.project.Api.DataConfig.MART_FCM_KEY;
 import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
 import static com.fyp.emart.project.Api.DataConfig.MART_PHONE;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
@@ -383,6 +385,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String phone = adslist.get(0).getPhone();
                             String email = adslist.get(0).getEmail();
                             String address = adslist.get(0).getAddress();
+                            String fcmkey = adslist.get(0).getFcmkey();
 
                             SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
@@ -391,6 +394,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putString(CUSTOMER_PHONE, phone);
                             editor.putString(CUSTOMER_EMAIL, email);
                             editor.putString(CUSTOMER_ADDRESS, address);
+                            editor.putString(CUSTOMER_FCM_KEY, fcmkey);
                             editor.apply();
 
                         } else {
@@ -422,6 +426,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String phone = adslist.get(0).getPhone();
                             String email = adslist.get(0).getEmail();
                             String address = adslist.get(0).getAddress();
+                            String fcmkey = adslist.get(0).getFcmkey();
 
                             SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
@@ -430,6 +435,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putString(MART_iD, id);
                             editor.putString(MART_PHONE, phone);
                             editor.putString(MART_ADDRESS, address);
+                            editor.putString(MART_FCM_KEY, fcmkey);
                             editor.apply();
 
                         } else {

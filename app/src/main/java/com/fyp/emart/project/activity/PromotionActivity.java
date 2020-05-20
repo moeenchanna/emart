@@ -81,7 +81,7 @@ public class PromotionActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading please wait...");
 
         SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-        String martid = sp.getString(MART_iD, null);
+        String martid = sp.getString(TEMP_MART_iD, null);
         getCouponList(martid);
 
     }
