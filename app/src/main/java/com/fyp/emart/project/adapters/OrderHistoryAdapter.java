@@ -46,8 +46,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     public void onBindViewHolder(final OrderHistoryAdapter.ViewHolder holder, final int position) {
 
         holder.grocery_productName.setText(ProductDetailsLists.get(position).getName());
-        holder.txt_grocery_quantity.setText(ProductDetailsLists.get(position).getQty());
-        holder.txt_grocery_amount.setText(ProductDetailsLists.get(position).getCost());
+        holder.txt_grocery_quantity.setText("Qty: "+ProductDetailsLists.get(position).getQty());
+        holder.txt_grocery_amount.setText("Price: "+ProductDetailsLists.get(position).getCost());
 
         String Simage = ProductDetailsLists.get(position).getUrl();
         Simage.replace("\\/", "");

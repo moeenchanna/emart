@@ -222,8 +222,6 @@ public class ConfirmFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-
-
     }
 
     private void punchOrder(final String orderno, String orderdetail, String curdatetime, String status, String statusid, String subtotal, String custemail, String custid, String martid, final String orderdata) {
@@ -243,12 +241,12 @@ public class ConfirmFragment extends Fragment {
                                     {
                                         punchOrderDetails(orderno,cartList.get(i).getId(),cartList.get(i).getQuantity(),cartList.get(i).getTitle(),cartList.get(i).getImage(),cartList.get(i).getPrice());
                                        // Toast.makeText(mContext, cartList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(mContext, "Order punching please wait", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(mContext, "Order punching please wait", Toast.LENGTH_SHORT).show();
                                     }
                                   //  loading.dismiss();
 
                                     showCustomDialog(orderdata);
-                                    Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(mContext, role + " Order punch successfull", Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role + "Order punch successfull");
                                 } else {
                                     // If the login fails
@@ -289,7 +287,7 @@ public class ConfirmFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                             loading.dismiss();
+                           //  loading.dismiss();
                             try {
                                 if (response.body() != null) {
 

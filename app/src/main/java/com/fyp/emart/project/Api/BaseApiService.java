@@ -213,7 +213,7 @@ public interface BaseApiService {
     @POST("FypProject/Emart/addorderdetail.php")
     Call<ResponseBody> OrderDetailPunch(
             @Field("orderid") String orderid,
-            @Field("producdid") String producdid,
+            @Field("productid") String productid,
             @Field("qty") String qty,
             @Field("name") String name,
             @Field("url") String url,

@@ -219,7 +219,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyviewHo
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);*/
                 Toast.makeText(context, "Product Clicked", Toast.LENGTH_LONG).show();
-                Toast.makeText(context, ""+product.getIdProduct(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, ""+product.getIdProduct(), Toast.LENGTH_SHORT).show();
             }
         });
 

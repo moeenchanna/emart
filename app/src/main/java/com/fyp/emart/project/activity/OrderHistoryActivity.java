@@ -81,8 +81,8 @@ public class OrderHistoryActivity extends AppCompatActivity implements View.OnCl
         mBarTool.setTitle("Order Product Details");
         setSupportActionBar(mBarTool);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+      /*  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         Intent intent = getIntent();
         String orderid = intent.getStringExtra("orderno");
@@ -109,7 +109,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements View.OnCl
         StepBean stepBean1 = new StepBean("Process",1);
         StepBean stepBean2 = new StepBean("Dispatch",1);
         StepBean stepBean3 = new StepBean("Delivered",0);
-        StepBean stepBean4 = new StepBean("Picket",-1);
+        StepBean stepBean4 = new StepBean("Picked",-1);
         stepsBeanList.add(stepBean0);
         stepsBeanList.add(stepBean1);
         stepsBeanList.add(stepBean2);
@@ -117,13 +117,13 @@ public class OrderHistoryActivity extends AppCompatActivity implements View.OnCl
         stepsBeanList.add(stepBean4);
         setpview5
                 .setStepViewTexts(stepsBeanList)//总步骤
-                .setTextSize(12)//set textSize
-                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(this, android.R.color.white))//设置StepsViewIndicator完成线的颜色
-                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(this, R.color.uncompleted_text_color))//设置StepsViewIndicator未完成线的颜色
-                .setStepViewComplectedTextColor(ContextCompat.getColor(this, android.R.color.white))//设置StepsView text完成线的颜色
-                .setStepViewUnComplectedTextColor(ContextCompat.getColor(this, R.color.uncompleted_text_color))//设置StepsView text未完成线的颜色
-                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this, R.drawable.complted))//设置StepsViewIndicator CompleteIcon
-                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this, R.drawable.default_icon))//设置StepsViewIndicator DefaultIcon
+                .setTextSize(7)//set textSize
+                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))//设置StepsViewIndicator完成线的颜色
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(this, R.color.red_600))//设置StepsViewIndicator未完成线的颜色
+                .setStepViewComplectedTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))//设置StepsView text完成线的颜色
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(this, R.color.black))//设置StepsView text未完成线的颜色
+                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this, R.drawable.checkmark))//设置StepsViewIndicator CompleteIcon
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this, R.drawable.check))//设置StepsViewIndicator DefaultIcon
                 .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this, R.drawable.attention));//设置StepsViewIndicator AttentionIcon
 
     }
