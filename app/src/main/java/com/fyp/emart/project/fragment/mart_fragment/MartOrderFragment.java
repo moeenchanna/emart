@@ -92,7 +92,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
 
 
         SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
-        String martid = sp.getString(MART_iD, null);
+        final String martid = sp.getString(MART_iD, null);
         orderData(martid);
 
 
@@ -103,22 +103,87 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                 //Toast.makeText(getApplicationContext(), "id: "+productCategoryListPojos.get(position).getId(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(mContext, position, Toast.LENGTH_SHORT).show();
                 String orderId = adminOrderListModel.get(position).getId();
-                String customerEmail = adminOrderListModel.get(position).getCustemail();
-                String customerId = adminOrderListModel.get(position).getCustid();
+                final String customerEmail = adminOrderListModel.get(position).getCustemail();
+                final String customerId = adminOrderListModel.get(position).getCustid();
                 String datetime = adminOrderListModel.get(position).getDatetime();
                 String martId = adminOrderListModel.get(position).getMartid();
                 String statusId = adminOrderListModel.get(position).getStatusid();
                 String status = adminOrderListModel.get(position).getStatus();
                 String orderDetail = adminOrderListModel.get(position).getOrderdetail();
-                String orderNo = adminOrderListModel.get(position).getOrderno();
-                String subtotal = adminOrderListModel.get(position).getSubtotal();
+                final String orderNo = adminOrderListModel.get(position).getOrderno();
+                final String subtotal = adminOrderListModel.get(position).getSubtotal();
 //                startActivity(new Intent(mContext, ProductActivity.class));
-                askComplaintOrReview(customerId,customerEmail);
+              //
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                builder1.setMessage("Select Your Option.");
+                builder1.setCancelable(false);
+                builder1.setPositiveButton(
+                        "Complaint Or Review",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                askComplaintOrReview(customerId,customerEmail);
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "Update Order Status",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                              updateStatus(orderNo);
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
 
             }
         });
     }
 
+    public void updateStatus(final String orderno)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Select Your Option.");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton(
+                "Delivered",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String status = "Delivered";
+                        String statusid = "4";
+                        loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
+                        updateStatusService(orderno, status, statusid);
+
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Accept",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String status = "Accept";
+                        String statusid = "1";
+                        loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
+                        updateStatusService(orderno, status, statusid);
+
+                    }
+                });
+
+        builder1.setNeutralButton(
+                "Decline",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String status = "Decline";
+                        String statusid = "2";
+                        loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
+                        updateStatusService(orderno, status, statusid);
+
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 
     private void orderData(String id) {
         progressDialog.show();
@@ -397,6 +462,55 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                     }
                 });
     }
+
+    private void updateStatusService(String order, String status, String statusid) {
+
+        mApiService.UpdateStatus(order, status, statusid)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            loading.dismiss();
+                            try {
+                                if (response.body() != null) {
+                                    dialogBuilder.dismiss();
+                                    String role = response.body().string();
+                                    //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
+                                    Log.d("debug", role);
+
+                                    Toast.makeText(mContext, "Status Updated Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // If the login fails
+                                    // error case
+                                    switch (response.code()) {
+                                        case 404:
+                                            Toast.makeText(getActivity(), "Server not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case 500:
+                                            Toast.makeText(getActivity(), "Server request not found", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            Toast.makeText(getActivity(), "unknown error", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("checkerror", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(getActivity(), "network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
+
 }
 
 
