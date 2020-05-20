@@ -221,7 +221,7 @@ public interface BaseApiService {
             @Field("cost") String cost);
 
 
-    // Punch Order details
+    // Add promo details
     @FormUrlEncoded
     @POST("FypProject/Emart/addpromo.php")
     Call<ResponseBody> AddPromo(
@@ -232,6 +232,14 @@ public interface BaseApiService {
             @Field("dicount") String dicount,
             @Field("amount") String amount,
             @Field("url") String url);
+
+    // Update Order Status Details
+    @FormUrlEncoded
+    @POST("FypProject/Emart/updatestatus.php")
+    Call<ResponseBody> UpdateStatus(
+            @Field("orderno") String orderno,
+            @Field("status") String status,
+            @Field("statusid") String statusid);
 
 
 }

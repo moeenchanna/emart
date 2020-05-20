@@ -194,24 +194,26 @@ public class ConfirmFragment extends Fragment {
 
         localStorage.setOrder(orderdata);//Delete cart
 
-        // Create custom dialog object
-        final Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
-        // Include dialog.xml file
-        dialog.setContentView(R.layout.success_dialog);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
 
-                localStorage.deleteCart();
-                startActivity(new Intent(getContext(), CustomerDashboardActivity.class));
-                getActivity().finish();
-            }
-        });
-        // Set dialog title
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("Order Submitted Successfully.");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton(
+                "Back to home.",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
-        dialog.show();
+                        localStorage.deleteCart();
+                        startActivity(new Intent(getContext(), CustomerDashboardActivity.class));
+                        getActivity().finish();
+                    }
+                });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
     }
 
     private void setUpCartRecyclerview() {

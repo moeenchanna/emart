@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -186,7 +187,10 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+
+                      //  PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().clear().apply();
                         SaveSharedPreference.setLoggedIn(getActivity(), false);
+
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
