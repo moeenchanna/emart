@@ -138,7 +138,7 @@ public class MartReviewListFragment extends Fragment implements View.OnClickList
                 assert t != null;
                 Log.e("Error", t.getMessage());
                // Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, "Reviews not available", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(mContext, "Reviews not available", Toast.LENGTH_SHORT).show();
             }
         });
 
