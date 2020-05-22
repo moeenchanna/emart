@@ -259,9 +259,11 @@ public class MartProfileFragment extends Fragment implements View.OnClickListene
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
                                     mImgbtnlocation.setVisibility(View.INVISIBLE);
+                                    requestMartData(email);
                                     mTvname.setEnabled(false);
                                     mTvaddress.setEnabled(false);
                                     mTvmobile.setEnabled(false);
+
                                 } else {
                                     // If the login fails
                                     // error case

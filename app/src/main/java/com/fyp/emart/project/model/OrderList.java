@@ -35,6 +35,11 @@ public class OrderList {
     @Expose
     private String martid;
 
+
+    @SerializedName("fcm")
+    @Expose
+    private String fcm;
+
     public String getId() {
         return id;
     }
@@ -115,4 +120,11 @@ public class OrderList {
         this.martid = martid;
     }
 
+    public String getFcm() {
+        return fcm;
+    }
+
+    public void setFcm(String fcm) {
+        this.fcm = fcm;
+    }
 }
