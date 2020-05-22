@@ -178,7 +178,7 @@ public interface BaseApiService {
             @Field("ProductBrand") String ProductBrand,
             @Field("ProductPrice") String ProductPrice,
             @Field("ProductQty") String ProductQty,
-            @Field("martid") String martid);
+            @Field("Martid") String martid);
 
     // Customer Profile Update
     @FormUrlEncoded

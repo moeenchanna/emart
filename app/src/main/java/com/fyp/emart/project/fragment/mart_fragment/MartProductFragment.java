@@ -122,7 +122,8 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
                 logout();
                 break;
             case R.id.btnupload:
-                checkValidations();
+               checkValidations();
+                //Toast.makeText(mContext, ""+LoginActivity.getMARTID(), Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -161,8 +162,11 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
             String productimage = mImageUrlProduct.getText().toString();
             String brand = mBrand.getText().toString();
             String description = mDescription.getText().toString();
-            SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+           /* SharedPreferences sp = getActivity().getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
             String martid = sp.getString(MART_iD, null);
+*/
+
+            String martid = LoginActivity.getMARTID();
 
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
             addProducts(productname, productprice, productquantity, productimage, martid,brand,description);
@@ -172,7 +176,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
 
     private void addProducts(String productname, String productprice, String productquantity, String productimage, String martid, String brand, String description) {
 
-        mApiService.AddProducts(productname, description, productimage, brand, productprice, productquantity, martid)
+        mApiService.AddProducts(productname, description, productimage, brand, productprice, productquantity,martid)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

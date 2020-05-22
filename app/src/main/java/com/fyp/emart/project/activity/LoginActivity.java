@@ -114,6 +114,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     String email,password;
 
+    private static String MARTID;
+    public static String getMARTID() {
+        return MARTID;
+    }
+        private static String CUSTOMERID;
+        public static String getCUSTOMERID() {
+            return CUSTOMERID;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -253,18 +262,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     switch (role) {
                                         case "1"://Customer Role
                                             requestCustomerData(email);
-                                            i = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(i);
-                                            finish();
+
                                             break;
 
                                         case "2"://Mart Role
                                             requestMartData(email);
-                                            i = new Intent(LoginActivity.this, MartDashboardActivity.class);
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(i);
-                                            finish();
+
                                             break;
 
                                         case "3"://Admin Role
@@ -382,6 +385,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             String name = adslist.get(0).getCname();
                             String id = adslist.get(0).getCid();
+                            CUSTOMERID = adslist.get(0).getCid();
                             String phone = adslist.get(0).getPhone();
                             String email = adslist.get(0).getEmail();
                             String address = adslist.get(0).getAddress();
@@ -389,6 +393,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
+                            editor.clear();
                             editor.putString(CUSTOMER_NAME, name);
                             editor.putString(CUSTOMER_iD, id);
                             editor.putString(CUSTOMER_PHONE, phone);
@@ -396,6 +401,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putString(CUSTOMER_ADDRESS, address);
                             editor.putString(CUSTOMER_FCM_KEY, fcmkey);
                             editor.apply();
+
+                            Intent i = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
 
                         } else {
                             loading.dismiss();
@@ -423,6 +433,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             String name = adslist.get(0).getName();
                             String id = adslist.get(0).getId();
+                            MARTID = adslist.get(0).getId();
                             String phone = adslist.get(0).getPhone();
                             String email = adslist.get(0).getEmail();
                             String address = adslist.get(0).getAddress();
@@ -430,6 +441,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
+                            editor.clear();
                             editor.putString(MART_EMAIL, email);
                             editor.putString(MART_NAME, name);
                             editor.putString(MART_iD, id);
@@ -437,6 +449,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putString(MART_ADDRESS, address);
                             editor.putString(MART_FCM_KEY, fcmkey);
                             editor.apply();
+
+                            Intent i = new Intent(LoginActivity.this, MartDashboardActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
 
                         } else {
                             loading.dismiss();
