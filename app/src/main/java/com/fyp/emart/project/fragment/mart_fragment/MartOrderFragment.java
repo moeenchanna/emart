@@ -474,7 +474,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                             loading.dismiss();
                             try {
                                 if (response.body() != null) {
-                                    dialogBuilder.dismiss();
+                                    loading.dismiss();
                                     String role = response.body().string();
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);

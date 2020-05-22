@@ -70,8 +70,8 @@ public class PromotionActivity extends AppCompatActivity {
         mBarTool.setTitle("Apply Promotion");
         setSupportActionBar(mBarTool);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+      /*  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         promtion_list = findViewById(R.id.coupon_list);
 

@@ -52,11 +52,11 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/productname"
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="Product Name"
+                    android:hint="Promo Title"
                     android:inputType="textPersonName"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
@@ -76,11 +76,11 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/description"
+                    android:id="@+id/detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="Product Description"
+                    android:hint="Promo Detail"
                     android:inputType="textPersonName"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
@@ -99,12 +99,12 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/product_price"
+                    android:id="@+id/code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="Product Price"
-                    android:inputType="phone"
+                    android:hint="Promo Code"
+                    android:inputType="text"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
                     android:textSize="@dimen/text_body_size" />
@@ -122,12 +122,12 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/product_quan"
+                    android:id="@+id/discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="Product Quantity"
-                    android:inputType="phone"
+                    android:hint="Promo Discount"
+                    android:inputType="text"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
                     android:textSize="@dimen/text_body_size" />
@@ -145,11 +145,11 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/brand"
+                    android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="Product Brand"
+                    android:hint="Promo Amount"
                     android:inputType="text"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
@@ -174,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryText"
-                    android:hint="Product Image Url"
+                    android:hint="Promo Image Url"
                     android:inputType="textMultiLine"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorHint="@color/colorPrimaryText"
@@ -196,20 +196,8 @@
                 android:fontFamily="@font/nunito_sans_bold"
                 android:textColor="@color/colorTextORIcon"
                 android:textSize="@dimen/text_btn_size"
-                android:text="Upload" />
+                android:text="Submit" />
 
-            <Button
-                android:id="@+id/btnpromo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginTop="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:background="@color/colorAccent"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:textColor="@color/colorTextORIcon"
-                android:textSize="@dimen/text_btn_size"
-                android:text="Add Promo" />
         </LinearLayout>
     </ScrollView>
 

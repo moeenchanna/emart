@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,29 +13,27 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.fyp.emart.project.Api.BaseApiService;
-import com.fyp.emart.project.Api.DataConfig;
-import com.fyp.emart.project.Api.UtilsApi;
-import com.fyp.emart.project.R;
-import com.fyp.emart.project.activity.LoginActivity;
-import com.fyp.emart.project.utils.SaveSharedPreference;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.io.IOException;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.UtilsApi;
+import com.fyp.emart.project.R;
+import com.fyp.emart.project.activity.AddPromoActivity;
+import com.fyp.emart.project.activity.LoginActivity;
+import com.fyp.emart.project.utils.SaveSharedPreference;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
 public class MartProductFragment extends Fragment implements View.OnClickListener {
 
@@ -55,6 +52,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
     private BaseApiService mApiService;
     private TextInputEditText mDescription;
     private TextInputEditText mBrand;
+    private Button mBtnpromo;
 
 
     @Override
@@ -63,6 +61,8 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
 
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -85,6 +85,9 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         mButton = (Button) view.findViewById(R.id.btnupload);
         mButton.setOnClickListener(this);
         mLogout.setOnClickListener(this);
+
+        mBtnpromo = (Button) view.findViewById(R.id.btnpromo);
+        mBtnpromo.setOnClickListener(this);
     }
 
 
@@ -122,8 +125,12 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
                 logout();
                 break;
             case R.id.btnupload:
-               checkValidations();
+                checkValidations();
                 //Toast.makeText(mContext, ""+LoginActivity.getMARTID(), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btnpromo:// TODO 20/05/23
+                Intent i = new Intent(getActivity(), AddPromoActivity.class);
+                startActivity(i);
                 break;
             default:
                 break;
@@ -135,23 +142,19 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         if (mProductname.getText().length() < 1) {
             mProductname.requestFocus();
             mProductname.setError("Product name required.");
-        }
-        else if (mDescription.getText().length() < 1) {
+        } else if (mDescription.getText().length() < 1) {
             mDescription.requestFocus();
             mDescription.setError("Product description required.");
-        }
-        else if (mPriceProduct.getText().length() < 1) {
+        } else if (mPriceProduct.getText().length() < 1) {
             mPriceProduct.requestFocus();
             mPriceProduct.setError("Product price required.");
         } else if (mQuanProduct.getText().length() < 1) {
             mQuanProduct.requestFocus();
             mQuanProduct.setError("Product quantity required.");
-        }
-        else if (mBrand.getText().length() < 1) {
+        } else if (mBrand.getText().length() < 1) {
             mBrand.requestFocus();
             mBrand.setError("Product quantity required.");
-        }
-        else if (mImageUrlProduct.getText().length() < 1) {
+        } else if (mImageUrlProduct.getText().length() < 1) {
             mImageUrlProduct.requestFocus();
             mImageUrlProduct.setError("Product image url required.");
         } else {
@@ -169,14 +172,14 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
             String martid = LoginActivity.getMARTID();
 
             loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-            addProducts(productname, productprice, productquantity, productimage, martid,brand,description);
+            addProducts(productname, productprice, productquantity, productimage, martid, brand, description);
 
         }
     }
 
     private void addProducts(String productname, String productprice, String productquantity, String productimage, String martid, String brand, String description) {
 
-        mApiService.AddProducts(productname, description, productimage, brand, productprice, productquantity,martid)
+        mApiService.AddProducts(productname, description, productimage, brand, productprice, productquantity, martid)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
