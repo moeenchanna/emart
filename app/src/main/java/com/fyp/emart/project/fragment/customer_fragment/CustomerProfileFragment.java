@@ -237,6 +237,7 @@ public class CustomerProfileFragment extends  Fragment implements View.OnClickLi
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
                                     mImgbtnlocation.setVisibility(View.INVISIBLE);
+                                    requestCustomerData(email);
                                     mTvname.setEnabled(false);
                                     mTvaddress.setEnabled(false);
                                     mTvmobile.setEnabled(false);

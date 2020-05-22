@@ -95,7 +95,6 @@ public class OrderHistoryActivity extends AppCompatActivity implements View.OnCl
         progressDialog.setMessage("Loading please wait...");
 
 
-
         mComplaint = (ImageView) findViewById(R.id.complaint);
         mComplaint.setOnClickListener(this);
         mReview = (ImageView) findViewById(R.id.review);
@@ -105,11 +104,59 @@ public class OrderHistoryActivity extends AppCompatActivity implements View.OnCl
 
         HorizontalStepView setpview5 = (HorizontalStepView) findViewById(R.id.step_view);
         List<StepBean> stepsBeanList = new ArrayList<>();
-        StepBean stepBean0 = new StepBean("Pending",1);
-        StepBean stepBean1 = new StepBean("Process",1);
-        StepBean stepBean2 = new StepBean("Dispatch",1);
-        StepBean stepBean3 = new StepBean("Delivered",0);
-        StepBean stepBean4 = new StepBean("Picked",-1);
+
+
+        int process = 0;
+        int dispatch = 0;
+        int deliverd = 0;
+        int picked = 0;
+        switch (statusid) {
+            case "1": //Process
+                process = 1;
+                dispatch = 0;
+                deliverd = 0;
+                picked = 0;
+
+                break;
+
+            case "2": //Cancel
+                process = 0;
+                dispatch = 0;
+                deliverd = 0;
+                picked = 0;
+
+                break;
+
+            case "3": //Dispatch
+
+                process = 1;
+                dispatch = -1;
+                deliverd = 0;
+                picked = 0;
+                break;
+
+            case "4": //Deliverd
+                process = 1;
+                dispatch = 1;
+                deliverd = 0;
+                picked = 0;
+                break;
+
+            case "5": //Picked
+
+                process = 1;
+                dispatch = 1;
+                deliverd = 1;
+                picked = -1;
+                break;
+
+
+        }
+        StepBean stepBean0 = new StepBean("Pending", process);
+        StepBean stepBean1 = new StepBean("Process", process);
+        StepBean stepBean2 = new StepBean("Dispatch", dispatch);
+        StepBean stepBean3 = new StepBean("Delivered", deliverd);
+        StepBean stepBean4 = new StepBean("Picked", picked);
         stepsBeanList.add(stepBean0);
         stepsBeanList.add(stepBean1);
         stepsBeanList.add(stepBean2);
