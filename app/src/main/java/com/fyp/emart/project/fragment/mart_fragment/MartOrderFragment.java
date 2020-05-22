@@ -206,7 +206,8 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
             public void onFailure(Call<List<OrderList>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("Error", t.getMessage());
-                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Orders not available", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
