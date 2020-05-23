@@ -39,6 +39,7 @@ import com.fyp.emart.project.model.Cart;
 import com.fyp.emart.project.model.Order;
 import com.fyp.emart.project.utils.LocalStorage;
 import com.google.gson.Gson;
+import com.msoftworks.easynotify.EasyNotify;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -168,9 +169,11 @@ public class ConfirmFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 String status = "Picked";
                                 String statusid = "5";
+
                                 loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
                                 punchOrder(orderNo, localStorage.getCart(), currentDateandTime, status, statusid,subtotal , custemail, custid, martid,orderString,fcm);
 
+                                TakeAwayNotfication(fcm,orderNo);
                             }
                         });
 
@@ -334,6 +337,31 @@ public class ConfirmFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Confirm");
+    }
+
+
+    private void TakeAwayNotfication(String fcm,String orderNo) {
+
+        EasyNotify easyNotify = new EasyNotify(UtilsApi.SERVER_APP_API_KEY);
+        easyNotify.setSendBy(EasyNotify.TOKEN);
+        easyNotify.setToken(fcm);
+        easyNotify.setTitle("Order Alert.");
+        easyNotify.setBody("Dear Customer you order "+ orderNo +"will be ready in 20 minutes.");
+        easyNotify.setSound("default");
+        easyNotify.nPush();
+        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
+            @Override
+            public void onNotifySuccess(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Notification send", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNotifyError(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
 
