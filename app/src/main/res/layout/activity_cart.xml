@@ -27,17 +27,17 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_rv"
             android:layout_width="match_parent"
-            android:layout_height="559dp"
-            android:layout_marginBottom="50dp" />
+            android:layout_height="554dp"
+            android:layout_marginBottom="10dp" />
 
-
+<!--
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="49dp"
-            android:background="@color/cardBorderColor" />
+            android:background="@color/cardBorderColor" />-->
 
 
         <LinearLayout
