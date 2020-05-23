@@ -117,14 +117,14 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
 //                startActivity(new Intent(mContext, ProductActivity.class));
               //
 
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                final AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                 builder1.setMessage("Select Your Option.");
                 builder1.setCancelable(false);
                 builder1.setPositiveButton(
                         "Complaint Or Review",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                askComplaintOrReview(customerId,customerEmail);
+                                askComplaintOrReview(customerId,customerEmail,fcm);
                             }
                         });
 
@@ -133,6 +133,14 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                               updateStatus(orderNo,fcm);
+                            }
+                        });
+
+                builder1.setNeutralButton(
+                        "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
                             }
                         });
 
@@ -262,14 +270,14 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    public void askComplaintOrReview(final String custid, final String custeremail) {
+    public void askComplaintOrReview(final String custid, final String custeremail, final String fcm) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Want to add complaints or reviews?");
         builder1.setCancelable(false);
         builder1.setPositiveButton("Add Complaints",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        complaintAlert(custid,custeremail);
+                        complaintAlert(custid,custeremail,fcm);
                         dialog.cancel();
                     }
                 });
@@ -277,7 +285,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
         builder1.setNegativeButton("Add Reviews",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        reviewAlert(custid,custeremail);
+                        reviewAlert(custid,custeremail,fcm);
                         dialog.cancel();
                     }
                 });
@@ -294,7 +302,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    public void complaintAlert(final String custid, final String custname) {
+    public void complaintAlert(final String custid, final String custname, final String fcm) {
         dialogBuilder = new AlertDialog.Builder(getActivity()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.complain_layout, null);
@@ -320,7 +328,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                     //Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
 
                     loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-                    addComplaints(detail, currentDateandTime, custid, custname, martid, martname);
+                    addComplaints(detail, currentDateandTime, custid, custname, martid, martname,fcm);
 
                 }
             }
@@ -331,7 +339,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public void reviewAlert(final String custid, final String custname) {
+    public void reviewAlert(final String custid, final String custname , final String fcm) {
         dialogBuilder = new AlertDialog.Builder(getActivity()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.review_layout, null);
@@ -357,7 +365,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                     String comment = mTxtcomplaints.getText().toString();
                     //Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
                     loading = ProgressDialog.show(mContext, null, "Please wait...", true, false);
-                    addReviews(comment, currentDateandTime, custid, custname, martid, martname);
+                    addReviews(comment, currentDateandTime, custid, custname, martid, martname,fcm);
 
                 }
 
@@ -370,7 +378,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    private void addComplaints(String detail, String datetime, String custid, String custname, String martid, String martname) {
+    private void addComplaints(String detail, String datetime, String custid, final String custname, String martid, final String martname , final String fcm) {
 
         mApiService.AddComplaints(detail, datetime, custid, custname, martid, martname)
                 .enqueue(new Callback<ResponseBody>() {
@@ -385,6 +393,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
                                     dialogBuilder.dismiss();
+                                    ComplaintNotfication(fcm,custname,martname);
                                     Toast.makeText(mContext, "Your Complaint Submit Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails
@@ -418,7 +427,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                 });
     }
 
-    private void addReviews(String comment, String datetime, String custid, String custname, String martid, String martname) {
+    private void addReviews(String comment, String datetime, String custid, final String custname, String martid, final String martname, final String fcm) {
 
         mApiService.AddReview(comment, datetime, custid, custname, martid, martname)
                 .enqueue(new Callback<ResponseBody>() {
@@ -432,7 +441,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     String role = response.body().string();
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
-
+                                    ReviewNotfication(fcm,custname,martname);
                                     Toast.makeText(mContext, "Your Review Submit Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails
@@ -481,7 +490,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
 
-                                    SendNotfication(fcm,order,status);
+                                    UpdateNotfication(fcm,order,status);
 
                                     Toast.makeText(mContext, "Status Updated Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -516,24 +525,73 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                 });
     }
 
-    private void SendNotfication(String fcm,String order,String status) {
+    private void UpdateNotfication(String fcm,String order,String status) {
 
         EasyNotify easyNotify = new EasyNotify(UtilsApi.SERVER_APP_API_KEY);
         easyNotify.setSendBy(EasyNotify.TOKEN);
         easyNotify.setToken(fcm);
-        easyNotify.setTitle("Order update alert.");
+        easyNotify.setTitle("Order Alert.");
         easyNotify.setBody("Dear customer your order no: "+order+" has been "+ status);
         easyNotify.setSound("default");
         easyNotify.nPush();
         easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
             @Override
             public void onNotifySuccess(String s) {
-                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Notification send", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNotifyError(String s) {
-                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void ComplaintNotfication(String fcm,String customer,String mart) {
+
+        EasyNotify easyNotify = new EasyNotify(UtilsApi.SERVER_APP_API_KEY);
+        easyNotify.setSendBy(EasyNotify.TOKEN);
+        easyNotify.setToken(fcm);
+        easyNotify.setTitle("Complaint Alert.");
+        easyNotify.setBody("Dear "+customer+" you received a complaint from: "+mart);
+        easyNotify.setSound("default");
+        easyNotify.nPush();
+        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
+            @Override
+            public void onNotifySuccess(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Notification send", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNotifyError(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void ReviewNotfication(String fcm,String customer,String mart) {
+
+        EasyNotify easyNotify = new EasyNotify(UtilsApi.SERVER_APP_API_KEY);
+        easyNotify.setSendBy(EasyNotify.TOKEN);
+        easyNotify.setToken(fcm);
+        easyNotify.setTitle("Review Alert.");
+        easyNotify.setBody("Dear "+customer+" you received a complaint from: "+mart);
+        easyNotify.setSound("default");
+        easyNotify.nPush();
+        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
+            @Override
+            public void onNotifySuccess(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Notification send", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNotifyError(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
             }
 
         });
