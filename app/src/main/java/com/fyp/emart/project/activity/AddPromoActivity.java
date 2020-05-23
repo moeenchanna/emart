@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,10 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.fyp.emart.project.Api.BaseApiService;
+import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
+import com.msoftworks.easynotify.EasyNotify;
 
 import java.io.IOException;
 
@@ -27,6 +30,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
+import static com.fyp.emart.project.Api.DataConfig.TEMP_MART_iD;
 
 public class AddPromoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -128,7 +134,7 @@ public class AddPromoActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void addPromo(String promoname, String amount, String discount, String promoimage, String martid, String code, String detail) {
+    private void addPromo(final String promoname, final String amount, final String discount, String promoimage, String martid, final String code, String detail) {
 
         mApiService.AddPromo(martid,promoname,detail,code,discount,amount,promoimage)
                 .enqueue(new Callback<ResponseBody>() {
@@ -139,6 +145,7 @@ public class AddPromoActivity extends AppCompatActivity implements View.OnClickL
                                 if (response.body() != null) {
 
                                     String role = response.body().string();
+                                    PromoNotfication(code,discount);
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
                                     mTitle.setText("");
@@ -210,5 +217,31 @@ public class AddPromoActivity extends AppCompatActivity implements View.OnClickL
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    private void PromoNotfication(String code,String discount) {
+
+        SharedPreferences sp = getSharedPreferences(DataConfig.SHARED_PREF_NAME, MODE_PRIVATE);
+        String martname = sp.getString(MART_NAME, null);
+
+        EasyNotify easyNotify = new EasyNotify(UtilsApi.SERVER_APP_API_KEY);
+        easyNotify.setSendBy(EasyNotify.TOPIC);
+        easyNotify.setTitle(martname +" Promotion");
+        easyNotify.setBody("Use code "+code+" and get "+discount+ " off on shopping");
+        easyNotify.setSound("default");
+        easyNotify.nPush();
+        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
+            @Override
+            public void onNotifySuccess(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Notification send", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNotifyError(String s) {
+                //Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 }
