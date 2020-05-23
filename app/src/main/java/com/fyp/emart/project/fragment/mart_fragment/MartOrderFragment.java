@@ -34,6 +34,7 @@ import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
+import com.msoftworks.easynotify.EasyNotify;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -112,6 +113,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                 String orderDetail = adminOrderListModel.get(position).getOrderdetail();
                 final String orderNo = adminOrderListModel.get(position).getOrderno();
                 final String subtotal = adminOrderListModel.get(position).getSubtotal();
+                final String fcm = adminOrderListModel.get(position).getFcm();
 //                startActivity(new Intent(mContext, ProductActivity.class));
               //
 
@@ -130,7 +132,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         "Update Order Status",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                              updateStatus(orderNo);
+                              updateStatus(orderNo,fcm);
                             }
                         });
 
@@ -141,7 +143,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-    public void updateStatus(final String orderno)
+    public void updateStatus(final String orderno , final String fcm)
     {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("Select Your Option.");
@@ -153,7 +155,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         String status = "Delivered";
                         String statusid = "4";
                         loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                        updateStatusService(orderno, status, statusid);
+                        updateStatusService(orderno, status, statusid,fcm);
 
                     }
                 });
@@ -165,7 +167,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         String status = "Accept";
                         String statusid = "1";
                         loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                        updateStatusService(orderno, status, statusid);
+                        updateStatusService(orderno, status, statusid,fcm);
 
                     }
                 });
@@ -177,7 +179,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         String status = "Decline";
                         String statusid = "2";
                         loading = ProgressDialog.show(getActivity(), null, "Please wait...", true, false);
-                        updateStatusService(orderno, status, statusid);
+                        updateStatusService(orderno, status, statusid,fcm);
 
                     }
                 });
@@ -464,7 +466,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                 });
     }
 
-    private void updateStatusService(String order, String status, String statusid) {
+    private void updateStatusService(final String order, final String status, String statusid, final String fcm) {
 
         mApiService.UpdateStatus(order, status, statusid)
                 .enqueue(new Callback<ResponseBody>() {
@@ -478,6 +480,8 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     String role = response.body().string();
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
+
+                                    SendNotfication(fcm,order,status);
 
                                     Toast.makeText(mContext, "Status Updated Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -510,6 +514,29 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         loading.dismiss();
                     }
                 });
+    }
+
+    private void SendNotfication(String fcm,String order,String status) {
+
+        EasyNotify easyNotify = new EasyNotify(UtilsApi.SERVER_APP_API_KEY);
+        easyNotify.setSendBy(EasyNotify.TOKEN);
+        easyNotify.setToken(fcm);
+        easyNotify.setTitle("Order update alert.");
+        easyNotify.setBody("Dear customer your order no: "+order+" has been "+ status);
+        easyNotify.setSound("default");
+        easyNotify.nPush();
+        easyNotify.setEasyNotifyListener(new EasyNotify.EasyNotifyListener() {
+            @Override
+            public void onNotifySuccess(String s) {
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNotifyError(String s) {
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
 }

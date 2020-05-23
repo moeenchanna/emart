@@ -184,32 +184,36 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <Button
-                android:id="@+id/btnupload"
+            <LinearLayout
+                android:layout_marginLeft="24sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginTop="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:background="@color/colorAccent"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:textColor="@color/colorTextORIcon"
-                android:textSize="@dimen/text_btn_size"
-                android:text="Upload" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnpromo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_layout"
-                android:layout_marginTop="@dimen/margin_layout"
-                android:layout_marginEnd="@dimen/margin_layout"
-                android:background="@color/colorAccent"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:textColor="@color/colorTextORIcon"
-                android:textSize="@dimen/text_btn_size"
-                android:text="Add Promo" />
+
+                <Button
+                    android:id="@+id/btnupload"
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                   android:layout_marginRight="10sp"
+                    android:background="@color/colorAccent"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:text="Submit Product"
+                    android:textColor="@color/colorTextORIcon"
+                    android:textSize="@dimen/text_btn_size" />
+
+                <Button
+                    android:id="@+id/btnpromo"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:text="Add Promo"
+                    android:textColor="@color/colorTextORIcon"
+                    android:textSize="@dimen/text_btn_size" />
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

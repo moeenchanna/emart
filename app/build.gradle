@@ -81,5 +81,8 @@ dependencies {
     //Indicator
     implementation 'com.github.baoyachi:StepView:1.9'
 
+    //Notification
+    implementation 'com.github.iammannan:EasyNotifyLibProject:1.2'
+
 
 }
