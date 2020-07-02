@@ -111,6 +111,7 @@ public class OrderHistoryFragment extends BaseFragment implements View.OnClickLi
                 String statusId = adminOrderListModel.get(position).getStatusid();
                 String status = adminOrderListModel.get(position).getStatus();
 
+
                 Bundle b =new Bundle();
                 Intent i = new Intent(getActivity(), OrderHistoryActivity.class);
                 b.putString("orderno",orderNo);
