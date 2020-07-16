@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@android:color/white">
 
 
@@ -202,18 +201,31 @@
                     android:textColor="@color/colorTextORIcon"
                     android:textSize="@dimen/text_btn_size" />
 
+
                 <Button
-                    android:id="@+id/btnpromo"
-                    android:layout_width="160dp"
+                    android:id="@+id/btnviewproduct"
+                    android:layout_width="126dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
                     android:background="@color/colorAccent"
                     android:fontFamily="@font/nunito_sans_bold"
-                    android:text="Add Promo"
+                    android:text="View Product"
                     android:textColor="@color/colorTextORIcon"
                     android:textSize="@dimen/text_btn_size" />
+
+
             </LinearLayout>
 
-
+            <Button
+                android:id="@+id/btnpromo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="24sp"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:text="Add Promo"
+                android:textColor="@color/colorTextORIcon"
+                android:textSize="@dimen/text_btn_size" />
         </LinearLayout>
     </ScrollView>
 

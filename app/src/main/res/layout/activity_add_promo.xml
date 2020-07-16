@@ -24,7 +24,7 @@
             android:id="@+id/logout"
             android:layout_gravity="right"
             android:layout_marginRight="5dp"
-            android:src="@drawable/ic_power_settings_new_black_24dp"
+            app:srcCompat="@drawable/ic_power_settings_new_black_24dp"
             android:textAlignment="center"
             tools:ignore="RtlCompat" />
     </androidx.appcompat.widget.Toolbar>

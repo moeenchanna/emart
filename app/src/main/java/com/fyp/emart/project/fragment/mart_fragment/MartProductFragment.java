@@ -25,6 +25,7 @@ import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.AddPromoActivity;
 import com.fyp.emart.project.activity.LoginActivity;
+import com.fyp.emart.project.activity.ViewProductActivity;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -53,6 +54,7 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
     private TextInputEditText mDescription;
     private TextInputEditText mBrand;
     private Button mBtnpromo;
+    private Button mBtnviewproduct;
 
 
     @Override
@@ -61,8 +63,6 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
 
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -88,6 +88,9 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
 
         mBtnpromo = (Button) view.findViewById(R.id.btnpromo);
         mBtnpromo.setOnClickListener(this);
+
+        mBtnviewproduct = (Button) view.findViewById(R.id.btnviewproduct);
+        mBtnviewproduct.setOnClickListener(this);
     }
 
 
@@ -131,6 +134,10 @@ public class MartProductFragment extends Fragment implements View.OnClickListene
             case R.id.btnpromo:// TODO 20/05/23
                 Intent i = new Intent(getActivity(), AddPromoActivity.class);
                 startActivity(i);
+                break;
+            case R.id.btnviewproduct:// TODO 20/07/16
+                Intent in = new Intent(getActivity(), ViewProductActivity.class);
+                startActivity(in);
                 break;
             default:
                 break;
