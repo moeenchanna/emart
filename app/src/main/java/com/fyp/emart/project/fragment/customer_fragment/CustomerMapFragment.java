@@ -427,53 +427,55 @@ public class CustomerMapFragment extends BaseFragment
                 //  tvProgress.setText("KM: " + seekBarProgress + " / " + seekBar.getMax());
                 switch (seekBarProgress)
                 {
+                    //Radius calculate refrence link
+                    // https://www.calcmaps.com/map-radius/
                     case 0:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("1 KM");
-                        circle.radius(40.0);
+                        circle.radius(1003.62);
                         mMap.addCircle(circle);
                         break;
                     case 1:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("2 KM");
-                        circle.radius(50.5);
+                        circle.radius(2001.47);
                         mMap.addCircle(circle);
                         break;
                     case 2:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("3 KM");
-                        circle.radius(80.0);
+                        circle.radius(2997.59);
                         mMap.addCircle(circle);
                         break;
                     case 3:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("5 KM");
-                        circle.radius(110.0);
+                        circle.radius(4996.16);
                         mMap.addCircle(circle);
                         break;
                     case 4:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("7 KM");
-                        circle.radius(120.0);
+                        circle.radius(7005.88);
                         mMap.addCircle(circle);
                         break;
                     case 5:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("10 KM");
-                        circle.radius(150.0);
+                        circle.radius(10005.47);
                         mMap.addCircle(circle);
                         break;
                     case 6:
                         mMap.clear();
                         getMartMarkers();
                         tvProgress.setText("12 KM");
-                        circle.radius(170.0);
+                        circle.radius(12012.13 );
                         mMap.addCircle(circle);
                         break;
                 }
