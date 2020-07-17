@@ -254,7 +254,10 @@ public class CustomerMapFragment extends BaseFragment
                         String long_i = jsonObject1.getString("7");
                         final String martid = jsonObject1.getString("0");
 
+
+
                         mMap.addMarker(new MarkerOptions()
+
                                 .position(new LatLng(Double.parseDouble(lat_i), Double.parseDouble(long_i)))
                                 .title(name).snippet(martid)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));

@@ -30,6 +30,7 @@ import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
 import com.fyp.emart.project.activity.LoginActivity;
+import com.fyp.emart.project.activity.MartOderDetail;
 import com.fyp.emart.project.adapters.AdminOrderAdapter;
 import com.fyp.emart.project.model.OrderList;
 import com.fyp.emart.project.utils.SaveSharedPreference;
@@ -119,7 +120,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
 
                 final AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                 builder1.setMessage("Select Your Option.");
-                builder1.setCancelable(false);
+                builder1.setCancelable(true);
                 builder1.setPositiveButton(
                         "Complaint Or Review",
                         new DialogInterface.OnClickListener() {
@@ -137,10 +138,14 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                         });
 
                 builder1.setNeutralButton(
-                        "Cancel",
+                        "Order Detail",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                                Bundle b = new Bundle();
+                                Intent i = new Intent(getActivity(), MartOderDetail.class);
+                                b.putString("orderno",orderNo);
+                                i.putExtras(b);
+                                startActivity(i);
                             }
                         });
 
