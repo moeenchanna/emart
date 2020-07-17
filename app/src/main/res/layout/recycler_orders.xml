@@ -36,6 +36,14 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/admin_order_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:text="Customer Detail: "
+                android:textColor="@color/black" />
+
+            <TextView
                 android:id="@+id/admin_order_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

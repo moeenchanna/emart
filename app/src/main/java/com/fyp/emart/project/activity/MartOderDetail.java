@@ -45,13 +45,16 @@ public class MartOderDetail extends AppCompatActivity {
         setContentView(R.layout.activity_mart_oder_detail);
         initView();
 
-        mApiService = UtilsApi.getAPIService();
-        mContext = this;
+
 
 
     }
 
     private void initView() {
+
+        mApiService = UtilsApi.getAPIService();
+        mContext = this;
+        
         mBarTool = (Toolbar) findViewById(R.id.tool_bar);
         mListProdut = (RecyclerView) findViewById(R.id.produt_list);
 

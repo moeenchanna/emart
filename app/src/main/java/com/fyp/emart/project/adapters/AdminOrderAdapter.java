@@ -53,7 +53,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
 
         holder.date.setText("Date Time: "+order.getDatetime());
         holder.order.setText("Order No: "+order.getOrderno());
-        //holder.email.setText(order.getCustemail());
+        holder.email.setText("Customer Detail: "+order.getCustemail());
         holder.total.setText("Total Amount Rs: " + order.getSubtotal());
         // holder.status.setText(order.getStatus());
 
@@ -89,7 +89,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
             super(itemView);
             date = itemView.findViewById(R.id.admin_order_date);
             order = itemView.findViewById(R.id.admin_order_number);
-            //email = itemView.findViewById(R.id.admin_order_email);
+            email = itemView.findViewById(R.id.admin_order_email);
             total = itemView.findViewById(R.id.admin_order_total);
             //status = itemView.findViewById(R.id.admin_order_status);
         }
