@@ -13,15 +13,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MartOderDetail"></activity>
-        <activity android:name=".activity.ViewProductActivity" />
-        <activity android:name=".activity.AddPromoActivity" />
-        <activity android:name=".activity.OrderHistoryActivity" />
-        <activity android:name=".activity.PromotionActivity" />
-        <activity android:name=".activity.CheckoutActivity" />
-        <activity android:name=".activity.CartActivity" />
-        <activity android:name=".activity.ProductActivity" />
-        <activity android:name=".activity.MartDashboardActivity" />
+        <activity android:name=".activity.MartOderDetail" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ViewProductActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AddPromoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.OrderHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PromotionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CheckoutActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CartActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ProductActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MartDashboardActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.AdminDashboardActivity"
             android:screenOrientation="portrait" />
