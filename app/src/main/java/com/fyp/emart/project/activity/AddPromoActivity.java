@@ -16,15 +16,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.fyp.emart.project.Api.ApiClient;
-import com.fyp.emart.project.Api.ApiInterface;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.model.DataModel;
-import com.fyp.emart.project.model.NotificationModel;
-import com.fyp.emart.project.model.RootModel;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
 import com.msoftworks.easynotify.EasyNotify;
@@ -37,7 +32,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
-import static com.fyp.emart.project.Api.DataConfig.TEMP_MART_iD;
 
 public class AddPromoActivity extends AppCompatActivity implements View.OnClickListener {
 

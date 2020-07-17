@@ -25,20 +25,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chootdev.recycleclick.RecycleClick;
-import com.fyp.emart.project.Api.ApiClient;
-import com.fyp.emart.project.Api.ApiInterface;
 import com.fyp.emart.project.Api.BaseApiService;
 import com.fyp.emart.project.Api.DataConfig;
 import com.fyp.emart.project.Api.UtilsApi;
 import com.fyp.emart.project.R;
-import com.fyp.emart.project.activity.AddPromoActivity;
 import com.fyp.emart.project.activity.LoginActivity;
 import com.fyp.emart.project.activity.MartOderDetail;
 import com.fyp.emart.project.adapters.AdminOrderAdapter;
-import com.fyp.emart.project.model.DataModel;
-import com.fyp.emart.project.model.NotificationModel;
 import com.fyp.emart.project.model.OrderList;
-import com.fyp.emart.project.model.RootModel;
 import com.fyp.emart.project.utils.SaveSharedPreference;
 import com.google.android.material.textfield.TextInputEditText;
 import com.msoftworks.easynotify.EasyNotify;
@@ -54,8 +48,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_NAME;
-import static com.fyp.emart.project.Api.DataConfig.CUSTOMER_iD;
 import static com.fyp.emart.project.Api.DataConfig.MART_NAME;
 import static com.fyp.emart.project.Api.DataConfig.MART_iD;
 
@@ -407,8 +399,8 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
                                     dialogBuilder.dismiss();
-                                   //ComplaintNotfication(fcm,custname,martname);
-                                    sendComplaints(fcm,custname,martname);
+                                   ComplaintNotfication(fcm,custname,martname);
+
                                     Toast.makeText(mContext, "Your Complaint Submit Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails
@@ -456,8 +448,8 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     String role = response.body().string();
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
-                                    //ReviewNotfication(fcm,custname,martname);
-                                    SendReview(fcm,custname,martname);
+                                    ReviewNotfication(fcm,custname,martname);
+
                                     Toast.makeText(mContext, "Your Review Submit Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If the login fails
@@ -508,8 +500,8 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
                                     //Toast.makeText(mContext, role, Toast.LENGTH_SHORT).show();
                                     Log.d("debug", role);
 
-                                    //UpdateNotfication(fcm,order,status);
-                                    SendUpdateNotfication(fcm,order,status);
+                                    UpdateNotfication(fcm,order,status);
+
 
                                     Toast.makeText(mContext, "Status Updated Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -618,71 +610,7 @@ public class MartOrderFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-    private void sendComplaints(String token,String customer,String mart) {
-        RootModel rootModel = new RootModel(token, new NotificationModel("Complaint Alert.", "Dear "+customer+" you received a complaint from: "+mart), new DataModel("", ""));
 
-        ApiInterface apiService =  ApiClient.getClient().create(ApiInterface.class);
-        retrofit2.Call<ResponseBody> responseBodyCall = apiService.sendNotification(rootModel);
-
-        responseBodyCall.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                //Log.d(TAG,"Successfully notification send by using retrofit.");
-                Toast.makeText(getActivity(), "Notification send", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "Notification not send", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    private void SendReview(String token, String custname, String martname) {
-
-        RootModel rootModel = new RootModel(token, new NotificationModel("Review Alert.", "Dear "+custname+" you received a complaint from: "+martname),
-                new DataModel("", ""));
-
-        ApiInterface apiService =  ApiClient.getClient().create(ApiInterface.class);
-        retrofit2.Call<ResponseBody> responseBodyCall = apiService.sendNotification(rootModel);
-
-        responseBodyCall.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                //Log.d(TAG,"Successfully notification send by using retrofit.");
-                Toast.makeText(getActivity(), "Notification send", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "Notification not send", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    private void SendUpdateNotfication(String token, String order, String status) {
-        RootModel rootModel = new RootModel(token, new NotificationModel("Order Alert","Dear customer your order no: "+order+" has been "+ status),
-                new DataModel("", ""));
-
-        ApiInterface apiService =  ApiClient.getClient().create(ApiInterface.class);
-        retrofit2.Call<ResponseBody> responseBodyCall = apiService.sendNotification(rootModel);
-
-        responseBodyCall.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                //Log.d(TAG,"Successfully notification send by using retrofit.");
-                Toast.makeText(getActivity(), "Notification send", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "Notification not send", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
 
 }
 

@@ -48,7 +48,7 @@ public class MartProductAdapter extends RecyclerView.Adapter<MartProductAdapter.
     @Override
     public void onBindViewHolder(@NonNull final MyviewHolder holder, int position) {
 
-        holder.title.setText(productLists.get(position).getMartName());
+        holder.title.setText(productLists.get(position).getProductName());
         holder.attribute.setText(productLists.get(position).getProductBrand());
         holder.price.setText(productLists.get(position).getProductPrice());
 
