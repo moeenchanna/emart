@@ -13,15 +13,35 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MartOderDetail" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ViewProductActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.AddPromoActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.OrderHistoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.PromotionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.CheckoutActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.CartActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ProductActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MartDashboardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MartOderDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ViewProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddPromoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PromotionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CheckoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MartDashboardActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AdminDashboardActivity"
             android:screenOrientation="portrait" />
@@ -30,8 +50,10 @@
             android:name=".activity.SignupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait">
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Splash"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,12 +84,12 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
 </manifest>
